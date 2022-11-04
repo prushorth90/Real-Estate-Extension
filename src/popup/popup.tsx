@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { Box, Grid, InputBase, IconButton, Paper } from '@material-ui/core'
 import {Add as AddIcon, PictureInPicture as PictureInPictureIcon,} from '@material-ui/icons'
@@ -12,6 +12,7 @@ import Select from '@material-ui/core/Select';
 import {Topic} from './topics'
 
 const App: React.FC<{}> = () => {
+  const [topic, setTopic] = useState<Topic | null>(null)
   const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
@@ -34,6 +35,7 @@ const App: React.FC<{}> = () => {
          id="demo-simple-select-helper"
          // value={age}
          // onChange={handleChange}
+         onChange={(event) => setTopic(event.target.value as Topic)}
        >
          <MenuItem value=""> <em>Select a topic</em></MenuItem>
          <MenuItem value={10}>Weather</MenuItem>

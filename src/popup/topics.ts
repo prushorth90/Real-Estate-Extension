@@ -1,4 +1,4 @@
 export enum Topic {
-  Weather,
-  Restaurant
+  Weather = 'Weather',
+  Restaurant= 'Restaurant'
 }
