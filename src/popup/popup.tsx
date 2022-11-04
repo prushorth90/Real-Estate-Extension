@@ -12,7 +12,7 @@ import Select from '@material-ui/core/Select';
 import {Topic} from './topics'
 
 const App: React.FC<{}> = () => {
-  const [topic, setTopic] = useState<Topic | null>(null)
+  const [topic, setTopic] = useState<Topic>(Topic.None)
   const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
@@ -33,13 +33,12 @@ const App: React.FC<{}> = () => {
        <Select
          labelId="demo-simple-select-helper-label"
          id="demo-simple-select-helper"
-         // value={age}
-         // onChange={handleChange}
+         value={topic}
          onChange={(event) => setTopic(event.target.value as Topic)}
        >
-         <MenuItem value=""> <em>Select a topic</em></MenuItem>
-         <MenuItem value={10}>Weather</MenuItem>
-         <MenuItem value={20}>Restaurant</MenuItem>
+         <MenuItem value={Topic.None}> <em>Select a topic</em></MenuItem>
+         <MenuItem value={Topic.Weather}>Weather</MenuItem>
+         <MenuItem value={Topic.Restaurant}>Restaurant</MenuItem>
        </Select>
      </FormControl>
     </Box>
