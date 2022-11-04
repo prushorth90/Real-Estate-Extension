@@ -22,27 +22,24 @@ const App: React.FC<{}> = () => {
       marginTop: theme.spacing(2),
     },
   }));
-
   const classes = useStyles();
 
   // case1: return if nothing
   return (
     <Box mx="8px" my="16px">
-    <FormControl className={classes.formControl}>
-     <InputLabel id="demo-simple-select-helper-label">Topic</InputLabel>
-     <Select
-       labelId="demo-simple-select-helper-label"
-       id="demo-simple-select-helper"
-       // value={age}
-       // onChange={handleChange}
-     >
-       <MenuItem value="">
-         <em>Select a topic</em>
-       </MenuItem>
-       <MenuItem value={10}>Weather</MenuItem>
-       <MenuItem value={20}>Restaurant</MenuItem>
-     </Select>
-   </FormControl>
+      <FormControl className={classes.formControl}>
+       <InputLabel id="demo-simple-select-helper-label">Topic</InputLabel>
+       <Select
+         labelId="demo-simple-select-helper-label"
+         id="demo-simple-select-helper"
+         // value={age}
+         // onChange={handleChange}
+       >
+         <MenuItem value=""> <em>Select a topic</em></MenuItem>
+         <MenuItem value={10}>Weather</MenuItem>
+         <MenuItem value={20}>Restaurant</MenuItem>
+       </Select>
+     </FormControl>
     </Box>
   )
 }
