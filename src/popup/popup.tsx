@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
-import { Box, Grid, InputBase, IconButton, Paper } from '@material-ui/core'
+import { Box, Grid, InputBase, IconButton, Paper, Typography } from '@material-ui/core'
 import {Add as AddIcon, PictureInPicture as PictureInPictureIcon,} from '@material-ui/icons'
 import 'fontsource-roboto'
 import './popup.css'
@@ -38,9 +38,15 @@ const App: React.FC<{}> = () => {
          value={topic}
          onChange={(event) => setTopic(event.target.value as Topic)}
        >
-         <MenuItem value={Topic.None}> <em>Select a topic</em></MenuItem>
-         <MenuItem value={Topic.Weather}>Weather</MenuItem>
-         <MenuItem value={Topic.Restaurant}>Restaurant</MenuItem>
+         <MenuItem value={Topic.None}>
+              <Typography align="center"> Select a topic </Typography>
+          </MenuItem>
+         <MenuItem value={Topic.Weather}>
+              <Typography align="center"> Weather </Typography>
+          </MenuItem>
+          <MenuItem value={Topic.Restaurant}>
+               <Typography align="center"> Restaurant </Typography>
+           </MenuItem>
        </Select>
      </FormControl>
      {/* this is equiv to if (topic==weather)then render topic component */}
