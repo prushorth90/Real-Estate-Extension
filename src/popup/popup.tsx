@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
-import { Box, Grid, InputBase, IconButton, Paper, Typography } from '@material-ui/core'
-import {Add as AddIcon, PictureInPicture as PictureInPictureIcon,} from '@material-ui/icons'
+import { Box, Typography, MenuItem, FormControl, Select } from '@material-ui/core'
 import 'fontsource-roboto'
 import './popup.css'
 import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import {Topic} from './topics'
 import WeatherCard from '../components/WeatherCard'
 
@@ -27,7 +22,7 @@ const App: React.FC<{}> = () => {
   }));
   const classes = useStyles();
 
-  // case1: return if nothing
+  // case1: return if nothing card foreach api?????? 1 topic to many api and dataset
   return (
     <Box mx="8px" my="16px">
       <FormControl color='primary' className={classes.formControl}>
@@ -48,19 +43,17 @@ const App: React.FC<{}> = () => {
                <Typography align="center"> Restaurant </Typography>
            </MenuItem>
        </Select>
-     </FormControl>
-     {/* this is equiv to if (topic==weather)then render topic component */}
-     {/* for warning in prev weather go to weathercard.tsx and change justify to justifycontent */}
-     {topic == Topic.Weather &&
-       <div>
-       <WeatherCard city={'Seattle'} tempScale={'metric'} />
-       <WeatherCard city={'Toronto'} tempScale={'metric'} />
-       </div>
-     }
-     {topic == Topic.Restaurant &&
+      </FormControl>
+      {/* this is equiv to if (topic==weather)then render topic component */}
+      {topic == Topic.Weather &&
+        <div>
+        <WeatherCard city={'Seattle'} tempScale={'metric'} />
+        <WeatherCard city={'Toronto'} tempScale={'metric'} />
+        </div>
+      }
+      {topic == Topic.Restaurant &&
        <WeatherCard city={'London'} tempScale={'metric'} />
-
-     }
+      }
     </Box>
   )
 }
