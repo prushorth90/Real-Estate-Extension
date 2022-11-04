@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import {Topic} from './topics'
+import WeatherCard from '../components/WeatherCard'
 
 const App: React.FC<{}> = () => {
   const [topic, setTopic] = useState<Topic>(Topic.None)
@@ -41,6 +42,11 @@ const App: React.FC<{}> = () => {
          <MenuItem value={Topic.Restaurant}>Restaurant</MenuItem>
        </Select>
      </FormControl>
+     // this is equiv to if (topic==weather)then render topic component
+     {topic == Topic.Weather &&
+       <WeatherCard city={'Seattle'} tempScale={'metric'} />
+
+     }
     </Box>
   )
 }
