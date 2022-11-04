@@ -42,7 +42,8 @@ const App: React.FC<{}> = () => {
          <MenuItem value={Topic.Restaurant}>Restaurant</MenuItem>
        </Select>
      </FormControl>
-     // this is equiv to if (topic==weather)then render topic component
+     {/* this is equiv to if (topic==weather)then render topic component */}
+     {/* for warning in prev weather go to weathercard.tsx and change justify to justifycontent */}
      {topic == Topic.Weather &&
        <WeatherCard city={'Seattle'} tempScale={'metric'} />
 
