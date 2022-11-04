@@ -15,7 +15,8 @@ const App: React.FC<{}> = () => {
   const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
-      minWidth: 120,
+      // controls the width of select menu
+      minWidth: 400,
     },
     selectEmpty: {
       marginTop: theme.spacing(2),
@@ -36,7 +37,7 @@ const App: React.FC<{}> = () => {
        // onChange={handleChange}
      >
        <MenuItem value="">
-         <em>None</em>
+         <em>Select a topic</em>
        </MenuItem>
        <MenuItem value={10}>Ten</MenuItem>
        <MenuItem value={20}>Twenty</MenuItem>
