@@ -5,7 +5,8 @@ import 'fontsource-roboto'
 import './popup.css'
 import { makeStyles } from '@material-ui/core/styles';
 import {Topic} from './topics'
-import WeatherCard from '../components/WeatherCard'
+import WeatherPopup from '../components/WeatherPopup'
+import RestaurantPopup from '../components/RestaurantPopup'
 
 // https://v4.mui.com/components/selects/
 const App: React.FC<{}> = () => {
@@ -44,16 +45,8 @@ const App: React.FC<{}> = () => {
            </MenuItem>
        </Select>
       </FormControl>
-      {/* this is equiv to if (topic==weather)then render topic component */}
-      {topic == Topic.Weather &&
-        <div>
-        <WeatherCard city={'Seattle'} tempScale={'metric'} />
-        <WeatherCard city={'Toronto'} tempScale={'metric'} />
-        </div>
-      }
-      {topic == Topic.Restaurant &&
-       <WeatherCard city={'London'} tempScale={'metric'} />
-      }
+      <WeatherPopup topic={topic}/>
+      <RestaurantPopup topic={topic}/>
     </Box>
   )
 }
