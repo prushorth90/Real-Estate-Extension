@@ -9,7 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
+import {Topic} from './topics'
 
 const App: React.FC<{}> = () => {
   const useStyles = makeStyles((theme) => ({
@@ -39,9 +39,8 @@ const App: React.FC<{}> = () => {
        <MenuItem value="">
          <em>Select a topic</em>
        </MenuItem>
-       <MenuItem value={10}>Ten</MenuItem>
-       <MenuItem value={20}>Twenty</MenuItem>
-       <MenuItem value={30}>Thirty</MenuItem>
+       <MenuItem value={10}>Weather</MenuItem>
+       <MenuItem value={20}>Restaurant</MenuItem>
      </Select>
    </FormControl>
     </Box>
