@@ -12,13 +12,14 @@ import Select from '@material-ui/core/Select';
 import {Topic} from './topics'
 import WeatherCard from '../components/WeatherCard'
 
+// https://v4.mui.com/components/selects/
 const App: React.FC<{}> = () => {
   const [topic, setTopic] = useState<Topic>(Topic.None)
   const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
       // controls the width of select menu
-      minWidth: 400,
+      minWidth: 430,
     },
     selectEmpty: {
       marginTop: theme.spacing(2),
@@ -29,9 +30,9 @@ const App: React.FC<{}> = () => {
   // case1: return if nothing
   return (
     <Box mx="8px" my="16px">
-      <FormControl className={classes.formControl}>
-       <InputLabel id="demo-simple-select-helper-label">Topic</InputLabel>
+      <FormControl color='primary' className={classes.formControl}>
        <Select
+         style={{ backgroundColor: "white" }}
          labelId="demo-simple-select-helper-label"
          id="demo-simple-select-helper"
          value={topic}
