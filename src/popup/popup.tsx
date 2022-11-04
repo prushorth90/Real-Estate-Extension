@@ -45,7 +45,13 @@ const App: React.FC<{}> = () => {
      {/* this is equiv to if (topic==weather)then render topic component */}
      {/* for warning in prev weather go to weathercard.tsx and change justify to justifycontent */}
      {topic == Topic.Weather &&
+       <div>
        <WeatherCard city={'Seattle'} tempScale={'metric'} />
+       <WeatherCard city={'Toronto'} tempScale={'metric'} />
+       </div>
+     }
+     {topic == Topic.Restaurant &&
+       <WeatherCard city={'London'} tempScale={'metric'} />
 
      }
     </Box>
