@@ -10,7 +10,7 @@ import RestaurantPopup from '../components/RestaurantPopup'
 
 // https://v4.mui.com/components/selects/
 const App: React.FC<{}> = () => {
-  const [topic, setTopic] = useState<Topic>(Topic.None)
+  const [topic, setTopic] = useState<Topic>(Topic.Topics)
 
   // case1: return if nothing card foreach api?????? 1 topic to many api and dataset
   return (

@@ -1,5 +1,5 @@
 export enum Topic {
-  None = 'None',
+  Topics = 'Topics',
   Weather = 'Weather',
   Restaurant = 'Restaurant'
 }
