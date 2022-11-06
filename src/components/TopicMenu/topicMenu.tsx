@@ -20,6 +20,7 @@ const TopicMenu: React.FC<{
     },
   }));
   const classes = useStyles();
+  const topicArr = Object.keys(Topic);
 
   return (
       <FormControl color='primary' className={classes.formControl}>
@@ -30,15 +31,11 @@ const TopicMenu: React.FC<{
          value={topic}
          onChange={(event) => setTopic(event.target.value as Topic)}
        >
-         <MenuItem value={Topic.None}>
-              <Typography align="center"> Select a topic </Typography>
-          </MenuItem>
-         <MenuItem value={Topic.Weather}>
-              <Typography align="center"> {Topic.Weather} </Typography>
-          </MenuItem>
-          <MenuItem value={Topic.Restaurant}>
-               <Typography align="center"> {Topic.Restaurant} </Typography>
-           </MenuItem>
+          {topicArr.map((top,index) => (
+            <MenuItem key={index} value={top}>
+                <Typography align="center"> {top} </Typography>
+            </MenuItem>
+          ))}
        </Select>
       </FormControl>
     )
