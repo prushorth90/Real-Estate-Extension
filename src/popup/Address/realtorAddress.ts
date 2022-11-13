@@ -1,4 +1,4 @@
-export class Address {
+export class RealtorAddress {
   // could make obj for apartment like open weather data
   private street: string
   private city: string
@@ -14,10 +14,22 @@ export class Address {
 
   }
 
-  private divideURL(url: string) : void{
+  public getStreet() : string {
+    return this.street
+  }
+  public getCity() : string {
+    return this.city
+  }
+  public getState() : string {
+    return this.state
+  }
+  public getZipCode() : string {
+    return this.zipCode
+  }
+  private divideURL(url: string) : string[]{
     let addressURL = this.removeSubURL(url)
     let splitAddressURL = this.splitAddressURL(addressURL)
-
+    return splitAddressURL
   }
 
   private removeSubURL(url: string): string {
