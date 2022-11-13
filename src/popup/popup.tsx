@@ -37,7 +37,7 @@ const App: React.FC<{}> = () => {
       console.log(addr.street)
       //setAddr(currentTab.url)
     })
-  })
+  }, [])
 
   // case1: return if nothing card foreach api?????? 1 topic to many api and dataset
   return (
@@ -45,7 +45,7 @@ const App: React.FC<{}> = () => {
       <TopicMenu topic={topic} setTopic={setTopic}/>
       <WeatherPopup topic={topic}/>
       <RestaurantPopup topic={topic}/>
-      <div>{addr.street}</div>
+      <div>{addr.zipCode}</div>
     </Box>
 
   )
