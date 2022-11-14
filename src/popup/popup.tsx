@@ -43,7 +43,7 @@ const App: React.FC<{}> = () => {
   return (
     <Box mx="8px" my="16px">
       <TopicMenu topic={topic} setTopic={setTopic}/>
-      <WeatherPopup topic={topic}/>
+      <WeatherPopup topic={topic} city={addr.city}/>
       <RestaurantPopup topic={topic}/>
       <div>{addr.zipCode}</div>
     </Box>
