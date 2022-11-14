@@ -4,15 +4,15 @@ import {Topic} from '../../popup/topics'
 
 
 const WeatherPopup: React.FC<{
-  topic: Topic
-}> = ({ topic }) => {
+  topic: Topic,
+  city: string
+}> = ({ topic, city}) => {
   //      {/* this is equiv to if (topic==weather)then render topic component */}
   return (
     <div>
       {topic == Topic.Weather &&
         <div>
-        <WeatherCard city={'Seattle'} tempScale={'metric'} />
-        <WeatherCard city={'Toronto'} tempScale={'metric'} />
+        <WeatherCard city={city} tempScale={'metric'} />
         </div>
       }
     </div>

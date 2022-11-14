@@ -12,7 +12,7 @@
     "default_popup": "popup.html",
     "default_title": "Real1"
   },
-  "permissions": ["storage"],
+  "permissions": ["storage", "tabs"],
   "options_page": "options.html",
   "background": {
     "service_worker": "background.js"
