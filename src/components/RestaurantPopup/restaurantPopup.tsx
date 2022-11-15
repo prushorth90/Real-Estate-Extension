@@ -1,17 +1,19 @@
 import React from 'react'
-import WeatherCard from '../WeatherPopup/WeatherCard'
+import RestaurantCard from './restaurantCard'
 import {Topic} from '../../popup/topics'
+import {Address} from '../../popup/Address/address'
 import { Box} from '@material-ui/core'
 
 
 const RestaurantPopup: React.FC<{
   topic: Topic
-}> = ({ topic }) => {
+  address: Address
+}> = ({ topic, address}) => {
 
   return (
     <div>
       {topic == Topic.Restaurant &&
-       <WeatherCard city={'London'} tempScale={'metric'} />
+       <RestaurantCard address={address}  />
       }
     </div>
   )

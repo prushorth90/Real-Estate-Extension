@@ -32,7 +32,7 @@ const App: React.FC<{}> = () => {
     <Box mx="8px" my="16px">
       <TopicMenu topic={topic} setTopic={setTopic}/>
       <WeatherPopup topic={topic} city={addr.getCity()}/>
-      <RestaurantPopup topic={topic}/>
+      <RestaurantPopup topic={topic} address={addr}/>
       <div>{addr.getZipCode()}</div>
     </Box>
 

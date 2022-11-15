@@ -1,0 +1,13 @@
+.restaurantCard-title {
+  font-size: 24px !important;
+}
+
+.restaurantCard-body {
+  font-size: 16px !important;
+  text-align: center !important;
+}
+
+.restaurantCard-temp {
+  font-size: 46px !important;
+  text-align: center !important;
+}

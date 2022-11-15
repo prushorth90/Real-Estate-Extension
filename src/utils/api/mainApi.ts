@@ -8,8 +8,8 @@ export abstract class API {
   // public getApiKey(): string {
   //   return this.apiKey;
   // }
-
-  public abstract fetchData(...args : string[]) : Promise<any>;
+  // changed from string[] to any[]
+  public abstract fetchData(...args : any[]) : Promise<any>;
 
 
 }
