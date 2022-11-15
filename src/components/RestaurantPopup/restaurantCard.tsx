@@ -6,6 +6,7 @@ import {RestaurantCardState} from './restaurantCardState'
 import {RestaurantCardContainer} from './restaurantCardContainer'
 import {Address} from '../../popup/Address/address'
 
+
 const RestaurantCard: React.FC<{
   address: Address
 }> = ({ address }) => {
@@ -34,16 +35,20 @@ const RestaurantCard: React.FC<{
   }
 
   return (
-    <RestaurantCardContainer >
-      <Grid container justifyContent="space-around">
-        <Grid item>
-          <Typography className="restaurantCard-title"> {nearbySearchData.results[0].name} </Typography>
-          <Typography className="restaurantCard-temp"> {nearbySearchData.results[0].user_ratings_total} </Typography>
-          <Typography className="restaurantCard-body"> {nearbySearchData.results[0].name} </Typography>
-        </Grid>
+    <div>
+        {nearbySearchData.results.map((result, index) => (
+          <RestaurantCardContainer key={index}>
+            <Grid container justifyContent="space-around">
+              <Grid item >
+                <Typography className="restaurantCard-title"> {result.name} </Typography>
+                <Typography className="restaurantCard-temp"> {result.user_ratings_total} </Typography>
+                <Typography className="restaurantCard-body"> {result.name} </Typography>
+              </Grid>
+            </Grid>
+          </RestaurantCardContainer>
 
-      </Grid>
-    </RestaurantCardContainer>
+        ))}
+      </div>
   )
 }
 
