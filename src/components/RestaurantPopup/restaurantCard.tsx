@@ -5,28 +5,38 @@ import './restaurantCard.css'
 import {RestaurantCardState} from './restaurantCardState'
 import {RestaurantCardContainer} from './restaurantCardContainer'
 import {Address} from '../../popup/Address/address'
+import {AddressData,AddressAPI} from '../../utils/api/address/addressIndex'
 
 
-const RestaurantCard: React.FC<{
-  address: Address
-}> = ({ address }) => {
+const RestaurantCard: React.FC<{dataa
+}> = ({ dataa}) => {
+  console.log("9")
   const [nearbySearchData, setNearbySearchData] = useState<NearbySearchData | null>(null)
   const [cardState, setCardState] = useState<RestaurantCardState>(RestaurantCardState.Loading)
   let restaurantapi = new RestaurantAPI()
 
   useEffect(() => {
-    restaurantapi.fetchData(address)
-      .then((data) => {
-        setNearbySearchData(data)
-        setCardState(RestaurantCardState.Ready)
-      })
-      .catch((err) => setCardState(RestaurantCardState.Error))
-  }, [address])
+    console.log("10")
+    if (dataa !== undefined && dataa.results.length !== 0) {
+      console.log("10.1")
+      console.log(dataa)
+      console.log(dataa.results.length)
+      restaurantapi.fetchData(dataa)
+        .then((data) => {
+          console.log("10.5")
+          setNearbySearchData(data)
+          setCardState(RestaurantCardState.Ready)
+        })
+        .catch((err) => setCardState(RestaurantCardState.Error))
+      }
+  }, [dataa])
+
 
   if (cardState == RestaurantCardState.Loading || cardState == RestaurantCardState.Error) {
     return (
       <RestaurantCardContainer>
-        <Typography className="restaurantCard-title">{address.getCity()}</Typography>
+      {console.log("11")}
+        <Typography className="restaurantCard-title">Wait</Typography>
         <Typography className="restaurantCard-body">
           {cardState == RestaurantCardState.Loading ? 'Loading...' : 'Error: could not retrieve data for this city.'}
         </Typography>
@@ -36,6 +46,7 @@ const RestaurantCard: React.FC<{
 
   return (
     <div>
+    {console.log("12")}
         {nearbySearchData.results.map((result, index) => (
           <RestaurantCardContainer key={index}>
             <Grid container justifyContent="space-around">
