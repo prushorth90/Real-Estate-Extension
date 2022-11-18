@@ -13,7 +13,7 @@ const RestaurantCard: React.FC<{coord
   console.log("9")
   const [nearbySearchData, setNearbySearchData] = useState<NearbySearchData | null>(null)
   const [cardState, setCardState] = useState<RestaurantCardState>(RestaurantCardState.Loading)
-  let restaurantapi = new RestaurantAPI()
+  let restaurantApi = new RestaurantAPI()
 
   useEffect(() => {
     console.log("10")
@@ -21,7 +21,7 @@ const RestaurantCard: React.FC<{coord
       console.log("10.1")
       console.log(coord)
       console.log(coord.results.length)
-      restaurantapi.fetchData(coord)
+      restaurantApi.fetchData(coord)
         .then((data) => {
           console.log("10.5")
           setNearbySearchData(data)
@@ -32,13 +32,13 @@ const RestaurantCard: React.FC<{coord
   }, [coord])
 
 
-  if (cardState == RestaurantCardState.Loading || cardState == RestaurantCardState.Error) {
+  if (cardState === RestaurantCardState.Loading || cardState === RestaurantCardState.Error) {
     return (
       <RestaurantCardContainer>
       {console.log("11")}
         <Typography className="restaurantCard-title">Wait</Typography>
         <Typography className="restaurantCard-body">
-          {cardState == RestaurantCardState.Loading ? 'Loading...' : 'Error: could not retrieve data for this city.'}
+          {cardState === RestaurantCardState.Loading ? RestaurantCardState.Loading : RestaurantCardState.Error}
         </Typography>
       </RestaurantCardContainer>
     )
