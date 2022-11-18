@@ -8,8 +8,8 @@ import {Address} from '../../popup/Address/address'
 import {AddressData,AddressAPI} from '../../utils/api/address/addressIndex'
 
 
-const RestaurantCard: React.FC<{dataa
-}> = ({ dataa}) => {
+const RestaurantCard: React.FC<{coord
+}> = ({ coord}) => {
   console.log("9")
   const [nearbySearchData, setNearbySearchData] = useState<NearbySearchData | null>(null)
   const [cardState, setCardState] = useState<RestaurantCardState>(RestaurantCardState.Loading)
@@ -17,11 +17,11 @@ const RestaurantCard: React.FC<{dataa
 
   useEffect(() => {
     console.log("10")
-    if (dataa !== undefined && dataa.results.length !== 0) {
+    if (coord !== undefined && coord.results.length !== 0) {
       console.log("10.1")
-      console.log(dataa)
-      console.log(dataa.results.length)
-      restaurantapi.fetchData(dataa)
+      console.log(coord)
+      console.log(coord.results.length)
+      restaurantapi.fetchData(coord)
         .then((data) => {
           console.log("10.5")
           setNearbySearchData(data)
@@ -29,7 +29,7 @@ const RestaurantCard: React.FC<{dataa
         })
         .catch((err) => setCardState(RestaurantCardState.Error))
       }
-  }, [dataa])
+  }, [coord])
 
 
   if (cardState == RestaurantCardState.Loading || cardState == RestaurantCardState.Error) {
