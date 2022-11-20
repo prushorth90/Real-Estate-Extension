@@ -6,13 +6,15 @@ import {RestaurantCardState} from './restaurantCardState'
 import {RestaurantCardContainer} from './restaurantCardContainer'
 import {Address} from '../../popup/Address/address'
 import {AddressData,AddressAPI} from '../../utils/api/address/addressIndex'
-
+import {PhotoDialog} from './dialog/photoDialog'
 
 const RestaurantCard: React.FC<{coord
 }> = ({ coord}) => {
   console.log("9")
   const [nearbySearchData, setNearbySearchData] = useState<NearbySearchData | null>(null)
   const [cardState, setCardState] = useState<RestaurantCardState>(RestaurantCardState.Loading)
+  const [openPhoto, setOpenPhoto] = useState<boolean>(false);
+  const [photoReference, setPhotoReference] = useState<string>("");
   let restaurantApi = new RestaurantAPI()
 
   useEffect(() => {
@@ -50,10 +52,20 @@ const RestaurantCard: React.FC<{coord
         {nearbySearchData.results.map((result, index) => (
           <RestaurantCardContainer key={index}>
             <Grid container justifyContent="space-around">
-              <Grid item >
+              <Grid item>
+                <div>{index}</div>
                 <Typography className="restaurantCard-title"> {result.name} </Typography>
-                <Typography className="restaurantCard-temp"> {result.user_ratings_total} </Typography>
-                <Typography className="restaurantCard-body"> {result.name} </Typography>
+                <Typography className="restaurantCard-temp"> Ratings: {result.user_ratings_total} </Typography>
+                <Typography className="restaurantCard-body"> PriceLevel: {result.price_level} </Typography>
+                <Typography className="restaurantCard-body"> URT: {result.user_ratings_total} </Typography>
+                <Typography className="restaurantCard-body"> Vicinity: {result.vicinity} </Typography>
+                <Button key={result.photos !== undefined ? result.photos[0].photo_reference: null} variant="outlined" color="primary" onClick={() => {
+                  if (result.photos !== undefined) {
+                    setPhotoReference(result.photos[0].photo_reference)
+                  }
+                  setOpenPhoto(true)
+                }}> View Photo </Button>
+                <PhotoDialog open={openPhoto} onClose={() => setOpenPhoto(false)} photo_reference={photoReference}/>
               </Grid>
             </Grid>
           </RestaurantCardContainer>
@@ -64,3 +76,4 @@ const RestaurantCard: React.FC<{coord
 }
 
 export default RestaurantCard
+// some results no photos field
