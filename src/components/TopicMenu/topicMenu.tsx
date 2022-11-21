@@ -8,7 +8,7 @@ const TopicMenu: React.FC<{
   topic: Topic,
   setTopic
 }> = ({ topic,setTopic }) => {
-
+  console.log("4")
   const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
@@ -24,6 +24,7 @@ const TopicMenu: React.FC<{
 
   return (
       <FormControl color='primary' className={classes.formControl}>
+      {console.log("5")}
        <Select
          style={{ backgroundColor: "white" }}
          labelId="demo-simple-select-helper-label"
