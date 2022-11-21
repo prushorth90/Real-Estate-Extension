@@ -7,6 +7,7 @@ import {PhotoAPI} from '../../../utils/api/photo/photoIndex'
 
 export const PhotoDialog: React.FC<{open: boolean, onClose: () => void,photo_reference}> = ({open,onClose, photo_reference}) => {
   const [photo, setPhoto] = useState<string>("")
+  const [opened, setOpened] = useState<boolean>(false)
   let photoAPI = new PhotoAPI()
   const handleClose = () => {
     onClose();
@@ -18,18 +19,19 @@ export const PhotoDialog: React.FC<{open: boolean, onClose: () => void,photo_ref
     }
   })
   const classes = useStyles();
-
+  console.log("998")
   const see = () => {
     //console.log(index)
     // let photo_reference = nearby.results[index].photos[0].photo_reference
-    if (photo_reference != "") {
+    if (photo_reference != "" && opened != true) {
       console.log("999")//*20
       photoAPI.fetchData(photo_reference)
         .then((data) => {
           console.log("1000")// not reached
           console.log(data.url)
+          setOpened(true)
           setPhoto(data.url)
-          console.log("10001")
+          console.log("1001")
 
         })
         .catch((err) => console.log(err))
@@ -39,6 +41,7 @@ export const PhotoDialog: React.FC<{open: boolean, onClose: () => void,photo_ref
 
 
   return (
+
     <Dialog onClose={handleClose}
       aria-labelledby="simple-dialog-title"
       open={open}
@@ -48,7 +51,7 @@ export const PhotoDialog: React.FC<{open: boolean, onClose: () => void,photo_ref
         className: classes.paper
       }}>
       <DialogTitle id="simple-dialog-title">Photo</DialogTitle>
-      {open == true? see() : ""}
+      <div> {open == true? see() : ""} </div>
       <img src={photo}/>
     </Dialog>
   );

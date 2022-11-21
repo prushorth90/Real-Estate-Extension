@@ -15,6 +15,8 @@ const RestaurantCard: React.FC<{coord
   const [cardState, setCardState] = useState<RestaurantCardState>(RestaurantCardState.Loading)
   const [openPhoto, setOpenPhoto] = useState<boolean>(false);
   const [photoReference, setPhotoReference] = useState<string>("");
+  const [currIndex, setCurrIndex ] = useState<number>(-1);
+
   let restaurantApi = new RestaurantAPI()
 
   useEffect(() => {
@@ -62,10 +64,14 @@ const RestaurantCard: React.FC<{coord
                 <Button key={result.photos !== undefined ? result.photos[0].photo_reference: null} variant="outlined" color="primary" onClick={() => {
                   if (result.photos !== undefined) {
                     setPhotoReference(result.photos[0].photo_reference)
+                    console.log("ao")
                   }
+                  console.log("bo")
                   setOpenPhoto(true)
+                  setCurrIndex(index)
+                  console.log("co")
                 }}> View Photo </Button>
-                <PhotoDialog open={openPhoto} onClose={() => setOpenPhoto(false)} photo_reference={photoReference}/>
+                {index == currIndex ? <PhotoDialog open={openPhoto} onClose={() => setOpenPhoto(false)} photo_reference={photoReference}/> : null}
               </Grid>
             </Grid>
           </RestaurantCardContainer>
