@@ -9,15 +9,16 @@ import {AddressData,AddressAPI} from '../../utils/api/address/addressIndex'
 import {PhotoDialog} from './dialog/photoDialog'
 import Rating from '@material-ui/lab/Rating';
 
-const RestaurantCard: React.FC<{coord
-}> = ({ coord}) => {
+const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({ coord, initNearbyData,initCardState}) => {
   console.log("9")
-  const [nearbySearchData, setNearbySearchData] = useState<NearbySearchData | null>(null)
-  const [cardState, setCardState] = useState<RestaurantCardState>(RestaurantCardState.Loading)
+  // STATE ONLY RENDERED ONCE, EVEN IF  RERENDER WONT UPDATE SO HAD TO MOVE SET, BUT PROPS ALL TIME,
+  const [nearbySearchData, setNearbySearchData] = useState<NearbySearchData | null>(initNearbyData)
+  const [cardState, setCardState] = useState<RestaurantCardState>(initCardState)
   const [openPhoto, setOpenPhoto] = useState<boolean>(false);
   const [photoReference, setPhotoReference] = useState<string>("");
   const [currIndex, setCurrIndex ] = useState<number>(-1);
-
+  console.log(nearbySearchData)
+  console.log(cardState)
   let restaurantApi = new RestaurantAPI()
 
   useEffect(() => {
@@ -26,16 +27,23 @@ const RestaurantCard: React.FC<{coord
       console.log("10.1")
       console.log(coord)
       console.log(coord.results.length)
-      restaurantApi.fetchData(coord)
+      restaurantApi.fetchData(coord, "500", "bakery")
         .then((data) => {
           console.log("10.5")
           setNearbySearchData(data)
-          setCardState(RestaurantCardState.Ready)
+          console.log("NO DATA CODE")
+          console.log(data.results)
+          console.log(data.results.length)
+          data.results.length === 0 ?setCardState(RestaurantCardState.None) : setCardState(RestaurantCardState.Ready)
         })
         .catch((err) => setCardState(RestaurantCardState.Error))
       }
   }, [coord])
 
+  useEffect(() => {
+    setNearbySearchData(initNearbyData)
+    setCardState(initCardState)
+  },[initNearbyData, initCardState])
 
   if (cardState === RestaurantCardState.Loading || cardState === RestaurantCardState.Error) {
     return (
@@ -47,11 +55,21 @@ const RestaurantCard: React.FC<{coord
         </Typography>
       </RestaurantCardContainer>
     )
+  } else if (cardState === RestaurantCardState.None) {
+    return (
+      <RestaurantCardContainer>
+      <Typography className="restaurantCard-title">Wait</Typography>
+      <Typography className="restaurantCard-body">
+        {RestaurantCardState.None}
+      </Typography>
+    </RestaurantCardContainer>
+  )
   }
 
   return (
     <Box>
     {console.log("12")}
+    {console.log(nearbySearchData)}
         {nearbySearchData.results.map((result, index) => (
           <RestaurantCardContainer key={index}>
             <Grid container>
