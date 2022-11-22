@@ -33,25 +33,17 @@ const RestaurantPopup: React.FC<{
   const classes = useStyles();
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    console.log("CHANGED RADIUS VALUE")
     setRadius(event.target.value as string);
   }
 
   const handleChange2 = (event: React.ChangeEvent<{ value: unknown }>) => {
-    console.log("CHANGED TYPE VALUE")
     setType(event.target.value as string);
   }
 
   const getData = () => {
     if (coord !== undefined && coord.results.length !== 0) {
-      console.log("FILTER FETCH DATA")
-      console.log("10.1")
-      console.log(coord)
-      console.log(coord.results.length)
       restaurantApi.fetchData(coord, radius, type)
         .then((data) => {
-          console.log("FILTER DATA RECEIVED")
-          console.log(data)
           setNearbySearchData(data)
           setCardState(RestaurantCardState.Ready)
         })
@@ -74,9 +66,10 @@ const RestaurantPopup: React.FC<{
                 value={radius}
                 onChange={(handleChange)}
               >
-                <MenuItem value={500}>500</MenuItem>
-                <MenuItem value={1000}>1000</MenuItem>
-                <MenuItem value={1500}>1500</MenuItem>
+                {[500,1000,1500].map((val, index) => (
+                  <MenuItem key={index} value={val}>{val}</MenuItem>
+                ))}
+
               </Select>
               <FormHelperText>Required</FormHelperText>
           </FormControl>
@@ -88,11 +81,9 @@ const RestaurantPopup: React.FC<{
                 value={type}
                 onChange={(handleChange2)}
               >
-                <MenuItem value={"bakery"}>bakery</MenuItem>
-                <MenuItem value={"cafe"}>cafe</MenuItem>
-                <MenuItem value={"restaurant"}>restaurant</MenuItem>
-                <MenuItem value={"meal_delivery"}>meal_delivery</MenuItem>
-                <MenuItem value={"meal_takeaway"}>meal_takeaway</MenuItem>
+              {["bakery", "cafe", "restaurant", "meal_delivery", "meal_takeaway"].map((val, index) => (
+                <MenuItem key={index} value={val}>{val}</MenuItem>
+              ))}
               </Select>
               <FormHelperText>Required</FormHelperText>
           </FormControl>
