@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Card, CardActions, CardContent, Grid, Typography,} from '@material-ui/core'
-import { RestaurantAPI, NearbySearchData } from '../../utils/api/restaurant/restaurantIndex'
+import { Box, Button, Grid, Typography,} from '@material-ui/core'
+import { RestaurantAPI, NearbySearchData } from '../../../utils/api/restaurant/restaurantIndex'
 import './restaurantCard.css'
 import {RestaurantCardState} from './restaurantCardState'
 import {RestaurantCardContainer} from './restaurantCardContainer'
-import {Address} from '../../popup/Address/address'
-import {AddressData,AddressAPI} from '../../utils/api/address/addressIndex'
-import {PhotoDialog} from './dialog/photoDialog'
+import {PhotoDialog} from '../dialog/photoDialog'
 import Rating from '@material-ui/lab/Rating';
 
-const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({ coord, initNearbyData,initCardState}) => {
+export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({ coord, initNearbyData,initCardState}) => {
   console.log("9")
   // STATE ONLY RENDERED ONCE, EVEN IF  RERENDER WONT UPDATE SO HAD TO MOVE SET, BUT PROPS ALL TIME,
   const [nearbySearchData, setNearbySearchData] = useState<NearbySearchData | null>(initNearbyData)
@@ -42,7 +40,6 @@ const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({ coord,
     return (
       <RestaurantCardContainer>
       {console.log("11")}
-        <Typography className="restaurantCard-title">Wait</Typography>
         <Typography className="restaurantCard-body">
           {cardState === RestaurantCardState.Loading ? RestaurantCardState.Loading : RestaurantCardState.Error}
         </Typography>
@@ -51,7 +48,6 @@ const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({ coord,
   } else if (cardState === RestaurantCardState.None) {
     return (
       <RestaurantCardContainer>
-      <Typography className="restaurantCard-title">Wait</Typography>
       <Typography className="restaurantCard-body">
         {RestaurantCardState.None}
       </Typography>
@@ -91,7 +87,6 @@ const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({ coord,
   )
 }
 
-export default RestaurantCard
 // some results no photos field
 
 

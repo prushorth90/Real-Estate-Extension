@@ -1,12 +1,9 @@
 import React,{ useEffect, useState } from 'react'
-import RestaurantCard from './restaurantCard'
 import {Topic} from '../../popup/topics'
-import {Address} from '../../popup/Address/address'
-import {Button, Box, FormControl, InputLabel, MenuItem, Select, FormHelperText} from '@material-ui/core'
-import {AddressData,AddressAPI} from '../../utils/api/address/addressIndex'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {Button, Box,} from '@material-ui/core'
+import {AddressData} from '../../utils/api/address/addressIndex'
 import { RestaurantAPI, NearbySearchData } from '../../utils/api/restaurant/restaurantIndex'
-import {RestaurantCardState} from './restaurantCardState'
+import {RestaurantCard, RestaurantCardState} from './card/restaurantCardIndex'
 import {RadiusForm, TypeForm} from './formSelect/formIndex'
 
 const RestaurantPopup: React.FC<{
