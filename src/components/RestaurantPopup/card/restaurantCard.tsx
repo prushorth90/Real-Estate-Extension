@@ -6,6 +6,9 @@ import {RestaurantCardState} from './restaurantCardState'
 import {RestaurantCardContainer} from './restaurantCardContainer'
 import {PhotoDialog} from '../dialog/photoDialog'
 import Rating from '@material-ui/lab/Rating';
+import {MessageCard} from './messageCard'
+import {ResultCard} from './resultCard'
+
 
 export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({ coord, initNearbyData,initCardState}) => {
   console.log("9")
@@ -36,55 +39,44 @@ export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({
     setCardState(initCardState)
   },[initNearbyData, initCardState])
 
-  if (cardState === RestaurantCardState.Loading || cardState === RestaurantCardState.Error) {
-    return (
-      <RestaurantCardContainer>
-      {console.log("11")}
-        <Typography className="restaurantCard-body">
-          {cardState === RestaurantCardState.Loading ? RestaurantCardState.Loading : RestaurantCardState.Error}
-        </Typography>
-      </RestaurantCardContainer>
-    )
-  } else if (cardState === RestaurantCardState.None) {
-    return (
-      <RestaurantCardContainer>
-      <Typography className="restaurantCard-body">
-        {RestaurantCardState.None}
-      </Typography>
-    </RestaurantCardContainer>
-  )
+  const setPhotoId = (result, index) => {
+      if (result.photos !== undefined) {
+        setPhotoReference(result.photos[0].photo_reference)
+      }
+      setOpenPhoto(true)
+      setCurrIndex(index)
   }
 
-  return (
-    <Box>
-    {console.log("12")}
-    {console.log(nearbySearchData)}
-        {nearbySearchData.results.map((result, index) => (
-          <RestaurantCardContainer key={index}>
-            <Grid container>
-              <Grid item>
-                <Typography className="restaurantCard-title"> {result.name} </Typography>
-                <Typography className="restaurantCard-body" component="legend">Total User Ratings: {result.user_ratings_total} </Typography>
-                <Rating name="read-only" className="restaurantCard-body" value={result.rating} readOnly />
-                <Typography className="restaurantCard-body"> Price Level: {result.price_level} </Typography>
-                <Typography className="restaurantCard-body"> Vicinity: {result.vicinity} </Typography>
-                <br/>
-                <br/>
-                <Button className="restaurantCard-body" key={result.photos !== undefined ? result.photos[0].photo_reference: null} variant="outlined" color="primary" onClick={() => {
-                  if (result.photos !== undefined) {
-                    setPhotoReference(result.photos[0].photo_reference)
-                  }
-                  setOpenPhoto(true)
-                  setCurrIndex(index)
-                }}> View Photo </Button>
-                {index == currIndex ? <PhotoDialog open={openPhoto} onClose={() => setOpenPhoto(false)} photo_reference={photoReference}/> : null}
-              </Grid>
-            </Grid>
-          </RestaurantCardContainer>
+  if (cardState === RestaurantCardState.Loading || cardState === RestaurantCardState.Error || cardState === RestaurantCardState.None) {
+    return (
+      <MessageCard cardState/>
+    )
+  } else {
 
-        ))}
-      </Box>
-  )
+    return (
+      <Box>
+      {console.log("12")}
+      {nearbySearchData.results.map((result, index) => (
+        <RestaurantCardContainer key={index}>
+          <Grid container>
+            <Grid item>
+              <Typography className="restaurantCard-title"> {result.name} </Typography>
+              <Typography className="restaurantCard-body" component="legend">Total User Ratings: {result.user_ratings_total} </Typography>
+              <Rating name="read-only" className="restaurantCard-body" value={result.rating} readOnly />
+              <Typography className="restaurantCard-body"> Price Level: {result.price_level} </Typography>
+              <Typography className="restaurantCard-body"> Vicinity: {result.vicinity} </Typography>
+              <br/>
+              <br/>
+              <Button className="restaurantCard-body" key={result.photos !== undefined ? result.photos[0].photo_reference: null} variant="outlined" color="primary" onClick={() => setPhotoId(result,index)}> View Photo </Button>
+              {index == currIndex ? <PhotoDialog open={openPhoto} onClose={() => setOpenPhoto(false)} photo_reference={photoReference}/> : null}
+            </Grid>
+          </Grid>
+        </RestaurantCardContainer>
+
+          ))}
+        </Box>
+    )
+  }
 }
 
 // some results no photos field
