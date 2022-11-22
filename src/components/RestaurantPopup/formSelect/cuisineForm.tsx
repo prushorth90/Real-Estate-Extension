@@ -2,10 +2,10 @@ import React,{ useEffect, useState } from 'react'
 import {FormControl, InputLabel, MenuItem, Select, FormHelperText} from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
-export const TypeForm: React.FC<{
-  type: string
-  setType, keyword, setKeyword
-}> = ({ type,setType, keyword, setKeyword}) => {
+export const CuisineForm: React.FC<{
+  keyword: string
+  setKeyword
+}> = ({ keyword, setKeyword}) => {
   const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     formControl: {
@@ -21,21 +21,19 @@ export const TypeForm: React.FC<{
   const classes = useStyles();
 
   const handleChange2 = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setType(event.target.value as string);
     setKeyword(event.target.value as string);
-
   }
 
 return (
   <FormControl required className={classes.formControl}>
-      <InputLabel id="demo-simple-select-required-label">Type</InputLabel>
+      <InputLabel id="demo-simple-select-required-label">Cuisine</InputLabel>
       <Select
         labelId="demo-simple-select-required-label"
         id="demo-simple-select-required"
-        value={type}
+        value={keyword}
         onChange={(handleChange2)}
       >
-      {["bakery", "cafe", "restaurant", "meal_delivery", "meal_takeaway"].map((val, index) => (
+      {["pizza", "english", "chinese", "italian"].map((val, index) => (
         <MenuItem key={index} value={val}>{val}</MenuItem>
       ))}
       </Select>
