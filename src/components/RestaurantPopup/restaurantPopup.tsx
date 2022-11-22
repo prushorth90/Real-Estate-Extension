@@ -7,6 +7,7 @@ import {AddressData,AddressAPI} from '../../utils/api/address/addressIndex'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { RestaurantAPI, NearbySearchData } from '../../utils/api/restaurant/restaurantIndex'
 import {RestaurantCardState} from './restaurantCardState'
+import {RadiusForm, TypeForm} from './formSelect/formIndex'
 
 const RestaurantPopup: React.FC<{
   topic: Topic
@@ -17,28 +18,6 @@ const RestaurantPopup: React.FC<{
   let restaurantApi = new RestaurantAPI()
   const [nearbySearchData, setNearbySearchData] = useState<NearbySearchData | null>(null)
   const [cardState, setCardState] = useState<RestaurantCardState>(RestaurantCardState.Loading)
-
-  const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-  }),
-);
-
-  const classes = useStyles();
-
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setRadius(event.target.value as string);
-  }
-
-  const handleChange2 = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setType(event.target.value as string);
-  }
 
   const getData = () => {
     if (coord !== undefined && coord.results.length !== 0) {
@@ -58,35 +37,8 @@ const RestaurantPopup: React.FC<{
     {console.log("8")}
       {topic == Topic.Restaurant &&
         <Box>
-          <FormControl required className={classes.formControl}>
-              <InputLabel id="demo-simple-select-required-label">Radius</InputLabel>
-              <Select
-                labelId="demo-simple-select-required-label"
-                id="demo-simple-select-required"
-                value={radius}
-                onChange={(handleChange)}
-              >
-                {[500,1000,1500].map((val, index) => (
-                  <MenuItem key={index} value={val}>{val}</MenuItem>
-                ))}
-
-              </Select>
-              <FormHelperText>Required</FormHelperText>
-          </FormControl>
-          <FormControl required className={classes.formControl}>
-              <InputLabel id="demo-simple-select-required-label">Type</InputLabel>
-              <Select
-                labelId="demo-simple-select-required-label"
-                id="demo-simple-select-required"
-                value={type}
-                onChange={(handleChange2)}
-              >
-              {["bakery", "cafe", "restaurant", "meal_delivery", "meal_takeaway"].map((val, index) => (
-                <MenuItem key={index} value={val}>{val}</MenuItem>
-              ))}
-              </Select>
-              <FormHelperText>Required</FormHelperText>
-          </FormControl>
+          <RadiusForm radius={radius} setRadius={setRadius}  />
+          <TypeForm type={type} setType={setType} />
           {radius === "" || type === ""? <Button variant="contained" disabled>Disabled </Button>:<Button variant="contained" color="primary" onClick={(getData)}>Apply</Button> }
          <RestaurantCard coord={coord} initNearbyData={nearbySearchData} initCardState={cardState} />
        </Box>
