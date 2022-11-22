@@ -17,23 +17,16 @@ const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({ coord,
   const [openPhoto, setOpenPhoto] = useState<boolean>(false);
   const [photoReference, setPhotoReference] = useState<string>("");
   const [currIndex, setCurrIndex ] = useState<number>(-1);
-  console.log(nearbySearchData)
-  console.log(cardState)
   let restaurantApi = new RestaurantAPI()
 
   useEffect(() => {
     console.log("10")
     if (coord !== undefined && coord.results.length !== 0) {
       console.log("10.1")
-      console.log(coord)
-      console.log(coord.results.length)
       restaurantApi.fetchData(coord, "500", "bakery")
         .then((data) => {
           console.log("10.5")
           setNearbySearchData(data)
-          console.log("NO DATA CODE")
-          console.log(data.results)
-          console.log(data.results.length)
           data.results.length === 0 ?setCardState(RestaurantCardState.None) : setCardState(RestaurantCardState.Ready)
         })
         .catch((err) => setCardState(RestaurantCardState.Error))
