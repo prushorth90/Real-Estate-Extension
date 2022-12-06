@@ -5,7 +5,8 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 export const TypeFilter: React.FC<{
   type: string
   setType
-}> = ({ type,setType}) => {
+  setKeyword
+}> = ({ type,setType,setKeyword}) => {
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -23,6 +24,7 @@ export const TypeFilter: React.FC<{
 
   const handleChange2 = (event: React.ChangeEvent<{ value: unknown }>) => {
     setType(event.target.value as string);
+    setKeyword(event.target.value as string);
   }
 
   return (

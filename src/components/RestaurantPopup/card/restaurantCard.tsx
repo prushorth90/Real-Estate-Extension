@@ -23,7 +23,7 @@ export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({
     console.log("10")
     if (coord !== undefined && coord.results.length !== 0) {
       console.log("10.1")
-      restaurantApi.fetchData(coord, "bakery", "500", "bakery")
+      restaurantApi.fetchData(coord, "bakery", "1500", "bakery")
         .then((data) => {
           console.log("10.5")
           setNearbySearchData(data)
