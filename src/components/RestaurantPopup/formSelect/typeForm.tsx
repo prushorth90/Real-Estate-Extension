@@ -4,8 +4,8 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 export const TypeForm: React.FC<{
   type: string
-  setType, keyword, setKeyword
-}> = ({ type,setType, keyword, setKeyword}) => {
+  setType
+}> = ({ type,setType}) => {
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -23,8 +23,6 @@ export const TypeForm: React.FC<{
 
   const handleChange2 = (event: React.ChangeEvent<{ value: unknown }>) => {
     setType(event.target.value as string);
-    setKeyword(event.target.value as string);
-
   }
 
   return (

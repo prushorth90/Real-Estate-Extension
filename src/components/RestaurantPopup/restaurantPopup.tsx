@@ -17,7 +17,20 @@ const RestaurantPopup: React.FC<{
   const [nearbySearchData, setNearbySearchData] = useState<NearbySearchData | null>(null)
   const [cardState, setCardState] = useState<RestaurantCardState>(RestaurantCardState.Loading)
 
-  const getData = () => {
+  // DELETED APPPLY BUTTON
+  //const getData = () => {
+  //   if (coord !== undefined && coord.results.length !== 0) {
+  //     restaurantApi.fetchData(coord, keyword, radius, type)
+  //       .then((data) => {
+  //         setNearbySearchData(data)
+  //         data.results.length === 0 ?setCardState(RestaurantCardState.None): setCardState(RestaurantCardState.Ready)
+  //       })
+  //       .catch((err) => setCardState(RestaurantCardState.Error))
+  //     }
+  // }
+
+  useEffect(() => {
+    console.log("10")
     if (coord !== undefined && coord.results.length !== 0) {
       restaurantApi.fetchData(coord, keyword, radius, type)
         .then((data) => {
@@ -25,8 +38,8 @@ const RestaurantPopup: React.FC<{
           data.results.length === 0 ?setCardState(RestaurantCardState.None): setCardState(RestaurantCardState.Ready)
         })
         .catch((err) => setCardState(RestaurantCardState.Error))
-      }
-  }
+    }
+  }, [radius, type, keyword])
 
   console.log("6")
 
@@ -36,9 +49,8 @@ const RestaurantPopup: React.FC<{
       {topic == Topic.Restaurant &&
         <Box>
           <RadiusForm radius={radius} setRadius={setRadius}  />
-          <TypeForm type={type} setType={setType} keyword={keyword} setKeyword={setKeyword} />
+          <TypeForm type={type} setType={setType} />
           {type === "restaurant" ? <CuisineForm keyword={keyword} setKeyword={setKeyword} /> : ""}
-          {radius === "" || type === ""? <Button variant="contained" disabled>Disabled </Button>:<Button variant="contained" color="primary" onClick={(getData)}>Apply</Button> }
          <RestaurantCard coord={coord} initNearbyData={nearbySearchData} initCardState={cardState} />
        </Box>
       }
