@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from 'react'
 import {FormControl, InputLabel, MenuItem, Select, FormHelperText} from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
+import {Cuisine} from './Cuisine'
 export const CuisineFilter: React.FC<{
   keyword: string
   setKeyword
@@ -33,7 +33,7 @@ export const CuisineFilter: React.FC<{
           value={keyword}
           onChange={(handleChange2)}
         >
-        {["pizza", "english", "chinese", "italian"].map((val, index) => (
+        {[Cuisine.Pizza, Cuisine.English, Cuisine.Chinese, Cuisine.Indian, Cuisine.Italian, Cuisine.Fast_Food].map((val, index) => (
           <MenuItem key={index} value={val}>{val}</MenuItem>
         ))}
         </Select>
