@@ -6,46 +6,44 @@ import { makeStyles } from '@material-ui/core/styles';
 import {PhotoAPI} from '../../../utils/api/photo/photoIndex'
 import {PhotoDialogState} from './photoDialogState'
 export const PhotoDialog: React.FC<{open: boolean, onClose: () => void,photo_reference}> = ({open,onClose, photo_reference}) => {
-  const [photo, setPhoto] = useState<string>("")
-  const [opened, setOpened] = useState<boolean>(false)
-  const [photoState, setPhotoState] = useState<PhotoDialogState>(PhotoDialogState.Start)
 
-  let photoAPI = new PhotoAPI()
-  const handleClose = () => {
-    onClose();
-    setPhoto("")
-    setPhotoState(PhotoDialogState.Start)
-  }
-  const useStyles = makeStyles({
-    paper: {
-      border: "solid 1px gray"
+    const [photo, setPhoto] = useState<string>("")
+    const [opened, setOpened] = useState<boolean>(false)
+    const [photoState, setPhotoState] = useState<PhotoDialogState>(PhotoDialogState.Start)
+    let photoAPI = new PhotoAPI()
+    const handleClose = () => {
+      onClose();
+      setPhoto("")
+      setPhotoState(PhotoDialogState.Start)
     }
-  })
-  const classes = useStyles();
-  console.log("998")
-  const see = () => {
-    //console.log(index)
-    // let photo_reference = nearby.results[index].photos[0].photo_reference
-    if (photo_reference != "" && opened != true) {
-      console.log("999")//*20
-      setPhotoState(PhotoDialogState.Loading)
-      photoAPI.fetchData(photo_reference)
-        .then((data) => {
-          console.log("1000")// not reached
-          console.log(data.url)
-          setOpened(true)
-          setPhoto(data.url)
-          setPhotoState(PhotoDialogState.Ready)
-          console.log("1001")
-
-        })
-        .catch((err) => setPhotoState(PhotoDialogState.Error))
+    const useStyles = makeStyles({
+      paper: {
+        border: "solid 1px gray"
       }
-  }
+    })
+    const classes = useStyles();
+    console.log("998")
+
+    const see = () => {
+      //console.log(index)
+      // let photo_reference = nearby.results[index].photos[0].photo_reference
+      if (photo_reference != "" && opened != true) {
+        console.log("999")//*20
+        setPhotoState(PhotoDialogState.Loading)
+        photoAPI.fetchData(photo_reference)
+          .then((data) => {
+            console.log("1000")// not reached
+            console.log(data.url)
+            setOpened(true)
+            setPhoto(data.url)
+            setPhotoState(PhotoDialogState.Ready)
+            console.log("1001")
+          }).catch((err) => setPhotoState(PhotoDialogState.Error))
+      }
+    }
 
   if (photoState === PhotoDialogState.Start) {
     return (
-
       <Dialog onClose={handleClose}
         fullWidth={true}
         aria-labelledby="simple-dialog-title"
@@ -55,13 +53,12 @@ export const PhotoDialog: React.FC<{open: boolean, onClose: () => void,photo_ref
           elevation: 0,
           className: classes.paper
         }}>
-        <DialogTitle id="simple-dialog-title">Photo</DialogTitle>
+        <DialogTitle id="simple-dialog-title">No Photo</DialogTitle>
         <div> {open == true? see() : ""} </div>
       </Dialog>
   )
-}else if (photoState === PhotoDialogState.Loading || photoState === PhotoDialogState.Error){
+ } else if (photoState === PhotoDialogState.Loading || photoState === PhotoDialogState.Error) {
     return (
-
       <Dialog onClose={handleClose}
         fullWidth={true}
         aria-labelledby="simple-dialog-title"
@@ -72,12 +69,10 @@ export const PhotoDialog: React.FC<{open: boolean, onClose: () => void,photo_ref
           className: classes.paper
         }}>
         <DialogTitle id="simple-dialog-title">Photo</DialogTitle>
-
-        <Typography> {photoState === PhotoDialogState.Loading ? PhotoDialogState.Loading : PhotoDialogState.Error}
-</Typography>
+        <Typography> {photoState === PhotoDialogState.Loading ? PhotoDialogState.Loading : PhotoDialogState.Error} </Typography>
       </Dialog>
     )
-  }else if (photoState === PhotoDialogState.Ready){
+  } else if (photoState === PhotoDialogState.Ready) {
       return (
 
         <Dialog onClose={handleClose}
@@ -88,7 +83,6 @@ export const PhotoDialog: React.FC<{open: boolean, onClose: () => void,photo_ref
             elevation: 0,
             className: classes.paper
           }}>
-          <DialogTitle id="simple-dialog-title">Photo</DialogTitle>
           <img src={photo}/>
         </Dialog>
       )

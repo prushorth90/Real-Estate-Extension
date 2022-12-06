@@ -6,17 +6,18 @@ export const TypeForm: React.FC<{
   type: string
   setType, keyword, setKeyword
 }> = ({ type,setType, keyword, setKeyword}) => {
+
   const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-  }),
-);
+    createStyles({
+      formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+      },
+      selectEmpty: {
+        marginTop: theme.spacing(2),
+      },
+    }),
+ );
 
   const classes = useStyles();
 
@@ -26,20 +27,20 @@ export const TypeForm: React.FC<{
 
   }
 
-return (
-  <FormControl required className={classes.formControl}>
-      <InputLabel id="demo-simple-select-required-label">Type</InputLabel>
-      <Select
-        labelId="demo-simple-select-required-label"
-        id="demo-simple-select-required"
-        value={type}
-        onChange={(handleChange2)}
-      >
-      {["bakery", "cafe", "restaurant", "meal_delivery", "meal_takeaway"].map((val, index) => (
-        <MenuItem key={index} value={val}>{val}</MenuItem>
-      ))}
-      </Select>
-      <FormHelperText>Required</FormHelperText>
-  </FormControl>
-)
+  return (
+    <FormControl required className={classes.formControl}>
+        <InputLabel id="demo-simple-select-required-label">Type</InputLabel>
+        <Select
+          labelId="demo-simple-select-required-label"
+          id="demo-simple-select-required"
+          value={type}
+          onChange={(handleChange2)}
+        >
+        {["bakery", "cafe", "restaurant", "meal_delivery", "meal_takeaway"].map((val, index) => (
+          <MenuItem key={index} value={val}>{val}</MenuItem>
+        ))}
+        </Select>
+        <FormHelperText>Required</FormHelperText>
+    </FormControl>
+ )
 }

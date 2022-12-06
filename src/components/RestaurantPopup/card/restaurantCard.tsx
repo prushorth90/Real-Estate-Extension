@@ -41,6 +41,8 @@ export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({
   const setPhotoId = (result, index) => {
       if (result.photos !== undefined) {
         setPhotoReference(result.photos[0].photo_reference)
+      } else if (result.photos === undefined) {
+        setPhotoReference("")
       }
       setOpenPhoto(true)
       setCurrIndex(index)
@@ -66,7 +68,13 @@ export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({
               <Typography className="restaurantCard-body"> Vicinity: {result.vicinity} </Typography>
               <br/>
               <br/>
-              <Button className="restaurantCard-body" key={result.photos !== undefined ? result.photos[0].photo_reference: null} variant="outlined" color="primary" onClick={() => setPhotoId(result,index)}> View Photo </Button>
+              <Button className="restaurantCard-body"
+                      key={result.photos !== undefined ? result.photos[0].photo_reference: null}
+                      variant="outlined"
+                      color="primary"
+                      onClick={() => setPhotoId(result,index)}>
+                      View Photo
+              </Button>
               {index == currIndex ? <PhotoDialog open={openPhoto} onClose={() => setOpenPhoto(false)} photo_reference={photoReference}/> : null}
             </Grid>
           </Grid>
