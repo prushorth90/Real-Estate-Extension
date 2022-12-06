@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from 'react'
 import {FormControl, InputLabel, MenuItem, Select, FormHelperText} from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
+import {Type} from './type'
 export const TypeFilter: React.FC<{
   type: string
   setType
@@ -36,7 +36,7 @@ export const TypeFilter: React.FC<{
           value={type}
           onChange={(handleChange2)}
         >
-        {["bakery", "cafe", "restaurant", "meal_delivery", "meal_takeaway"].map((val, index) => (
+        {[Type.Bakery, Type.Cafe, Type.Restaurant, Type.Meal_Delivery, Type.Meal_Takeaway].map((val, index) => (
           <MenuItem key={index} value={val}>{val}</MenuItem>
         ))}
         </Select>

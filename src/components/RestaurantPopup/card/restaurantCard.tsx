@@ -7,7 +7,7 @@ import {RestaurantCardContainer} from './restaurantCardContainer'
 import {PhotoDialog} from '../dialog/photoDialog'
 import Rating from '@material-ui/lab/Rating';
 import {MessageCard} from './messageCard'
-
+import {Type} from '../filters/type/type'
 
 export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({ coord, initNearbyData,initCardState}) => {
   console.log("9")
@@ -23,7 +23,7 @@ export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({
     console.log("10")
     if (coord !== undefined && coord.results.length !== 0) {
       console.log("10.1")
-      restaurantApi.fetchData(coord, "bakery", "1500", "bakery")
+      restaurantApi.fetchData(coord, Type.Bakery, "1500", Type.Bakery)
         .then((data) => {
           console.log("10.5")
           setNearbySearchData(data)
