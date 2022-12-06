@@ -2,7 +2,7 @@ import React,{ useEffect, useState } from 'react'
 import {FormControl, InputLabel, MenuItem, Select, FormHelperText} from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
-export const RadiusForm: React.FC<{
+export const RadiusFilter: React.FC<{
   radius: string
   setRadius
 }> = ({ radius, setRadius}) => {
@@ -18,7 +18,7 @@ export const RadiusForm: React.FC<{
     }),
    );
   const classes = useStyles();
-  
+
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setRadius(event.target.value as string);
   }

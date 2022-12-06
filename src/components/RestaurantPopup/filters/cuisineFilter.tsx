@@ -2,7 +2,7 @@ import React,{ useEffect, useState } from 'react'
 import {FormControl, InputLabel, MenuItem, Select, FormHelperText} from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
-export const CuisineForm: React.FC<{
+export const CuisineFilter: React.FC<{
   keyword: string
   setKeyword
 }> = ({ keyword, setKeyword}) => {

@@ -2,7 +2,7 @@ import React,{ useEffect, useState } from 'react'
 import {FormControl, InputLabel, MenuItem, Select, FormHelperText} from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
-export const TypeForm: React.FC<{
+export const TypeFilter: React.FC<{
   type: string
   setType
 }> = ({ type,setType}) => {

@@ -4,7 +4,7 @@ import {Button, Box,} from '@material-ui/core'
 import {AddressData} from '../../utils/api/address/addressIndex'
 import { RestaurantAPI, NearbySearchData } from '../../utils/api/restaurant/restaurantIndex'
 import {RestaurantCard, RestaurantCardState} from './card/restaurantCardIndex'
-import {RadiusForm, TypeForm, CuisineForm} from './formSelect/formIndex'
+import {RadiusFilter, TypeFilter, CuisineFilter} from './filters/filterIndex'
 
 const RestaurantPopup: React.FC<{
   topic: Topic
@@ -48,9 +48,9 @@ const RestaurantPopup: React.FC<{
     {console.log("8")}
       {topic == Topic.Restaurant &&
         <Box>
-          <RadiusForm radius={radius} setRadius={setRadius}  />
-          <TypeForm type={type} setType={setType} />
-          {type === "restaurant" ? <CuisineForm keyword={keyword} setKeyword={setKeyword} /> : ""}
+          <RadiusFilter radius={radius} setRadius={setRadius}  />
+          <TypeFilter type={type} setType={setType} />
+          {type === "restaurant" ? <CuisineFilter keyword={keyword} setKeyword={setKeyword} /> : ""}
          <RestaurantCard coord={coord} initNearbyData={nearbySearchData} initCardState={cardState} />
        </Box>
       }
