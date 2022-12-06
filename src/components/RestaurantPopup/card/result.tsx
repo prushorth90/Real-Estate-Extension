@@ -1,66 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Grid, Typography,} from '@material-ui/core'
-import { RestaurantAPI, NearbySearchData } from '../../../utils/api/restaurant/restaurantIndex'
+import { Box, Typography,} from '@material-ui/core'
 import './restaurantCard.css'
-import {RestaurantCardState} from './restaurantCardState'
-import {RestaurantCardContainer} from './restaurantCardContainer'
-import {MessageCard} from './messageCard'
-import {Type} from '../filters/type/type'
-import {Result} from './result'
-import {Photo} from './photo'
+import Rating from '@material-ui/lab/Rating';
 
-export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({ coord, initNearbyData,initCardState}) => {
-  console.log("9")
-  // STATE ONLY RENDERED ONCE, EVEN IF  RERENDER WONT UPDATE SO HAD TO MOVE SET, BUT PROPS ALL TIME,
-  const [nearbySearchData, setNearbySearchData] = useState<NearbySearchData | null>(initNearbyData)
-  const [cardState, setCardState] = useState<RestaurantCardState>(initCardState)
-  let restaurantApi = new RestaurantAPI()
 
-  useEffect(() => {
-    console.log("10")
-    if (coord !== undefined && coord.results.length !== 0) {
-      console.log("10.1")
-      restaurantApi.fetchData(coord, Type.Bakery, "1500", Type.Bakery)
-        .then((data) => {
-          console.log("10.5")
-          setNearbySearchData(data)
-          data.results.length === 0 ?setCardState(RestaurantCardState.None) : setCardState(RestaurantCardState.Ready)
-        })
-        .catch((err) => setCardState(RestaurantCardState.Error))
-      }
-  }, [coord])
-
-  useEffect(() => {
-    setNearbySearchData(initNearbyData)
-    setCardState(initCardState)
-  },[initNearbyData, initCardState])
-
-  if (cardState === RestaurantCardState.Loading || cardState === RestaurantCardState.Error || cardState === RestaurantCardState.None) {
-    return (
-      <MessageCard cardState/>
-    )
-  } else {
+export const Result: React.FC<{result}> = ({result}) => {
 
     return (
-      <Box>
-      {console.log("12")}
-      {nearbySearchData.results.map((result, index) => (
-        <RestaurantCardContainer key={index}>
-          <Grid container>
-            <Grid item>
-              <Result result={result}/>
-              <br/>
-              <br/>
-              <Photo result={result} index={index}/>
-            </Grid>
-          </Grid>
-        </RestaurantCardContainer>
-
-          ))}
-        </Box>
+      <div>
+      {result.name !== undefined ? <Typography className="restaurantCard-title"> {result.name} </Typography> : ""}
+      {result.user_ratings_total !== undefined ? <Typography className="restaurantCard-body" component="legend">Total User Ratings: {result.user_ratings_total} </Typography>:""}
+      {result.rating !== undefined ? <Rating name="read-only" className="restaurantCard-body" value={result.rating} readOnly /> : ""}
+      {result.price_level !== undefined ? <Typography className="restaurantCard-body">Price Level: {result.price_level}</Typography>:""}
+      {result.user_ratings_total !== undefined? <Typography className="restaurantCard-body"> Vicinity: {result.vicinity} </Typography> : ""}
+      </div>
     )
-  }
 }
+
 
 // some results no photos field
 
