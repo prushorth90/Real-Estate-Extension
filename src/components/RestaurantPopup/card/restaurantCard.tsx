@@ -61,11 +61,11 @@ export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({
         <RestaurantCardContainer key={index}>
           <Grid container>
             <Grid item>
-              <Typography className="restaurantCard-title"> {result.name} </Typography>
-              <Typography className="restaurantCard-body" component="legend">Total User Ratings: {result.user_ratings_total} </Typography>
-              <Rating name="read-only" className="restaurantCard-body" value={result.rating} readOnly />
-              <Typography className="restaurantCard-body"> Price Level: {result.price_level} </Typography>
-              <Typography className="restaurantCard-body"> Vicinity: {result.vicinity} </Typography>
+              {result.name !== undefined ? <Typography className="restaurantCard-title"> {result.name} </Typography> : ""}
+              {result.user_ratings_total !== undefined ? <Typography className="restaurantCard-body" component="legend">Total User Ratings: {result.user_ratings_total} </Typography>:""}
+              {result.rating !== undefined ? <Rating name="read-only" className="restaurantCard-body" value={result.rating} readOnly /> : ""}
+              {result.price_level !== undefined ? <Typography className="restaurantCard-body">Price Level: {result.price_level}</Typography>:""}
+              {result.user_ratings_total !== undefined? <Typography className="restaurantCard-body"> Vicinity: {result.vicinity} </Typography> : ""}
               <br/>
               <br/>
               <Button className="restaurantCard-body"
