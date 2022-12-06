@@ -22,7 +22,7 @@ const RestaurantPopup: React.FC<{
       restaurantApi.fetchData(coord, keyword, radius, type)
         .then((data) => {
           setNearbySearchData(data)
-          setCardState(RestaurantCardState.Ready)
+          data.results.length === 0 ?setCardState(RestaurantCardState.None): setCardState(RestaurantCardState.Ready)
         })
         .catch((err) => setCardState(RestaurantCardState.Error))
       }
