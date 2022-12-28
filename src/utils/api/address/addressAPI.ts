@@ -1,6 +1,6 @@
 import { AddressData} from './addressIndex';
 import {API} from '../mainApi';
-import {Address} from '../../../popup/Address/address'
+import {Address} from './address'
 export class AddressAPI extends API {
 
   private readonly ADDRESS_API_KEY = 'AIzaSyDbq-ALkqgJHFvNBDQc-1MJjCk6schskEw';

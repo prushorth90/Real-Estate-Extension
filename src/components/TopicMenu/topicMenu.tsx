@@ -1,10 +1,10 @@
 import React from 'react'
-import {Topic} from '../../popup/topics'
+import {Topic} from './topics'
 import {Typography, MenuItem, FormControl, Select } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
 
-const TopicMenu: React.FC<{
+export const TopicMenu: React.FC<{
   topic: Topic,
   setTopic
 }> = ({ topic,setTopic }) => {
@@ -41,5 +41,3 @@ const TopicMenu: React.FC<{
       </FormControl>
     )
   }
-
-  export default TopicMenu

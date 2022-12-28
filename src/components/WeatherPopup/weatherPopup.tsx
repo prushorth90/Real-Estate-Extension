@@ -1,6 +1,6 @@
 import React from 'react'
 import WeatherCard from './WeatherCard'
-import {Topic} from '../../popup/topics'
+import {Topic} from '../TopicMenu/topics'
 
 
 const WeatherPopup: React.FC<{

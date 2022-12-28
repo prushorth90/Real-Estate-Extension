@@ -1,7 +1,6 @@
 import { NearbySearchData} from './restaurantIndex';
 import {API} from '../mainApi';
-import {Address} from '../../../popup/Address/address'
-import {AddressData} from '../address/addressIndex'
+import {Address, AddressData} from '../address/addressIndex'
 
 export class RestaurantAPI extends API {
 

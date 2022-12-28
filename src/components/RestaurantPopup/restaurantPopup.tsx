@@ -1,5 +1,5 @@
 import React,{ useEffect, useState } from 'react'
-import {Topic} from '../../popup/topics'
+import {Topic} from '../TopicMenu/topics'
 import {Button, Box,} from '@material-ui/core'
 import {AddressData} from '../../utils/api/address/addressIndex'
 import { RestaurantAPI, NearbySearchData } from '../../utils/api/restaurant/restaurantIndex'
