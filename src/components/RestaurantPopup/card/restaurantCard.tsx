@@ -20,7 +20,7 @@ export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({
     console.log("10")
     if (coord !== undefined && coord.results.length !== 0) {
       console.log("10.1")
-      restaurantApi.fetchData(coord, Type.Bakery, "1500", Type.Bakery)
+      restaurantApi.fetchData(coord, Type.Bakery, "1500", Type.Bakery, "0", "4")
         .then((data) => {
           console.log("10.5")
           setNearbySearchData(data)
@@ -51,7 +51,16 @@ export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({
               <Result result={result}/>
               <br/>
               <br/>
-              <Photo result={result} index={index}/>
+              <div style={{ display: 'flex' }} >
+                <Photo result={result} index={index}/>
+
+                <Button className="restaurantCard-body"
+                        key={result.photos !== undefined ? result.photos[0].photo_reference: null}
+                        variant="outlined"
+                        color="primary">
+                        View Time
+                </Button>
+              </div>
             </Grid>
           </Grid>
         </RestaurantCardContainer>

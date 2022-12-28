@@ -1,11 +1,11 @@
 import React,{ useEffect, useState } from 'react'
 import {FormControl, InputLabel, MenuItem, Select, FormHelperText} from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import {Cuisine} from './Cuisine'
-export const CuisineFilter: React.FC<{
-  keyword: string
-  setKeyword
-}> = ({ keyword, setKeyword}) => {
+
+export const MaxPriceFilter: React.FC<{
+  maxPrice: string
+  setMaxPrice
+}> = ({ maxPrice,setMaxPrice}) => {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       formControl: {
@@ -16,30 +16,29 @@ export const CuisineFilter: React.FC<{
         marginTop: theme.spacing(2),
       },
     }),
- );
- useEffect(() => {
-   setKeyword("Pizza")
- }, [])
+   );
   const classes = useStyles();
 
-  const handleChange2 = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setKeyword(event.target.value as string);
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setMaxPrice(event.target.value as string);
   }
 
-  return (
+ return (
     <FormControl required className={classes.formControl}>
-        <InputLabel id="demo-simple-select-required-label">Cuisine</InputLabel>
+        <InputLabel id="demo-simple-select-required-label">Max Price</InputLabel>
         <Select
           labelId="demo-simple-select-required-label"
           id="demo-simple-select-required"
-          value={keyword}
-          onChange={(handleChange2)}
+          value={maxPrice}
+          onChange={(handleChange)}
         >
-        {[Cuisine.Pizza, Cuisine.English, Cuisine.Chinese, Cuisine.Indian, Cuisine.Italian, Cuisine.Fast_Food].map((val, index) => (
-          <MenuItem key={index} value={val}>{val}</MenuItem>
-        ))}
+          {[3,4].map((val, index) => (
+            <MenuItem key={index} value={val}>{val}</MenuItem>
+          ))}
+
         </Select>
         <FormHelperText>Required</FormHelperText>
     </FormControl>
-  )
+ )
+
 }

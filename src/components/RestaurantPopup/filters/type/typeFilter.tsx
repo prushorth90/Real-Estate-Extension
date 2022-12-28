@@ -24,7 +24,7 @@ export const TypeFilter: React.FC<{
 
   const handleChange2 = (event: React.ChangeEvent<{ value: unknown }>) => {
     setType(event.target.value as string);
-    setKeyword(event.target.value as string);
+    event.target.value === "Restaurant"? setKeyword("Pizza"): setKeyword(event.target.value as string);
   }
 
   return (

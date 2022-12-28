@@ -10,14 +10,14 @@ export class RestaurantAPI extends API {
   //   super(apiKey);
   // }
 
-  public async fetchData(coord, keyword, radius, type): Promise<NearbySearchData> {
+  public async fetchData(coord, keyword, radius, type, minPrice, maxPrice): Promise<NearbySearchData> {
     let latitude = coord.results[0].geometry.location.lat
     let longitude = coord.results[0].geometry.location.lng
     console.log("adsalskjdalksjdlkajsdlkasjdlkajsdlkajslkdjaskldjlaksjdlkajsldkjaslkdjalksjdklajalksjdkljasl")
     console.log(latitude)
     //`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${tempScale}&appid=${this.NEARBY_SEARCH_API_KEY}`
     const res = await fetch(
-      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=${keyword}&location=${latitude}%2C${longitude}&radius=${radius}&type=${type}&key=${this.NEARBY_SEARCH_API_KEY}`
+      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=${keyword}&location=${latitude}%2C${longitude}&radius=${radius}&type=${type}&minprice=${minPrice}&maxprice=${maxPrice}&key=${this.NEARBY_SEARCH_API_KEY}`
     )
     // for bs.ts and wc.tsx if the thing fails // &type=indian
     if (!res.ok) {
