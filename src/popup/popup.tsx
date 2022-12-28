@@ -7,8 +7,7 @@ import {Topic} from './topics'
 import TopicMenu from '../components/TopicMenu'
 import WeatherPopup from '../components/WeatherPopup'
 import RestaurantPopup from '../components/RestaurantPopup'
-import {Address} from './Address/address'
-import {AddressData, AddressAPI} from '../utils/api/address/addressIndex'
+import {Address, AddressData, AddressAPI} from '../utils/api/address/addressIndex'
 // https://v4.mui.com/components/selects/
 const App: React.FC<{}> = () => {
   const [topic, setTopic] = useState<Topic>(Topic.Topics)
