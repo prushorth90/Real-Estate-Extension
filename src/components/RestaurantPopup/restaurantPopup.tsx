@@ -3,7 +3,7 @@ import {Topic} from '../TopicMenu/topics'
 import {Button, Box,} from '@material-ui/core'
 import {AddressData} from '../../utils/api/address/addressIndex'
 import { RestaurantAPI, NearbySearchData } from '../../utils/api/restaurant/restaurantIndex'
-import {RestaurantCard, RestaurantCardState} from './card/restaurantCardIndex'
+import {RestaurantCard, ResultState} from './card/restaurantCardIndex'
 import {Filter} from './filters/filterIndex'
 
 const RestaurantPopup: React.FC<{
@@ -11,7 +11,7 @@ const RestaurantPopup: React.FC<{
   coord: AddressData
 }> = ({ topic, coord}) => {
   const [nearbySearchData, setNearbySearchData] = useState<NearbySearchData | null>(null)
-  const [cardState, setCardState] = useState<RestaurantCardState>(RestaurantCardState.Loading)
+  const [cardState, setCardState] = useState<ResultState>(ResultState.Loading)
   return (
     <div>
     {console.log("8")}

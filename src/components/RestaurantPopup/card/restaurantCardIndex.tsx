@@ -1,2 +1,2 @@
 export {RestaurantCard as RestaurantCard  } from "./restaurantCard";
-export {RestaurantCardState as RestaurantCardState  } from "./restaurantCardState";
+export {ResultState as ResultState  } from "./cardComponents/result/resultState";

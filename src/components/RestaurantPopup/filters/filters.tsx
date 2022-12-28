@@ -1,6 +1,6 @@
 import React,{ useEffect, useState } from 'react'
 import { RestaurantAPI } from '../../../utils/api/restaurant/restaurantIndex'
-import {RestaurantCardState} from '../card/restaurantCardIndex'
+import {ResultState} from '../card/restaurantCardIndex'
 import {RadiusFilter, TypeFilter, CuisineFilter, MinPriceFilter, MaxPriceFilter} from '../filters/filterIndex'
 import {Type} from './type/type'
 
@@ -17,9 +17,9 @@ export const Filter: React.FC<{coord,initNearbyData,initCardState, setNearbySear
       restaurantApi.fetchData(coord, keyword, radius, type, minPrice, maxPrice)
         .then((data) => {
           setNearbySearchData(data)
-          data.results.length === 0 ?setCardState(RestaurantCardState.None): setCardState(RestaurantCardState.Ready)
+          data.results.length === 0 ?setCardState(ResultState.None): setCardState(ResultState.Ready)
         })
-        .catch((err) => setCardState(RestaurantCardState.Error))
+        .catch((err) => setCardState(ResultState.Error))
     }
   }, [radius, type, keyword, minPrice, maxPrice])
 

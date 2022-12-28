@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { Box, Button, Grid, Typography,} from '@material-ui/core'
 import { RestaurantAPI, NearbySearchData } from '../../../utils/api/restaurant/restaurantIndex'
 import './restaurantCard.css'
-import {RestaurantCardState} from './restaurantCardState'
+import {ResultState} from './cardComponents/result/resultState'
 import {RestaurantCardContainer} from './restaurantCardContainer'
 import {MessageCard} from './messageCard'
 import {Type} from '../filters/type/type'
-import {Result} from './result'
-import {Photo} from './photo'
+import {Result} from './cardComponents/result/result'
+import {PhotoButton} from './cardComponents/buttons/photo'
 
 export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({ coord, initNearbyData,initCardState}) => {
   console.log("9")
   // STATE ONLY RENDERED ONCE, EVEN IF  RERENDER WONT UPDATE SO HAD TO MOVE SET, BUT PROPS ALL TIME,
   const [nearbySearchData, setNearbySearchData] = useState<NearbySearchData | null>(initNearbyData)
-  const [cardState, setCardState] = useState<RestaurantCardState>(initCardState)
+  const [cardState, setCardState] = useState<ResultState>(initCardState)
   let restaurantApi = new RestaurantAPI()
 
   useEffect(() => {
@@ -24,9 +24,9 @@ export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({
         .then((data) => {
           console.log("10.5")
           setNearbySearchData(data)
-          data.results.length === 0 ?setCardState(RestaurantCardState.None) : setCardState(RestaurantCardState.Ready)
+          data.results.length === 0 ?setCardState(ResultState.None) : setCardState(ResultState.Ready)
         })
-        .catch((err) => setCardState(RestaurantCardState.Error))
+        .catch((err) => setCardState(ResultState.Error))
       }
   }, [coord])
 
@@ -35,7 +35,7 @@ export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({
     setCardState(initCardState)
   },[initNearbyData, initCardState])
 
-  if (cardState === RestaurantCardState.Loading || cardState === RestaurantCardState.Error || cardState === RestaurantCardState.None) {
+  if (cardState === ResultState.Loading || cardState === ResultState.Error || cardState === ResultState.None) {
     return (
       <MessageCard cardState/>
     )
@@ -52,7 +52,7 @@ export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({
               <br/>
               <br/>
               <div style={{ display: 'flex' }} >
-                <Photo result={result} index={index}/>
+                <PhotoButton result={result} index={index}/>
 
                 <Button className="restaurantCard-body"
                         key={result.photos !== undefined ? result.photos[0].photo_reference: null}

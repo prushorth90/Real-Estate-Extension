@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Button,} from '@material-ui/core'
-import './restaurantCard.css'
+import '../../restaurantCard.css'
 import {PhotoDialog} from '../dialog/photoDialog'
 
 
-export const Photo: React.FC<{result, index}> = ({result, index}) => {
+export const PhotoButton: React.FC<{result, index}> = ({result, index}) => {
 //setOpenPhoto={setOpenPhoto} setPhotoId={setPhotoId} openPhoto={openPhoto} photoReference={photoReference}
     const [openPhoto, setOpenPhoto] = useState<boolean>(false);
     const [photoReference, setPhotoReference] = useState<string>("");
