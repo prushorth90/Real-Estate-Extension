@@ -1,4 +1,4 @@
-import React,{ useEffect, useState,useContext} from 'react'
+import React,{ useEffect, useState,useContext, createContext} from 'react'
 import {Topic} from '../TopicMenu/topics'
 import {Button, Box,} from '@material-ui/core'
 import {AddressData} from '../../utils/api/address/addressIndex'
@@ -6,6 +6,9 @@ import { RestaurantAPI, NearbySearchData } from '../../utils/api/restaurant/rest
 import {RestaurantCard, ResultState} from './card/restaurantCardIndex'
 import {Filter} from './filters/filterIndex'
 import {TopicContext} from '../../popup/popup'
+
+export const NearbySearchContext = createContext([])
+export const CardStateContext = createContext([])
 
 const RestaurantPopup: React.FC<{
 }> = () => {
@@ -17,8 +20,14 @@ const RestaurantPopup: React.FC<{
     {console.log("8")}
       {topic == Topic.Restaurant &&
         <Box>
-         <Filter initNearbyData={nearbySearchData} initCardState={cardState} setNearbySearchData={setNearbySearchData} setCardState={setCardState}/>
-         <RestaurantCard initNearbyData={nearbySearchData} initCardState={cardState} />
+         <NearbySearchContext.Provider value={[nearbySearchData,setNearbySearchData]}>
+          <CardStateContext.Provider value={[cardState, setCardState]}>
+            <Filter />
+            <RestaurantCard />
+          </CardStateContext.Provider>
+
+         </NearbySearchContext.Provider>
+
        </Box>
       }
     </div>

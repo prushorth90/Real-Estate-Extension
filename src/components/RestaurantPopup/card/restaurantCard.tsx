@@ -9,14 +9,15 @@ import {Type} from '../filters/type/type'
 import {Result} from './cardComponents/result/result'
 import {PhotoButton} from './cardComponents/buttons/photo'
 import {CoordContext} from '../../../popup/popup'
+import {NearbySearchContext, CardStateContext} from '../restaurantPopup'
 
 
-export const RestaurantCard: React.FC<{initNearbyData,initCardState}> = ({initNearbyData,initCardState}) => {
+export const RestaurantCard: React.FC<{}> = ({}) => {
   console.log("9")
   // STATE ONLY RENDERED ONCE, EVEN IF  RERENDER WONT UPDATE SO HAD TO MOVE SET, BUT PROPS ALL TIME,
-  const [nearbySearchData, setNearbySearchData] = useState<NearbySearchData | null>(initNearbyData)
-  const [cardState, setCardState] = useState<ResultState>(initCardState)
   const [coord,setCoord] = useContext(CoordContext)
+  const [nearbySearchData, setNearbySearchData] = useContext(NearbySearchContext)
+  const [cardState, setCardState] = useContext(CardStateContext)
 
   let restaurantApi = new RestaurantAPI()
 
@@ -33,11 +34,6 @@ export const RestaurantCard: React.FC<{initNearbyData,initCardState}> = ({initNe
         .catch((err) => setCardState(ResultState.Error))
       }
   }, [coord])
-
-  useEffect(() => {
-    setNearbySearchData(initNearbyData)
-    setCardState(initCardState)
-  },[initNearbyData, initCardState])
 
   if (cardState === ResultState.Loading || cardState === ResultState.Error || cardState === ResultState.None) {
     return (

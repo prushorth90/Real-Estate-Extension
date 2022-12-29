@@ -4,7 +4,9 @@ import {ResultState} from '../card/restaurantCardIndex'
 import {RadiusFilter, TypeFilter, CuisineFilter, MinPriceFilter, MaxPriceFilter} from '../filters/filterIndex'
 import {Type} from './type/type'
 import {CoordContext} from '../../../popup/popup'
-export const Filter: React.FC<{initNearbyData,initCardState, setNearbySearchData, setCardState}> = ({ initNearbyData,initCardState, setNearbySearchData, setCardState}) => {
+import {NearbySearchContext, CardStateContext} from '../restaurantPopup'
+
+export const Filter: React.FC<{}> = ({}) => {
   let restaurantApi = new RestaurantAPI()
   const [radius, setRadius] = useState<string>("1500")
   const [type,setType] = useState<string>(Type.Bakery)
@@ -12,7 +14,8 @@ export const Filter: React.FC<{initNearbyData,initCardState, setNearbySearchData
   const [minPrice,setMinPrice] = useState<string>("0")
   const [maxPrice,setMaxPrice] = useState<string>("4")
   const [coord,setCoord] = useContext(CoordContext)
-
+  const [nearbySearchData, setNearbySearchData] = useContext(NearbySearchContext)
+  const [cardState, setCardState] = useContext(CardStateContext)
 
   useEffect(() => {
     if (coord !== undefined && coord.results.length !== 0) {
