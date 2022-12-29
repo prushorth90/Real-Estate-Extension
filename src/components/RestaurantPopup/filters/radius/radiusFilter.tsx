@@ -7,14 +7,13 @@ export const RadiusFilter: React.FC<{
   radius: string
   setRadius
 }> = ({ radius, setRadius}) => {
-  const classes = useStyles();
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setRadius(event.target.value as string);
   }
 
  return (
-    <FormControl required className={classes.formControl}>
+    <FormControl required className={useStyles().formControl}>
         <InputLabel id="demo-simple-select-required-label">Radius</InputLabel>
         <Select
           labelId="demo-simple-select-required-label"

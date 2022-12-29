@@ -7,14 +7,12 @@ export const MaxPriceFilter: React.FC<{
   maxPrice: string
   setMaxPrice
 }> = ({ maxPrice,setMaxPrice}) => {
-  const classes = useStyles();
-
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setMaxPrice(event.target.value as string);
   }
 
  return (
-    <FormControl required className={classes.formControl}>
+    <FormControl required className={useStyles().formControl}>
         <InputLabel id="demo-simple-select-required-label">Max Price</InputLabel>
         <Select
           labelId="demo-simple-select-required-label"

@@ -8,15 +8,13 @@ export const TypeFilter: React.FC<{
   setType
   setKeyword
 }> = ({ type,setType,setKeyword}) => {
-  const classes = useStyles();
-
   const handleChange2 = (event: React.ChangeEvent<{ value: unknown }>) => {
     setType(event.target.value as string);
     event.target.value === "Restaurant"? setKeyword("Pizza"): setKeyword(event.target.value as string);
   }
 
   return (
-    <FormControl required className={classes.formControl}>
+    <FormControl required className={useStyles().formControl}>
         <InputLabel id="demo-simple-select-required-label">Type</InputLabel>
         <Select
           labelId="demo-simple-select-required-label"

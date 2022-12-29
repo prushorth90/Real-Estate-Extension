@@ -7,14 +7,13 @@ export const MinPriceFilter: React.FC<{
   minPrice: string
   setMinPrice
 }> = ({ minPrice,setMinPrice}) => {
-  const classes = useStyles();
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setMinPrice(event.target.value as string);
   }
 
  return (
-    <FormControl required className={classes.formControl}>
+    <FormControl required className={useStyles().formControl}>
         <InputLabel id="demo-simple-select-required-label">Min Price</InputLabel>
         <Select
           labelId="demo-simple-select-required-label"

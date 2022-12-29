@@ -8,7 +8,6 @@ export const CuisineFilter: React.FC<{
   keyword: string
   setKeyword
 }> = ({ keyword, setKeyword}) => {
-const classes = useStyles();
 
  useEffect(() => {
    setKeyword("Pizza")
@@ -19,7 +18,7 @@ const classes = useStyles();
   }
 
   return (
-    <FormControl required className={classes.formControl}>
+    <FormControl required className={useStyles().formControl}>
         <InputLabel id="demo-simple-select-required-label">Cuisine</InputLabel>
         <Select
           labelId="demo-simple-select-required-label"
