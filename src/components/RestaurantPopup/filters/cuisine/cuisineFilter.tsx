@@ -2,25 +2,17 @@ import React,{ useEffect, useState } from 'react'
 import {FormControl, InputLabel, MenuItem, Select, FormHelperText} from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {Cuisine} from './Cuisine'
+import {useStyles} from '../style'
+
 export const CuisineFilter: React.FC<{
   keyword: string
   setKeyword
 }> = ({ keyword, setKeyword}) => {
-  const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-      formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-      },
-      selectEmpty: {
-        marginTop: theme.spacing(2),
-      },
-    }),
- );
+const classes = useStyles();
+
  useEffect(() => {
    setKeyword("Pizza")
  }, [])
-  const classes = useStyles();
 
   const handleChange2 = (event: React.ChangeEvent<{ value: unknown }>) => {
     setKeyword(event.target.value as string);

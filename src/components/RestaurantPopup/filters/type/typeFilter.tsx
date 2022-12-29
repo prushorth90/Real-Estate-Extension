@@ -2,24 +2,12 @@ import React,{ useEffect, useState } from 'react'
 import {FormControl, InputLabel, MenuItem, Select, FormHelperText} from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {Type} from './type'
+import {useStyles} from '../style'
 export const TypeFilter: React.FC<{
   type: string
   setType
   setKeyword
 }> = ({ type,setType,setKeyword}) => {
-
-  const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-      formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-      },
-      selectEmpty: {
-        marginTop: theme.spacing(2),
-      },
-    }),
- );
-
   const classes = useStyles();
 
   const handleChange2 = (event: React.ChangeEvent<{ value: unknown }>) => {

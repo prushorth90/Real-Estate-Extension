@@ -1,22 +1,12 @@
 import React,{ useEffect, useState } from 'react'
 import {FormControl, InputLabel, MenuItem, Select, FormHelperText} from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {useStyles} from '../style'
 
 export const MaxPriceFilter: React.FC<{
   maxPrice: string
   setMaxPrice
 }> = ({ maxPrice,setMaxPrice}) => {
-  const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-      formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-      },
-      selectEmpty: {
-        marginTop: theme.spacing(2),
-      },
-    }),
-   );
   const classes = useStyles();
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
