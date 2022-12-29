@@ -1,14 +1,14 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import {Topic} from './topics'
 import {Typography, MenuItem, FormControl, Select } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+import {TopicContext} from '../../popup/popup'
 
 
 export const TopicMenu: React.FC<{
-  topic: Topic,
-  setTopic
-}> = ({ topic,setTopic }) => {
+}> = ({  }) => {
   console.log("4")
+  const [topic,setTopic] = useContext(TopicContext)
   const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),

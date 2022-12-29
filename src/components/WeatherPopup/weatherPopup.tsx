@@ -1,12 +1,12 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import WeatherCard from './WeatherCard'
 import {Topic} from '../TopicMenu/topics'
-
+import {TopicContext} from '../../popup/popup'
 
 const WeatherPopup: React.FC<{
-  topic: Topic,
   city: string
-}> = ({ topic, city}) => {
+}> = ({ city}) => {
+  const [topic,setTopic] = useContext(TopicContext)
   //      {/* this is equiv to if (topic==weather)then render topic component */}
   return (
     <div>

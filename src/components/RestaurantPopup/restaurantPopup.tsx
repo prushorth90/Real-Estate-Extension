@@ -1,15 +1,16 @@
-import React,{ useEffect, useState } from 'react'
+import React,{ useEffect, useState,useContext} from 'react'
 import {Topic} from '../TopicMenu/topics'
 import {Button, Box,} from '@material-ui/core'
 import {AddressData} from '../../utils/api/address/addressIndex'
 import { RestaurantAPI, NearbySearchData } from '../../utils/api/restaurant/restaurantIndex'
 import {RestaurantCard, ResultState} from './card/restaurantCardIndex'
 import {Filter} from './filters/filterIndex'
+import {TopicContext} from '../../popup/popup'
 
 const RestaurantPopup: React.FC<{
-  topic: Topic
   coord: AddressData
-}> = ({ topic, coord}) => {
+}> = ({ coord}) => {
+  const [topic,setTopic] = useContext(TopicContext)
   const [nearbySearchData, setNearbySearchData] = useState<NearbySearchData | null>(null)
   const [cardState, setCardState] = useState<ResultState>(ResultState.Loading)
   return (

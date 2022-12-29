@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, createContext } from 'react'
 import ReactDOM from 'react-dom'
 import { Box } from '@material-ui/core'
 import 'fontsource-roboto'
@@ -8,6 +8,8 @@ import WeatherPopup from '../components/WeatherPopup'
 import RestaurantPopup from '../components/RestaurantPopup'
 import {Address, AddressData, AddressAPI} from '../utils/api/address/addressIndex'
 // https://v4.mui.com/components/selects/
+export const TopicContext = createContext([])
+
 const App: React.FC<{}> = () => {
   const [topic, setTopic] = useState<Topic>(Topic.Topics)
   const [addr, setAddr] = useState<Address>(new Address(""))
@@ -54,9 +56,11 @@ const App: React.FC<{}> = () => {
   return (
     <Box mx="8px" my="16px">
       {console.log("3")}
-      <TopicMenu topic={topic} setTopic={setTopic}/>
-      <WeatherPopup topic={topic} city={addr.getCity()}/>
-      <RestaurantPopup topic={topic} coord={coord}/>
+      <TopicContext.Provider value={[topic,setTopic]}>
+        <TopicMenu />
+        <WeatherPopup city={addr.getCity()}/>
+        <RestaurantPopup coord={coord}/>
+      </TopicContext.Provider>
 
     </Box>
 
