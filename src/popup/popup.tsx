@@ -15,7 +15,6 @@ const App: React.FC<{}> = () => {
   const [topic, setTopic] = useState<Topic>(Topic.Topics)
   const [addr, setAddr] = useState<Address>(new Address(""))
   const [coord, setCoord] = useState<AddressData>()
-  let addressApi = new AddressAPI()
 
   console.log("1")
   // Get the url from the current tab
@@ -40,6 +39,7 @@ const App: React.FC<{}> = () => {
     //console.log(addr.getStreet())
   }
   const getLatitudeAndLongitude = (updatedAddress) => {
+    let addressApi = new AddressAPI()
     addressApi.fetchData(updatedAddress)
               .then((data) => {
                 console.log("PRUSHORTH 7.1")
