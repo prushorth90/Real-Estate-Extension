@@ -9,6 +9,7 @@ import RestaurantPopup from '../components/RestaurantPopup'
 import {Address, AddressData, AddressAPI} from '../utils/api/address/addressIndex'
 // https://v4.mui.com/components/selects/
 export const TopicContext = createContext([])
+export const CoordContext = createContext([])
 
 const App: React.FC<{}> = () => {
   const [topic, setTopic] = useState<Topic>(Topic.Topics)
@@ -59,7 +60,9 @@ const App: React.FC<{}> = () => {
       <TopicContext.Provider value={[topic,setTopic]}>
         <TopicMenu />
         <WeatherPopup city={addr.getCity()}/>
-        <RestaurantPopup coord={coord}/>
+        <CoordContext.Provider value={[coord, setCoord]}>
+          <RestaurantPopup/>
+        </CoordContext.Provider>
       </TopicContext.Provider>
 
     </Box>

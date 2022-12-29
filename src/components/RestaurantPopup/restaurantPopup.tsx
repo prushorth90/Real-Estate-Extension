@@ -8,8 +8,7 @@ import {Filter} from './filters/filterIndex'
 import {TopicContext} from '../../popup/popup'
 
 const RestaurantPopup: React.FC<{
-  coord: AddressData
-}> = ({ coord}) => {
+}> = () => {
   const [topic,setTopic] = useContext(TopicContext)
   const [nearbySearchData, setNearbySearchData] = useState<NearbySearchData | null>(null)
   const [cardState, setCardState] = useState<ResultState>(ResultState.Loading)
@@ -18,8 +17,8 @@ const RestaurantPopup: React.FC<{
     {console.log("8")}
       {topic == Topic.Restaurant &&
         <Box>
-         <Filter coord={coord} initNearbyData={nearbySearchData} initCardState={cardState} setNearbySearchData={setNearbySearchData} setCardState={setCardState}/>
-         <RestaurantCard coord={coord} initNearbyData={nearbySearchData} initCardState={cardState} />
+         <Filter initNearbyData={nearbySearchData} initCardState={cardState} setNearbySearchData={setNearbySearchData} setCardState={setCardState}/>
+         <RestaurantCard initNearbyData={nearbySearchData} initCardState={cardState} />
        </Box>
       }
     </div>

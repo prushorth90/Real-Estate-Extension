@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import { Box, Button, Grid, Typography,} from '@material-ui/core'
 import { RestaurantAPI, NearbySearchData } from '../../../utils/api/restaurant/restaurantIndex'
 import './restaurantCard.css'
@@ -8,12 +8,16 @@ import {MessageCard} from './messageCard'
 import {Type} from '../filters/type/type'
 import {Result} from './cardComponents/result/result'
 import {PhotoButton} from './cardComponents/buttons/photo'
+import {CoordContext} from '../../../popup/popup'
 
-export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({ coord, initNearbyData,initCardState}) => {
+
+export const RestaurantCard: React.FC<{initNearbyData,initCardState}> = ({initNearbyData,initCardState}) => {
   console.log("9")
   // STATE ONLY RENDERED ONCE, EVEN IF  RERENDER WONT UPDATE SO HAD TO MOVE SET, BUT PROPS ALL TIME,
   const [nearbySearchData, setNearbySearchData] = useState<NearbySearchData | null>(initNearbyData)
   const [cardState, setCardState] = useState<ResultState>(initCardState)
+  const [coord,setCoord] = useContext(CoordContext)
+
   let restaurantApi = new RestaurantAPI()
 
   useEffect(() => {
