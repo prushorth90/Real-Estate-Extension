@@ -3,27 +3,18 @@ import {Topic} from './topics'
 import {Typography, MenuItem, FormControl, Select } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import {TopicContext} from '../../popup/popup'
+import {useStyles} from './style'
 
 
 export const TopicMenu: React.FC<{
 }> = ({  }) => {
   console.log("4")
   const [topic,setTopic] = useContext(TopicContext)
-  const useStyles = makeStyles((theme) => ({
-    formControl: {
-      margin: theme.spacing(1),
-      // controls the width of select menu
-      minWidth: 430,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-  }));
-  const classes = useStyles();
+
   const topicArr = Object.keys(Topic);
 
   return (
-      <FormControl color='primary' className={classes.formControl}>
+      <FormControl color='primary' className={useStyles().formControl}>
       {console.log("5")}
        <Select
          style={{ backgroundColor: "white" }}
