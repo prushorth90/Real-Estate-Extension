@@ -1,7 +1,7 @@
 import React from 'react'
 import {Typography} from '@material-ui/core'
 import {RestaurantCardContainer} from './restaurantCardContainer'
-import {ResultState} from './cardComponents/result/resultState'
+import {ResultState} from '../result/resultState'
 
 export const MessageCard: React.FC<{
   cardState
