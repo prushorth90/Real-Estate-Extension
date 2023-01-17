@@ -19,22 +19,6 @@ export const RestaurantCard: React.FC<{}> = ({}) => {
   const [nearbySearchData, setNearbySearchData] = useContext(NearbySearchContext)
   const [cardState, setCardState] = useContext(CardStateContext)
 
-  let restaurantApi = new RestaurantAPI()
-
-  useEffect(() => {
-    console.log("10")
-    if (coord !== undefined && coord.results.length !== 0) {
-      console.log("10.1")
-      restaurantApi.fetchData(coord, Type.Bakery, "1500", Type.Bakery, "0", "4")
-        .then((data) => {
-          console.log("10.5")
-          setNearbySearchData(data)
-          data.results.length === 0 ?setCardState(ResultState.None) : setCardState(ResultState.Ready)
-        })
-        .catch((err) => setCardState(ResultState.Error))
-      }
-  }, [coord])
-
   if (cardState === ResultState.Loading || cardState === ResultState.Error || cardState === ResultState.None) {
     return (
       <MessageCard cardState/>
