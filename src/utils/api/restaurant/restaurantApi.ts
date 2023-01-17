@@ -1,7 +1,7 @@
 import { NearbySearchData} from './restaurantIndex';
 import {API} from '../mainApi';
 import {Address, AddressData} from '../address/addressIndex'
-
+import {APIInput} from '../../../components/RestaurantPopup/filters/apiInput'
 export class RestaurantAPI extends API {
 
   private readonly NEARBY_SEARCH_API_KEY = 'AIzaSyDbq-ALkqgJHFvNBDQc-1MJjCk6schskEw';
@@ -9,14 +9,16 @@ export class RestaurantAPI extends API {
   //   super(apiKey);
   // }
 
-  public async fetchData(coord, keyword, radius, type, minPrice, maxPrice): Promise<NearbySearchData> {
+  public async fetchData(coord, apiInput): Promise<NearbySearchData> {
     let latitude = coord.results[0].geometry.location.lat
     let longitude = coord.results[0].geometry.location.lng
-    console.log("adsalskjdalksjdlkajsdlkasjdlkajsdlkajslkdjaskldjlaksjdlkajsldkjaslkdjalksjdklajalksjdkljasl")
-    console.log(latitude)
+    // console.log("APIIIIIIIII IN")
+    // console.log(apiInput)
+    // console.log("DEBUGGGGGGGGGGGG HEREREREREREREREE")
+    //
     //`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${tempScale}&appid=${this.NEARBY_SEARCH_API_KEY}`
     const res = await fetch(
-      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=${keyword}&location=${latitude}%2C${longitude}&radius=${radius}&type=${type}&minprice=${minPrice}&maxprice=${maxPrice}&key=${this.NEARBY_SEARCH_API_KEY}`
+      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=${apiInput.keyword}&location=${latitude}%2C${longitude}&radius=${apiInput.radius}&type=${apiInput.type[1]}&minprice=${apiInput.minprice}&maxprice=${apiInput.maxprice}&key=${this.NEARBY_SEARCH_API_KEY}`
     )
     // for bs.ts and wc.tsx if the thing fails // &type=indian
     if (!res.ok) {
@@ -29,6 +31,39 @@ export class RestaurantAPI extends API {
 
 
 }
+
+
+// import { NearbySearchData} from './restaurantIndex';
+// import {API} from '../mainApi';
+// import {Address, AddressData} from '../address/addressIndex'
+//
+// export class RestaurantAPI extends API {
+//
+//   private readonly NEARBY_SEARCH_API_KEY = 'AIzaSyDbq-ALkqgJHFvNBDQc-1MJjCk6schskEw';
+//   // public constructor(apiKey){
+//   //   super(apiKey);
+//   // }
+//
+//   public async fetchData(coord, keyword, radius, type, minPrice, maxPrice): Promise<NearbySearchData> {
+//     let latitude = coord.results[0].geometry.location.lat
+//     let longitude = coord.results[0].geometry.location.lng
+//     console.log("adsalskjdalksjdlkajsdlkasjdlkajsdlkajslkdjaskldjlaksjdlkajsldkjaslkdjalksjdklajalksjdkljasl")
+//     console.log(latitude)
+//     //`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${tempScale}&appid=${this.NEARBY_SEARCH_API_KEY}`
+//     const res = await fetch(
+//       `https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=${keyword}&location=${latitude}%2C${longitude}&radius=${radius}&type=${type}&minprice=${minPrice}&maxprice=${maxPrice}&key=${this.NEARBY_SEARCH_API_KEY}`
+//     )
+//     // for bs.ts and wc.tsx if the thing fails // &type=indian
+//     if (!res.ok) {
+//       throw new Error('not found')
+//     }
+//
+//     const data: NearbySearchData = await res.json()
+//     return data
+//   }
+//
+//
+// }
 
 // {
 //    "html_attributions" : [],
