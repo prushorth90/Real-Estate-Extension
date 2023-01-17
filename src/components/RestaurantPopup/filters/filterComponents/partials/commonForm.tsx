@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from 'react'
 import {FormControl, InputLabel, MenuItem, Select, FormHelperText} from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import {useStyles} from './style'
+import {useStyles} from '../../style'
 
 export const CommonForm: React.FC<{
   options, keyword, setKeyword, name, handleChange

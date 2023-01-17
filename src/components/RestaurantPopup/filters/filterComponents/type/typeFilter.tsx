@@ -2,8 +2,8 @@ import React,{ useEffect, useState } from 'react'
 import {FormControl, InputLabel, MenuItem, Select, FormHelperText} from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {Type} from './type'
-import {useStyles} from '../style'
-import {CommonForm} from '../commonForm'
+import {useStyles} from '../../style'
+import {CommonForm} from '../partials/commonForm'
 
 export const TypeFilter: React.FC<{
   type: string

@@ -2,7 +2,7 @@ import React,{ useEffect, useState, useContext } from 'react'
 import { RestaurantAPI } from '../../../utils/api/restaurant/restaurantIndex'
 import {ResultState} from '../card/restaurantCardIndex'
 import {RadiusFilter, TypeFilter, CuisineFilter, MinPriceFilter, MaxPriceFilter} from '../filters/filterIndex'
-import {Type} from './type/type'
+import {Type} from './filterComponents/type/type'
 import {CoordContext} from '../../../popup/popup'
 import {NearbySearchContext, CardStateContext} from '../restaurantPopup'
 
