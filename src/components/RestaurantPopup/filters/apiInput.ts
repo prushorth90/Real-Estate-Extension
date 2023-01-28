@@ -2,6 +2,7 @@ export class APIInput {
   // could make obj for apartment like open weather data
   public radius: string
   public type: string
+  //either type or cuisine
   public keyword: string
   public minprice: string
   public maxprice: string
