@@ -1,59 +1,22 @@
-import React, { useEffect, useState,useContext } from 'react'
-import { Box, Button, Grid, Typography,} from '@material-ui/core'
-import { RestaurantAPI, NearbySearchData } from '../../../utils/api/restaurant/restaurantIndex'
-import './restaurantCard.css'
-import {ResultState} from './cardComponents/result/resultState'
-import {RestaurantCardContainer} from './cardComponents/partials/restaurantCardContainer'
-import {MessageCard} from './cardComponents/partials/messageCard'
-import {Type} from '../filters/filterComponents/type/type'
-import {Result} from './cardComponents/result/result'
-import {PhotoButton} from './cardComponents/buttons/photo'
-import {CoordContext} from '../../../popup/popup'
-import {NearbySearchContext, CardStateContext} from '../restaurantPopup'
+import React, { useEffect, useState } from 'react'
+import { Box, Typography,} from '@material-ui/core'
+import '../../foodCard.css'
+import Rating from '@material-ui/lab/Rating';
 
 
-export const RestaurantCard: React.FC<{}> = ({}) => {
-  console.log("9")
-  // STATE ONLY RENDERED ONCE, EVEN IF  RERENDER WONT UPDATE SO HAD TO MOVE SET, BUT PROPS ALL TIME,
-  const [coord,setCoord] = useContext(CoordContext)
-  const [nearbySearchData, setNearbySearchData] = useContext(NearbySearchContext)
-  const [cardState, setCardState] = useContext(CardStateContext)
-
-  if (cardState === ResultState.Loading || cardState === ResultState.Error || cardState === ResultState.None) {
-    return (
-      <MessageCard cardState/>
-    )
-  } else {
+export const Result: React.FC<{result}> = ({result}) => {
 
     return (
-      <Box>
-      {console.log("12")}
-      {nearbySearchData.results.map((result, index) => (
-        <RestaurantCardContainer key={index}>
-          <Grid container>
-            <Grid item>
-              <Result result={result}/>
-              <br/>
-              <br/>
-              <div style={{ display: 'flex' }} >
-                <PhotoButton result={result} index={index}/>
-
-                <Button className="restaurantCard-body"
-                        key={result.photos !== undefined ? result.photos[0].photo_reference: null}
-                        variant="outlined"
-                        color="primary">
-                        View Time
-                </Button>
-              </div>
-            </Grid>
-          </Grid>
-        </RestaurantCardContainer>
-
-          ))}
-        </Box>
+      <div>
+      {result.name !== undefined ? <Typography className="foodCard-title"> {result.name} </Typography> : ""}
+      {result.user_ratings_total !== undefined ? <Typography className="foodCard-body" component="legend">Total User Ratings: {result.user_ratings_total} </Typography>:""}
+      {result.rating !== undefined ? <Rating name="read-only" className="foodCard-body" value={result.rating} readOnly /> : ""}
+      {result.price_level !== undefined ? <Typography className="foodCard-body">Price Level: {result.price_level}</Typography>:""}
+      {result.user_ratings_total !== undefined? <Typography className="foodCard-body"> Vicinity: {result.vicinity} </Typography> : ""}
+      </div>
     )
-  }
 }
+
 
 // some results no photos field
 

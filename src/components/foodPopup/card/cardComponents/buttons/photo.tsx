@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button,} from '@material-ui/core'
-import '../../restaurantCard.css'
+import '../../foodCard.css'
 import {PhotoDialog} from '../dialog/photoDialog'
 
 
@@ -22,7 +22,7 @@ export const PhotoButton: React.FC<{result, index}> = ({result, index}) => {
 
     return (
       <div>
-      <Button className="restaurantCard-body"
+      <Button className="foodCard-body"
               key={result.photos !== undefined ? result.photos[0].photo_reference: null}
               variant="outlined"
               color="primary"
