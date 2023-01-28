@@ -1,8 +1,8 @@
-import { NearbySearchData} from './restaurantIndex';
+import { NearbySearchData} from './foodIndex';
 import {API} from '../mainApi';
 import {Address, AddressData} from '../address/addressIndex'
-import {APIInput} from '../../../components/RestaurantPopup/filters/apiInput'
-export class RestaurantAPI extends API {
+import {APIInput} from '../../../components/foodPopup/filters/apiInput'
+export class FoodAPI extends API {
 
   private readonly NEARBY_SEARCH_API_KEY = 'AIzaSyDbq-ALkqgJHFvNBDQc-1MJjCk6schskEw';
   // public constructor(apiKey){

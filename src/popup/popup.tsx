@@ -5,7 +5,7 @@ import 'fontsource-roboto'
 import './popup.css'
 import {Topic, TopicMenu} from '../components/TopicMenu'
 import WeatherPopup from '../components/WeatherPopup'
-import RestaurantPopup from '../components/RestaurantPopup'
+import FoodPopup from '../components/foodPopup'
 import {Address, AddressData, AddressAPI} from '../utils/api/address/addressIndex'
 // https://v4.mui.com/components/selects/
 export const TopicContext = createContext([])
@@ -61,7 +61,7 @@ const App: React.FC<{}> = () => {
         <TopicMenu />
         <WeatherPopup city={addr.getCity()}/>
         <CoordContext.Provider value={[coord, setCoord]}>
-          <RestaurantPopup/>
+          <FoodPopup/>
         </CoordContext.Provider>
       </TopicContext.Provider>
 

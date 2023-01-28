@@ -1,16 +1,16 @@
 import React,{ useEffect, useState, useContext,createContext } from 'react'
-import { RestaurantAPI } from '../../../utils/api/restaurant/restaurantIndex'
-import {ResultState} from '../card/restaurantCardIndex'
+import { FoodAPI } from '../../../utils/api/food/foodIndex'
+import {ResultState} from '../card/foodCardIndex'
 import {RadiusFilter, TypeFilter, CuisineFilter, MinPriceFilter, MaxPriceFilter} from '../filters/filterIndex'
 import {Type} from './filterComponents/type/type'
 import {CoordContext} from '../../../popup/popup'
-import {NearbySearchContext, CardStateContext} from '../restaurantPopup'
+import {NearbySearchContext, CardStateContext} from '../foodPopup'
 import {APIInput} from './apiInput'
 
 export const APIContext = createContext([])
 
 export const Filter: React.FC<{}> = ({}) => {
-  let restaurantApi = new RestaurantAPI()
+  let foodApi = new FoodAPI()
   const [apiInput, setAPIInput] = useState<APIInput>(new APIInput());
   const [coord,setCoord] = useContext(CoordContext)
   const [nearbySearchData, setNearbySearchData] = useContext(NearbySearchContext)
@@ -18,7 +18,7 @@ export const Filter: React.FC<{}> = ({}) => {
 
   useEffect(() => {
     if (coord !== undefined && coord.results.length !== 0) {
-      restaurantApi.fetchData(coord, apiInput)
+      foodApi.fetchData(coord, apiInput)
         .then((data) => {
           setNearbySearchData(data)
           data.results.length === 0 ?setCardState(ResultState.None): setCardState(ResultState.Ready)

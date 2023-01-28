@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import {Box,Button,Card,CardActions,CardContent,Grid,Typography} from '@material-ui/core'
 
-export const RestaurantCardContainer: React.FC<{
+export const FoodCardContainer: React.FC<{
   children: React.ReactNode
   onDelete?: () => void
 }> = ({ children, onDelete }) => {
@@ -13,7 +13,7 @@ export const RestaurantCardContainer: React.FC<{
         <CardActions>
           {onDelete && (
             <Button color="secondary" onClick={onDelete}>
-              <Typography className="restaurantCard-body">Delete</Typography>
+              <Typography className="foodCard-body">Delete</Typography>
             </Button>
           )}
         </CardActions>

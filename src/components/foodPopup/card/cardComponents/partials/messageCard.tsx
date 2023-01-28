@@ -1,6 +1,6 @@
 import React from 'react'
 import {Typography} from '@material-ui/core'
-import {RestaurantCardContainer} from './restaurantCardContainer'
+import {FoodCardContainer} from './foodCardContainer'
 import {ResultState} from '../result/resultState'
 
 export const MessageCard: React.FC<{
@@ -10,20 +10,20 @@ export const MessageCard: React.FC<{
 
   if (cardState === ResultState.Loading || cardState === ResultState.Error) {
      return (
-       <RestaurantCardContainer>
+       <FoodCardContainer>
        {console.log("11")}
-         <Typography className="restaurantCard-body">
+         <Typography className="foodCard-body">
            {cardState === ResultState.Loading ? ResultState.Loading : ResultState.Error}
          </Typography>
-       </RestaurantCardContainer>
+       </FoodCardContainer>
      )
    }
    return (
-     <RestaurantCardContainer>
-     <Typography className="restaurantCard-body">
+     <FoodCardContainer>
+     <Typography className="foodCard-body">
        {ResultState.None}
      </Typography>
-   </RestaurantCardContainer>
+   </FoodCardContainer>
  )
 
 }
