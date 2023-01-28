@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, createContext } from 'react'
 import ReactDOM from 'react-dom'
 import { Box } from '@material-ui/core'
 import 'fontsource-roboto'
 import './popup.css'
-import {Topic} from './topics'
-import TopicMenu from '../components/TopicMenu'
+import {Topic, TopicMenu} from '../components/TopicMenu'
 import WeatherPopup from '../components/WeatherPopup'
 import RestaurantPopup from '../components/RestaurantPopup'
-import {Address} from './Address/address'
-import {AddressData, AddressAPI} from '../utils/api/address/addressIndex'
+import {Address, AddressData, AddressAPI} from '../utils/api/address/addressIndex'
 // https://v4.mui.com/components/selects/
+export const TopicContext = createContext([])
+export const CoordContext = createContext([])
+
 const App: React.FC<{}> = () => {
   const [topic, setTopic] = useState<Topic>(Topic.Topics)
   const [addr, setAddr] = useState<Address>(new Address(""))
   const [coord, setCoord] = useState<AddressData>()
-  let addressApi = new AddressAPI()
 
   console.log("1")
   // Get the url from the current tab
@@ -39,6 +39,7 @@ const App: React.FC<{}> = () => {
     //console.log(addr.getStreet())
   }
   const getLatitudeAndLongitude = (updatedAddress) => {
+    let addressApi = new AddressAPI()
     addressApi.fetchData(updatedAddress)
               .then((data) => {
                 console.log("PRUSHORTH 7.1")
@@ -56,9 +57,13 @@ const App: React.FC<{}> = () => {
   return (
     <Box mx="8px" my="16px">
       {console.log("3")}
-      <TopicMenu topic={topic} setTopic={setTopic}/>
-      <WeatherPopup topic={topic} city={addr.getCity()}/>
-      <RestaurantPopup topic={topic} coord={coord}/>
+      <TopicContext.Provider value={[topic,setTopic]}>
+        <TopicMenu />
+        <WeatherPopup city={addr.getCity()}/>
+        <CoordContext.Provider value={[coord, setCoord]}>
+          <RestaurantPopup/>
+        </CoordContext.Provider>
+      </TopicContext.Provider>
 
     </Box>
 

@@ -1,19 +1,19 @@
 import React from 'react'
 import {Typography} from '@material-ui/core'
 import {RestaurantCardContainer} from './restaurantCardContainer'
-import {RestaurantCardState} from './restaurantCardState'
+import {ResultState} from '../result/resultState'
 
 export const MessageCard: React.FC<{
   cardState
 }> = ({ cardState}) => {
 
 
-  if (cardState === RestaurantCardState.Loading || cardState === RestaurantCardState.Error) {
+  if (cardState === ResultState.Loading || cardState === ResultState.Error) {
      return (
        <RestaurantCardContainer>
        {console.log("11")}
          <Typography className="restaurantCard-body">
-           {cardState === RestaurantCardState.Loading ? RestaurantCardState.Loading : RestaurantCardState.Error}
+           {cardState === ResultState.Loading ? ResultState.Loading : ResultState.Error}
          </Typography>
        </RestaurantCardContainer>
      )
@@ -21,7 +21,7 @@ export const MessageCard: React.FC<{
    return (
      <RestaurantCardContainer>
      <Typography className="restaurantCard-body">
-       {RestaurantCardState.None}
+       {ResultState.None}
      </Typography>
    </RestaurantCardContainer>
  )

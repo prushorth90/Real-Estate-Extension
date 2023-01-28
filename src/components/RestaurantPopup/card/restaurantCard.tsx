@@ -1,41 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import { Box, Button, Grid, Typography,} from '@material-ui/core'
 import { RestaurantAPI, NearbySearchData } from '../../../utils/api/restaurant/restaurantIndex'
 import './restaurantCard.css'
-import {RestaurantCardState} from './restaurantCardState'
-import {RestaurantCardContainer} from './restaurantCardContainer'
-import {MessageCard} from './messageCard'
-import {Type} from '../filters/type/type'
-import {Result} from './result'
-import {Photo} from './photo'
+import {ResultState} from './cardComponents/result/resultState'
+import {RestaurantCardContainer} from './cardComponents/partials/restaurantCardContainer'
+import {MessageCard} from './cardComponents/partials/messageCard'
+import {Type} from '../filters/filterComponents/type/type'
+import {Result} from './cardComponents/result/result'
+import {PhotoButton} from './cardComponents/buttons/photo'
+import {CoordContext} from '../../../popup/popup'
+import {NearbySearchContext, CardStateContext} from '../restaurantPopup'
 
-export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({ coord, initNearbyData,initCardState}) => {
+
+export const RestaurantCard: React.FC<{}> = ({}) => {
   console.log("9")
   // STATE ONLY RENDERED ONCE, EVEN IF  RERENDER WONT UPDATE SO HAD TO MOVE SET, BUT PROPS ALL TIME,
-  const [nearbySearchData, setNearbySearchData] = useState<NearbySearchData | null>(initNearbyData)
-  const [cardState, setCardState] = useState<RestaurantCardState>(initCardState)
-  let restaurantApi = new RestaurantAPI()
+  const [coord,setCoord] = useContext(CoordContext)
+  const [nearbySearchData, setNearbySearchData] = useContext(NearbySearchContext)
+  const [cardState, setCardState] = useContext(CardStateContext)
 
-  useEffect(() => {
-    console.log("10")
-    if (coord !== undefined && coord.results.length !== 0) {
-      console.log("10.1")
-      restaurantApi.fetchData(coord, Type.Bakery, "1500", Type.Bakery, "0", "4")
-        .then((data) => {
-          console.log("10.5")
-          setNearbySearchData(data)
-          data.results.length === 0 ?setCardState(RestaurantCardState.None) : setCardState(RestaurantCardState.Ready)
-        })
-        .catch((err) => setCardState(RestaurantCardState.Error))
-      }
-  }, [coord])
-
-  useEffect(() => {
-    setNearbySearchData(initNearbyData)
-    setCardState(initCardState)
-  },[initNearbyData, initCardState])
-
-  if (cardState === RestaurantCardState.Loading || cardState === RestaurantCardState.Error || cardState === RestaurantCardState.None) {
+  if (cardState === ResultState.Loading || cardState === ResultState.Error || cardState === ResultState.None) {
     return (
       <MessageCard cardState/>
     )
@@ -52,7 +36,7 @@ export const RestaurantCard: React.FC<{coord,initNearbyData,initCardState}> = ({
               <br/>
               <br/>
               <div style={{ display: 'flex' }} >
-                <Photo result={result} index={index}/>
+                <PhotoButton result={result} index={index}/>
 
                 <Button className="restaurantCard-body"
                         key={result.photos !== undefined ? result.photos[0].photo_reference: null}

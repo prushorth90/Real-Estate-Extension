@@ -1,24 +1,33 @@
-import React,{ useEffect, useState } from 'react'
-import {Topic} from '../../popup/topics'
+import React,{ useEffect, useState,useContext, createContext} from 'react'
+import {Topic} from '../TopicMenu/topics'
 import {Button, Box,} from '@material-ui/core'
 import {AddressData} from '../../utils/api/address/addressIndex'
 import { RestaurantAPI, NearbySearchData } from '../../utils/api/restaurant/restaurantIndex'
-import {RestaurantCard, RestaurantCardState} from './card/restaurantCardIndex'
+import {RestaurantCard, ResultState} from './card/restaurantCardIndex'
 import {Filter} from './filters/filterIndex'
+import {TopicContext} from '../../popup/popup'
+
+export const NearbySearchContext = createContext([])
+export const CardStateContext = createContext([])
 
 const RestaurantPopup: React.FC<{
-  topic: Topic
-  coord: AddressData
-}> = ({ topic, coord}) => {
+}> = () => {
+  const [topic,setTopic] = useContext(TopicContext)
   const [nearbySearchData, setNearbySearchData] = useState<NearbySearchData | null>(null)
-  const [cardState, setCardState] = useState<RestaurantCardState>(RestaurantCardState.Loading)
+  const [cardState, setCardState] = useState<ResultState>(ResultState.Loading)
   return (
     <div>
     {console.log("8")}
       {topic == Topic.Restaurant &&
         <Box>
-         <Filter coord={coord} initNearbyData={nearbySearchData} initCardState={cardState} setNearbySearchData={setNearbySearchData} setCardState={setCardState}/>
-         <RestaurantCard coord={coord} initNearbyData={nearbySearchData} initCardState={cardState} />
+         <NearbySearchContext.Provider value={[nearbySearchData,setNearbySearchData]}>
+          <CardStateContext.Provider value={[cardState, setCardState]}>
+            <Filter />
+            <RestaurantCard />
+          </CardStateContext.Provider>
+
+         </NearbySearchContext.Provider>
+
        </Box>
       }
     </div>

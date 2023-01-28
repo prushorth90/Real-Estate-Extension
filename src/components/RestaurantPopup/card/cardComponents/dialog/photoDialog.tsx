@@ -3,7 +3,7 @@ import { Button, Typography,} from '@material-ui/core'
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
-import {PhotoAPI} from '../../../utils/api/photo/photoIndex'
+import {PhotoAPI} from '../../../../../utils/api/photo/photoIndex'
 import {PhotoDialogState} from './photoDialogState'
 import {PhotoDialogContainer} from './photoDialogContainer'
 

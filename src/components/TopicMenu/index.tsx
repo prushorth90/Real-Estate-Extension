@@ -1,3 +1,2 @@
-import TopicMenu from './topicMenu'
-
-export default TopicMenu
+export { TopicMenu as TopicMenu } from './topicMenu'
+export { Topic as Topic } from "./topics";
