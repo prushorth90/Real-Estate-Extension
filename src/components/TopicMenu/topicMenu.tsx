@@ -17,6 +17,7 @@ export const TopicMenu: React.FC<{
       <FormControl color='primary' className={useStyles().formControl}>
       {console.log("5")}
        <Select
+         data-testid="topic_menu"
          style={{ backgroundColor: "white" }}
          labelId="demo-simple-select-helper-label"
          id="demo-simple-select-helper"
