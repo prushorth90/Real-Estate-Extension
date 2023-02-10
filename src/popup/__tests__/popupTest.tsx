@@ -32,7 +32,7 @@ describe("<App /> Document: Check Components Is In Document", () => {
     // 2. render
     render(<App />)
 
-    const addCityChiCompon = screen.getByTestId("topic_menu")
+    const addCityChiCompon = screen.getByTestId("topic_menu_select")
 
     expect(addCityChiCompon).toBeInTheDocument()
 
@@ -46,7 +46,7 @@ describe("<App /> Document: Check Components Is In Document", () => {
       // 2. render
       render(<App />)
 
-      const addCityChiCompon = screen.getByTestId("topic_menu")
+      const addCityChiCompon = screen.getByTestId("topic_menu_select")
 
       expect(addCityChiCompon).toBeVisible()
 
