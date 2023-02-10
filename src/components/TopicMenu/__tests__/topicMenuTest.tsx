@@ -42,3 +42,40 @@ describe("Unit UI Test Check Components Is In UI", () => {
     });
 
 });
+
+// BECAUSE TOPICMENU DOES NOT HAVE SETTOPIC ONLY JEST.FN() IDK
+describe("<App />", () => {
+    it("Unit Event Test: should be able to change topic to food", async () => {
+        render((<App />))
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        expect(topicMenuSelect.value).toBe("Food");
+    });
+
+    it("Unit Event Test: topic - food back to topic", async () => {
+        render((<App />))
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
+
+        expect(topicMenuSelect.value).toBe("Topics");
+    });
+
+    it("Unit Event Test: topic - food back to topic back to food", async () => {
+        render((<App />))
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+
+        expect(topicMenuSelect.value).toBe("Food");
+    });
+});
