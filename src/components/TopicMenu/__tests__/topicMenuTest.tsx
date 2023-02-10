@@ -16,3 +16,29 @@ describe("Unit test", () => {
     });
 });
 
+describe("Unit Test Check Components Is In Document", () => {
+
+    it("should render the topic select menu", () => {
+
+        render((<TopicContext.Provider value={["Topics", jest.fn()]}> <TopicMenu /></TopicContext.Provider>))
+
+        const topicMenu = screen.getByTestId("topic_menu_select")
+
+        expect(topicMenu).toBeInTheDocument()
+    });
+});
+
+
+describe("Unit UI Test Check Components Is In UI", () => {
+
+    it("should make topic select menu visibile to user", () => {
+
+        render((<TopicContext.Provider value={["Topics", jest.fn()]}> <TopicMenu /></TopicContext.Provider>))
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_select")
+
+        expect(topicMenuSelect).toBeVisible()
+
+    });
+
+});
