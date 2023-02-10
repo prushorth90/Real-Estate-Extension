@@ -2,10 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import "@testing-library/jest-dom/extend-expect"
 import { act, screen, render, fireEvent, waitFor, cleanup } from "@testing-library/react";
-import {TopicMenu} from "../topicMenu";
-import {App} from "../../../popup";
-
-import { TopicContext } from '../../../popup/popup'
+import {TopicMenu} from "../../topicMenu";
+import {App} from "../../../../popup";
+import { TopicContext } from '../../../../popup/popup'
 
 describe("Unit test", () => {
     // 1. IS (<TEXT>)OFELE IN DOM,
@@ -44,8 +43,8 @@ describe("Unit UI Test Check Components Is In UI", () => {
 });
 
 // BECAUSE TOPICMENU DOES NOT HAVE SETTOPIC ONLY JEST.FN() IDK
-describe("<App />", () => {
-    it("Unit Event Test: should be able to change topic to food", async () => {
+describe("Unit Event Tests", () => {
+    it("should be able to change topic to food", async () => {
         render((<App />))
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
@@ -55,7 +54,7 @@ describe("<App />", () => {
         expect(topicMenuSelect.value).toBe("Food");
     });
 
-    it("Unit Event Test: topic - food back to topic", async () => {
+    it("should be able to go from topic to food back to topic", async () => {
         render((<App />))
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
@@ -66,7 +65,7 @@ describe("<App />", () => {
         expect(topicMenuSelect.value).toBe("Topics");
     });
 
-    it("Unit Event Test: topic - food back to topic back to food", async () => {
+    it("should be able to go from topic to food back to topic back to food", async () => {
         render((<App />))
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
