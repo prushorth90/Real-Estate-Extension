@@ -11,10 +11,10 @@ import {Address, AddressData, AddressAPI} from '../utils/api/address/addressInde
 export const TopicContext = createContext([])
 export const CoordContext = createContext([])
 
-export const App: React.FC<{}> = () => {
+export const App: React.FC<{coordinate?: AddressData}> = ({coordinate}) => {
   const [topic, setTopic] = useState<Topic>(Topic.Topics)
   const [addr, setAddr] = useState<Address>(new Address(""))
-  const [coord, setCoord] = useState<AddressData>()
+  const [coord, setCoord] = useState<AddressData>(coordinate)
 
   console.log("1")
   // Get the url from the current tab

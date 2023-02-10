@@ -49,7 +49,7 @@ describe("Integration Test: ", () => {
         }
 
 
-        await act(async () => {render(<App />)})
+        await act(async () => {render(<App coordinate={coordinate}/>)})
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
 
