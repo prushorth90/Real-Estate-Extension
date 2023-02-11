@@ -13,6 +13,54 @@ describe("Components Render", () => {
     });
 });
 
+describe("FoodPopup UI in document", () => {
+    // 1. IS (<TEXT>)OFELE IN DOM,
+    it("should show the radius filter in doc", () => {
+        // 2. render
+        render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+
+        const radiusFilter = screen.getByTestId("Radius") as HTMLSelectElement
+
+        expect(radiusFilter).toBeInTheDocument()
+    });
+
+    it("should show the type filter value", () => {
+        // 2. render
+        render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+
+        const typeFilter = screen.getByTestId("Type") as HTMLSelectElement
+
+        expect(typeFilter).toBeInTheDocument()
+    });
+
+    it("should show the Min Price Level filter value", () => {
+        // 2. render
+        render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+
+        const minPriceLevel = screen.getByTestId("Min Price Level") as HTMLSelectElement
+
+        expect(minPriceLevel).toBeInTheDocument()
+    });
+
+    it("should show the Max Price Level filter value", () => {
+        // 2. render
+        render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+
+        const maxPriceLevel = screen.getByTestId("Max Price Level") as HTMLSelectElement
+
+        expect(maxPriceLevel).toBeInTheDocument()
+    });
+
+    // it("should show the cards", () => {
+    //     // 2. render
+    //     render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+
+    //     const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+    //     expect(topicMenuSelect.value).toBe("Food")
+    // });
+});
+
 describe("FoodPopup UI value", () => {
     // 1. IS (<TEXT>)OFELE IN DOM,
     it("should show the radius filter value", () => {
