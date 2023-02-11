@@ -6,31 +6,20 @@ import {TopicMenu} from "../../topicMenu";
 import {App} from "../../../../popup";
 import { TopicContext } from '../../../../popup/popup'
 
-describe("Unit test", () => {
+describe("Components Render", () => {
     // 1. IS (<TEXT>)OFELE IN DOM,
-    it("should render", () => {
+    it("should render Topic Menu", () => {
         // 2. render
         render((<TopicContext.Provider value={["Topics", jest.fn()]}> <TopicMenu /></TopicContext.Provider>))
 
     });
 });
 
-describe("Unit Test Check Components Is In Document", () => {
-
-    it("should render the topic select menu", () => {
-
-        render((<TopicContext.Provider value={["Topics", jest.fn()]}> <TopicMenu /></TopicContext.Provider>))
-
-        const topicMenu = screen.getByTestId("topic_menu_select")
-
-        expect(topicMenu).toBeInTheDocument()
-    });
-});
 
 
-describe("Unit UI Test Check Components Is In UI", () => {
+describe("Topic Select Menu UI", () => {
 
-    it("should make topic select menu visibile to user", () => {
+    it("should make topic select menu visible to user", () => {
 
         render((<TopicContext.Provider value={["Topics", jest.fn()]}> <TopicMenu /></TopicContext.Provider>))
 
@@ -40,10 +29,31 @@ describe("Unit UI Test Check Components Is In UI", () => {
 
     });
 
+    it("should make topic select menu visible to user", () => {
+
+        render((<TopicContext.Provider value={["Topics", jest.fn()]}> <TopicMenu /></TopicContext.Provider>))
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        expect(topicMenuSelect.value).toBe("Topics")
+
+    });
+
+
+    it("should have topic select menu be present in document", () => {
+
+        render((<TopicContext.Provider value={["Topics", jest.fn()]}> <TopicMenu /></TopicContext.Provider>))
+
+        const topicMenu = screen.getByTestId("topic_menu_select")
+
+        expect(topicMenu).toBeInTheDocument()
+    });
+
+
 });
 
 // BECAUSE TOPICMENU DOES NOT HAVE SETTOPIC ONLY JEST.FN() IDK
-describe("Unit Event Tests", () => {
+describe("Topic Select Menu Event Tests", () => {
     it("should be able to change topic to food", async () => {
         render((<App />))
 

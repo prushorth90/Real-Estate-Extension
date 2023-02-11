@@ -20,6 +20,8 @@ export const CommonForm: React.FC<{
     <FormControl className={useStyles().formControl}>
         <InputLabel id="demo-simple-select-label" >{name}</InputLabel>
         <Select
+          data-testid={name}
+          inputProps={{ "data-testid": `Input ${name}` }}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={keyword}
