@@ -115,37 +115,37 @@ describe("FoodPopup UI value", () => {
         // 2. render
         render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
 
-        const topicMenuSelect = screen.getByTestId("Input Radius") as HTMLInputElement
+        const radiusFilter = screen.getByTestId("Input Radius") as HTMLInputElement
 
-        expect(topicMenuSelect.value).toBe("1500")
+        expect(radiusFilter.value).toBe("1500")
     });
 
     it("should show the type filter value", () => {
         // 2. render
         render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
 
-        const topicMenuSelect = screen.getByTestId("Input Type") as HTMLInputElement
+        const typeFilter = screen.getByTestId("Input Type") as HTMLInputElement
 
-        expect(topicMenuSelect.value).toBe("Bakery")
+        expect(typeFilter.value).toBe("Bakery")
     });
 
     it("should show the Min Price Level filter value", () => {
         // 2. render
         render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
 
-        const topicMenuSelect = screen.getByTestId("Input Min Price Level") as HTMLInputElement
+        const minPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLInputElement
 
-        expect(topicMenuSelect.value).toBe("0")
+        expect(minPriceLevel.value).toBe("0")
     });
 
     it("should show the Max Price Level filter value", () => {
             // 2. render
-            render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+        render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
 
-            const topicMenuSelect = screen.getByTestId("Input Max Price Level") as HTMLInputElement
+        const maxPriceLevel = screen.getByTestId("Input Max Price Level") as HTMLInputElement
 
-            expect(topicMenuSelect.value).toBe("4")
-        });
+        expect(maxPriceLevel.value).toBe("4")
+    });
 
     // it("should show the cards", () => {
     //     // 2. render
