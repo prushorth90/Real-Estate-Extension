@@ -55,6 +55,7 @@ describe("Topic Select Menu UI", () => {
 // BECAUSE TOPICMENU DOES NOT HAVE SETTOPIC ONLY JEST.FN() IDK
 describe("Topic Select Menu Event Tests", () => {
     it("should be able to change topic to food", async () => {
+        //can copy idea with price filters later
         render((<App />))
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
