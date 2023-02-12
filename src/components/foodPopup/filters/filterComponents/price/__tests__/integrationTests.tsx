@@ -311,7 +311,9 @@ describe("Event test change value of max price filter", () => {
 
         const vicinity = await screen.findByTestId("result vicinity") as HTMLParagraphElement
         expect(vicinity.innerHTML).toBe(" Vicinity: Fake address ")
-
+        
+        const photoButton = await screen.findByTestId("photo button") as HTMLButtonElement
+        expect(photoButton).toBeInTheDocument()
 
         screen.debug(undefined, 100000)
     });
@@ -381,6 +383,8 @@ describe("Event test change value of max price filter", () => {
         const vicinity = await screen.findByTestId("result vicinity") as HTMLParagraphElement
         expect(vicinity.innerHTML).toBe(" Vicinity: Fake address 2 ")
 
+        const photoButton = await screen.findByTestId("photo button") as HTMLButtonElement
+        expect(photoButton).toBeInTheDocument()
 
         screen.debug(undefined, 100000)
     });

@@ -99,6 +99,9 @@ describe("Integration Test: ", () => {
 
         const vicinity = await screen.findByTestId("result vicinity") as HTMLParagraphElement
         expect(vicinity.innerHTML).toBe(" Vicinity: Fake address ")
+        
+        const photoButton = await screen.findByTestId("photo button") as HTMLButtonElement
+        expect(photoButton).toBeInTheDocument()
 
     });
 
