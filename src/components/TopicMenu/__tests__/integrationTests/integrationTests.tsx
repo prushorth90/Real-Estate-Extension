@@ -14,21 +14,11 @@ describe("Integration Test: ", () => {
         mockFetch.mockResolvedValue({
             json: () => Promise.resolve({
                 results: [{
-                    icon: "jo",
-                    icon_background_colour: "jo",
-                    name: "Prushorth Prushti",
-                    opening_hours: {
-                        open_now: true
-                    },
-                    photos: [{
-                        height: 90,
-                        photo_reference: "jo",
-                        width: 80
-                    }],
-                    price_level: 9,
-                    rating: 9,
+                    name: "Fake Bakery",
+                    price_level: 3,
+                    rating: 5,
                     user_ratings_total: 90,
-                    vicinity: "ko"
+                    vicinity: "Fake address"
                 }]
 
 
@@ -55,7 +45,18 @@ describe("Integration Test: ", () => {
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        screen.debug(undefined, 100000)
+        const name = await screen.findByTestId("result name") as HTMLParagraphElement
+        expect(name.innerHTML).toBe(" Fake Bakery ")
+
+        const totalUserRating = await screen.findByTestId("result user rating total") as HTMLParagraphElement
+        expect(totalUserRating.innerHTML).toBe("Total User Ratings: 90 ")
+
+        const priceLevel = await screen.findByTestId("result price level") as HTMLParagraphElement
+        expect(priceLevel.innerHTML).toBe("Price Level: 3")
+
+        const vicinity = await screen.findByTestId("result vicinity") as HTMLParagraphElement
+        expect(vicinity.innerHTML).toBe(" Vicinity: Fake address ")
+
     });
 
    
