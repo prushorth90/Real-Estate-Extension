@@ -2,18 +2,18 @@ import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
 import { act, screen, render, fireEvent, waitFor, cleanup, within, getByTestId } from "@testing-library/react";
 import FoodPopup from "../../../../foodPopup";
-import { RadiusFilter } from '../radiusFilter'
+import { TypeFilter } from '../typeFilter'
 import App, { TopicContext } from '../../../../../../popup/popup'
 import { APIContext } from '../../../filters'
 import { APIInput } from '../../../apiInput'
 import { InputLabel } from '@material-ui/core';
 
 
-describe("Event test change value of radius filter", () => {
+describe("Event test change value of type filter", () => {
 
     global.fetch = jest.fn()
     const mockFetch = fetch as jest.MockedFunction<typeof fetch>
-    it("should be able to see update of value filter of radius", async () => {
+    it("should be able to see update of value filter of type", async () => {
         mockFetch.mockResolvedValue({
             json: () => Promise.resolve({
                 results: [{
@@ -63,14 +63,14 @@ describe("Event test change value of radius filter", () => {
 
         } as any)
 
-        const radius = screen.getByTestId("Input Radius") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[1]) });
+        const type = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
         const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
-        expect(radius.value).toBe("1000")
+        await act(async () => { fireEvent.click(options.getByText(/Cafe/i)) });
+        expect(type.value).toBe("Cafe")
     });
 
-    it("should be able to see card when change filter of radius", async () => {
+    it("should be able to see card when change filter of type", async () => {
         mockFetch.mockResolvedValue({
             json: () => Promise.resolve({
                 results: [{
@@ -118,10 +118,10 @@ describe("Event test change value of radius filter", () => {
 
         } as any)
 
-        const radius = screen.getByTestId("Input Radius") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[1]) });
+        const type = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
         const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
+        await act(async () => { fireEvent.click(options.getByText(/Cafe/i)) });
 
         const card = await screen.findByTestId("result card") as HTMLDivElement
         expect(card).toBeVisible()
@@ -129,8 +129,8 @@ describe("Event test change value of radius filter", () => {
 
     });
 
-    
-    it("should be able to see update to cards values when change filter of radius", async () => {
+
+    it("should be able to see update to cards values when change filter of type", async () => {
         mockFetch.mockResolvedValue({
             json: () => Promise.resolve({
                 results: [{
@@ -167,7 +167,7 @@ describe("Event test change value of radius filter", () => {
         mockFetch.mockResolvedValue({
             json: () => Promise.resolve({
                 results: [{
-                    name: "Fake Bakery",
+                    name: "Fake Cafe",
                     price_level: 3,
                     rating: 5,
                     user_ratings_total: 90,
@@ -178,13 +178,13 @@ describe("Event test change value of radius filter", () => {
 
         } as any)
 
-        const mradius = screen.getByTestId("Input Radius") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[1]) });
+        const type = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
         const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
+        await act(async () => { fireEvent.click(options.getByText(/Cafe/i)) });
 
         const name = await screen.findByTestId("result name") as HTMLParagraphElement
-        expect(name.innerHTML).toBe(" Fake Bakery ")
+        expect(name.innerHTML).toBe(" Fake Cafe ")
 
         const totalUserRating = await screen.findByTestId("result user rating total") as HTMLParagraphElement
         expect(totalUserRating.innerHTML).toBe("Total User Ratings: 90 ")
@@ -201,6 +201,6 @@ describe("Event test change value of radius filter", () => {
         screen.debug(undefined, 100000)
     });
 
-   
+
 });
 
