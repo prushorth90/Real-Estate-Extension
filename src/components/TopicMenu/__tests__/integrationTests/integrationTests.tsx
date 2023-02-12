@@ -6,10 +6,12 @@ import { TopicMenu } from "../../topicMenu";
 import { App } from "../../../../popup";
 import { TopicContext } from '../../../../popup/popup'
 
-describe("Integration Test: ", () => {
 
-    global.fetch = jest.fn()
-    const mockFetch = fetch as jest.MockedFunction<typeof fetch>
+global.fetch = jest.fn()
+const mockFetch = fetch as jest.MockedFunction<typeof fetch>
+
+
+describe("Integration Test: ", () => {
 
     it("should be able to see cards when change topic to food", async () => {
         mockFetch.mockResolvedValue({
@@ -106,5 +108,74 @@ describe("Integration Test: ", () => {
     });
 
    
+});
+
+
+describe("Negative Test Suite: Topic Menu Integration Tests ", () => {
+
+
+    it("should be able to none cards if empty latitude and longitude", async () => {
+        mockFetch.mockResolvedValue({
+            json: () => Promise.resolve({
+                results: [{
+                    name: "Fake Bakery",
+                    price_level: 3,
+                    rating: 5,
+                    user_ratings_total: 90,
+                    vicinity: "Fake address"
+                }]
+
+
+            },
+            ),
+
+        } as any)
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const card = await screen.findByTestId("result card none") 
+        expect(card).toBeVisible()
+
+
+
+    });
+
+    it("should be able to see none cards values when change topic to food", async () => {
+        mockFetch.mockResolvedValue({
+            json: () => Promise.resolve({
+                results: [{
+                    name: "Fake Bakery",
+                    price_level: 3,
+                    rating: 5,
+                    user_ratings_total: 90,
+                    vicinity: "Fake address"
+                }]
+
+
+            },
+            ),
+
+        } as any)
+
+       
+
+
+        await act(async () => { render(<App  />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const name = await screen.findByTestId("result card none") as HTMLParagraphElement
+        expect(name.innerHTML).toBe("No data to show")
+
+
+    });
+
+
 });
 
