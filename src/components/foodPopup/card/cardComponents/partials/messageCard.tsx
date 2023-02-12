@@ -20,7 +20,7 @@ export const MessageCard: React.FC<{
    }
    return (
      <FoodCardContainer>
-     <Typography className="foodCard-body">
+     <Typography data-testid="result card none" className="foodCard-body">
        {ResultState.None}
      </Typography>
    </FoodCardContainer>
