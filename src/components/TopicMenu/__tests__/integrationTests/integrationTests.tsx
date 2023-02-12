@@ -10,7 +10,50 @@ describe("Integration Test: ", () => {
 
     global.fetch = jest.fn()
     const mockFetch = fetch as jest.MockedFunction<typeof fetch>
+
     it("should be able to see cards when change topic to food", async () => {
+        mockFetch.mockResolvedValue({
+            json: () => Promise.resolve({
+                results: [{
+                    name: "Fake Bakery",
+                    price_level: 3,
+                    rating: 5,
+                    user_ratings_total: 90,
+                    vicinity: "Fake address"
+                }]
+
+
+            },
+            ),
+
+        } as any)
+
+        let coordinate = {
+            "results": [{
+                "geometry": {
+                    "location": {
+                        lat: 41.814637,
+                        lng: -87.596083
+                    }
+                }
+            }]
+        }
+
+
+        await act(async () => { render(<App coordinate={coordinate} />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const card = await screen.findByTestId("result card") as HTMLDivElement
+        expect(card).toBeVisible()
+
+        
+
+    });
+
+    it("should be able to see cards values when change topic to food", async () => {
         mockFetch.mockResolvedValue({
             json: () => Promise.resolve({
                 results: [{

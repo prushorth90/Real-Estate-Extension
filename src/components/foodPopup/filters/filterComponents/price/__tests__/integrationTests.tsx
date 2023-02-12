@@ -129,7 +129,125 @@ describe("Event test change value of max price filter", () => {
         expect(minPriceLevel.value).toBe("1")
     });
 
-    it("should be able to see update to cards when change filter of max price", async () => {
+    it("should be able to see card when change filter of max price", async () => {
+        mockFetch.mockResolvedValue({
+            json: () => Promise.resolve({
+                results: [{
+                    name: "Bakery 1",
+                    price_level: 0,
+                    rating: 2,
+                    user_ratings_total: 56,
+                    vicinity: "Fake address 1"
+                }]
+
+
+            },
+            ),
+
+        } as any)
+
+        let coordinate = {
+            "results": [{
+                "geometry": {
+                    "location": {
+                        lat: 41.814637,
+                        lng: -87.596083
+                    }
+                }
+            }]
+        }
+
+
+        await act(async () => { render(<App coordinate={coordinate} />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        mockFetch.mockResolvedValue({
+            json: () => Promise.resolve({
+                results: [{
+                    name: "Fake Bakery",
+                    price_level: 3,
+                    rating: 5,
+                    user_ratings_total: 90,
+                    vicinity: "Fake address"
+                }]
+            },
+            ),
+
+        } as any)
+
+        const maxPriceLevel = screen.getByTestId("Input Max Price Level") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
+        const options = within(screen.getByRole('listbox'));
+        await act(async () => { fireEvent.click(options.getByText(/3/i)) });
+
+        const card = await screen.findByTestId("result card") as HTMLDivElement
+        expect(card).toBeVisible()
+
+
+    });
+
+    it("should be able to see card when change filter of min price", async () => {
+        mockFetch.mockResolvedValue({
+            json: () => Promise.resolve({
+                results: [{
+                    name: "Bakery 1",
+                    price_level: 0,
+                    rating: 2,
+                    user_ratings_total: 56,
+                    vicinity: "Fake address 1"
+                }]
+
+
+            },
+            ),
+
+        } as any)
+
+        let coordinate = {
+            "results": [{
+                "geometry": {
+                    "location": {
+                        lat: 41.814637,
+                        lng: -87.596083
+                    }
+                }
+            }]
+        }
+
+
+        await act(async () => { render(<App coordinate={coordinate} />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        mockFetch.mockResolvedValue({
+            json: () => Promise.resolve({
+                results: [{
+                    name: "Fake Bakery",
+                    price_level: 3,
+                    rating: 5,
+                    user_ratings_total: 90,
+                    vicinity: "Fake address"
+                }]
+            },
+            ),
+
+        } as any)
+
+        const maxPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
+        const options = within(screen.getByRole('listbox'));
+        await act(async () => { fireEvent.click(options.getByText(/3/i)) });
+
+        const card = await screen.findByTestId("result card") as HTMLDivElement
+        expect(card).toBeVisible()
+
+
+    });
+
+    it("should be able to see update to cards values when change filter of max price", async () => {
         mockFetch.mockResolvedValue({
             json: () => Promise.resolve({
                 results: [{
@@ -198,7 +316,7 @@ describe("Event test change value of max price filter", () => {
         screen.debug(undefined, 100000)
     });
 
-    it("should be able to see update to cards when change filter of max price", async () => {
+    it("should be able to see update to cards values when change filter of max price", async () => {
         mockFetch.mockResolvedValue({
             json: () => Promise.resolve({
                 results: [{
