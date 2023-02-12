@@ -318,7 +318,7 @@ describe("Event test change value of max price filter", () => {
         screen.debug(undefined, 100000)
     });
 
-    it("should be able to see update to cards values when change filter of max price", async () => {
+    it("should be able to see update to cards values when change filter of min price", async () => {
         mockFetch.mockResolvedValue({
             json: () => Promise.resolve({
                 results: [{
