@@ -17,12 +17,12 @@ export const PhotoDialog: React.FC<{open: boolean, onClose: () => void,photo_ref
       onClose();
       setPhoto("")
       setPhotoState(PhotoDialogState.Start)
+      setOpened(false)
     }
 
     console.log("998")
 
     const getPhoto = () => {
-      //console.log(index)
       // let photo_reference = nearby.results[index].photos[0].photo_reference
       if (photo_reference != "" && opened != true) {
         console.log("999")//*20
