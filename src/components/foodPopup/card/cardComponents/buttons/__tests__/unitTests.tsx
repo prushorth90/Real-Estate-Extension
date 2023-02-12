@@ -2,7 +2,7 @@ import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
 import { act, screen, render, fireEvent, waitFor, cleanup, within, getByTestId } from "@testing-library/react";
 import FoodPopup from "../../../../foodPopup";
-import { Result } from '../result'
+import { PhotoButton } from '../photo'
 import App, { TopicContext } from '../../../../../../popup/popup'
 //import { APIContext } from '../../../filters'
 //import { APIInput } from '../../../apiInput'
@@ -19,10 +19,10 @@ describe("Components Render", () => {
             vicinity: "Fake address"
         }
 
-        render(<Result result={res} />)
+        render(<PhotoButton result={res} index={1}/>)
     });
 
-    
+
 
 });
 
@@ -37,11 +37,11 @@ describe("Card UI in doc", () => {
             vicinity: "Fake address"
         }
 
-        render(<Result result={res} />)
+        render(<PhotoButton result={res} index={1} />)
 
-        const card = screen.getByTestId("result card") 
+        const photoButton = screen.getByTestId("photo button")
 
-        expect(card).toBeInTheDocument()
+        expect(photoButton).toBeInTheDocument()
     });
 
 });
@@ -57,31 +57,14 @@ describe("Card UI visible", () => {
             vicinity: "Fake address"
         }
 
-        render(<Result result={res} />)
+        render(<PhotoButton result={res} index={1} />)
 
-        const card = screen.getByTestId("result card")
 
-        expect(card).toBeVisible()
+        const photoButton = screen.getByTestId("photo button")
+
+        expect(photoButton).toBeVisible()
     });
 
 });
 
-describe("card UI values", () => {
-
-    it("should show the values of result card success", async () => {
-
-        let res = {
-            name: "Fake Bakery",
-            price_level: 3,
-            rating: 5,
-            user_ratings_total: 90,
-            vicinity: "Fake address"
-        }
-        render(<Result result={res} />)
-        const name = await screen.findByTestId("result name") as HTMLParagraphElement
-        expect(name.innerHTML).toBe(" Fake Bakery ")
-
-    })
-
-});
 
