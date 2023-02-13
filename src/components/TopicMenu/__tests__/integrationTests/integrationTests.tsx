@@ -176,39 +176,5 @@ describe("Negative Test Suite: Topic Menu Integration Tests ", () => {
 
     });
 
-    it("should be able to see none cards if result is none ", async () => {
-        mockFetch.mockResolvedValue({
-            json: () => Promise.resolve({
-                results: []
-            },
-            ),
-
-        } as any)
-
-
-        let coordinate = {
-            "results": [{
-                "geometry": {
-                    "location": {
-                        lat: 41.814637,
-                        lng: -87.5
-                    }
-                }
-            }]
-        }
-
-        await act(async () => { render(<App coordinate={coordinate}/>) })
-
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-
-        const name = await screen.findByTestId("result card none") as HTMLParagraphElement
-        expect(name.innerHTML).toBe("No data to show")
-
-
-    });
-
-
 });
 

@@ -4,7 +4,6 @@ import { Box } from '@material-ui/core'
 //import 'fontsource-roboto'
 import './popup.css'
 import {Topic, TopicMenu} from '../components/TopicMenu'
-import WeatherPopup from '../components/WeatherPopup'
 import FoodPopup from '../components/foodPopup'
 import {Address, AddressData, AddressAPI} from '../utils/api/address/addressIndex'
 // https://v4.mui.com/components/selects/
@@ -59,7 +58,6 @@ export const App: React.FC<{coordinate?: AddressData}> = ({coordinate}) => {
       {console.log("3")}
       <TopicContext.Provider value={[topic,setTopic]}>
         <TopicMenu />
-        <WeatherPopup city={addr.getCity()}/>
         <CoordContext.Provider value={[coord, setCoord]}>
           <FoodPopup/>
         </CoordContext.Provider>
