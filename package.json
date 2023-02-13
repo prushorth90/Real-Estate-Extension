@@ -1,17 +1,27 @@
 {
-  "name": "Real1",
+  "name": "realconvenient",
   "version": "1.0.0",
   "description": "React real 1",
   "scripts": {
     "start": "webpack --watch --progress --config webpack.dev.js",
-    "build": "webpack --watch --progress --config webpack.prod.js"
+    "build": "webpack --watch --progress --config webpack.prod.js",
+    "test": "jest --config jest.config.js",
+    "coverage": "npm test -- --coverage"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "resetMocks": false
   },
   "author": "",
   "devDependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.61",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^14.4.3",
     "@types/chrome": "^0.0.134",
+    "@types/jest": "^26.0.24",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
     "clean-webpack-plugin": "^3.0.0",
@@ -19,10 +29,14 @@
     "css-loader": "^5.2.4",
     "fontsource-roboto": "^4.0.0",
     "html-webpack-plugin": "^4.5.2",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.0.6",
+    "jest-chrome": "^0.8.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^5.1.1",
+    "ts-jest": "^27.0.4",
     "ts-loader": "^8.2.0",
     "typescript": "^4.2.4",
     "webpack": "^5.35.1",

@@ -21,9 +21,9 @@ export class FoodAPI extends API {
       `https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=${apiInput.keyword}&location=${latitude}%2C${longitude}&radius=${apiInput.radius}&type=${apiInput.type[1]}&minprice=${apiInput.minprice}&maxprice=${apiInput.maxprice}&key=${this.NEARBY_SEARCH_API_KEY}`
     )
     // for bs.ts and wc.tsx if the thing fails // &type=indian
-    if (!res.ok) {
-      throw new Error('not found')
-    }
+    // if (!res.ok) {
+    //   throw new Error('not found')
+    // }
 
     const data: NearbySearchData = await res.json()
     return data

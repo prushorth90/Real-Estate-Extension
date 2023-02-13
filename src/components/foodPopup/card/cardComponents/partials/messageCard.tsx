@@ -12,7 +12,7 @@ export const MessageCard: React.FC<{
      return (
        <FoodCardContainer>
        {console.log("11")}
-         <Typography className="foodCard-body">
+         <Typography data-testid="result card other" className="foodCard-body">
            {cardState === ResultState.Loading ? ResultState.Loading : ResultState.Error}
          </Typography>
        </FoodCardContainer>
@@ -20,7 +20,7 @@ export const MessageCard: React.FC<{
    }
    return (
      <FoodCardContainer>
-     <Typography className="foodCard-body">
+     <Typography data-testid="result card none" className="foodCard-body">
        {ResultState.None}
      </Typography>
    </FoodCardContainer>

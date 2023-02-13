@@ -1,20 +1,19 @@
 import React, { useEffect, useState, createContext } from 'react'
 import ReactDOM from 'react-dom'
 import { Box } from '@material-ui/core'
-import 'fontsource-roboto'
+//import 'fontsource-roboto'
 import './popup.css'
 import {Topic, TopicMenu} from '../components/TopicMenu'
-import WeatherPopup from '../components/WeatherPopup'
 import FoodPopup from '../components/foodPopup'
 import {Address, AddressData, AddressAPI} from '../utils/api/address/addressIndex'
 // https://v4.mui.com/components/selects/
 export const TopicContext = createContext([])
 export const CoordContext = createContext([])
 
-const App: React.FC<{}> = () => {
+export const App: React.FC<{coordinate?: AddressData}> = ({coordinate}) => {
   const [topic, setTopic] = useState<Topic>(Topic.Topics)
   const [addr, setAddr] = useState<Address>(new Address(""))
-  const [coord, setCoord] = useState<AddressData>()
+  const [coord, setCoord] = useState<AddressData>(coordinate)
 
   console.log("1")
   // Get the url from the current tab
@@ -59,7 +58,6 @@ const App: React.FC<{}> = () => {
       {console.log("3")}
       <TopicContext.Provider value={[topic,setTopic]}>
         <TopicMenu />
-        <WeatherPopup city={addr.getCity()}/>
         <CoordContext.Provider value={[coord, setCoord]}>
           <FoodPopup/>
         </CoordContext.Provider>
@@ -70,6 +68,8 @@ const App: React.FC<{}> = () => {
   )
 }
 
-const root = document.createElement('div')
-document.body.appendChild(root)
-ReactDOM.render(<App />, root)
+// const root = document.createElement('div')
+// document.body.appendChild(root)
+// ReactDOM.render(<App />, root)
+
+export default App
