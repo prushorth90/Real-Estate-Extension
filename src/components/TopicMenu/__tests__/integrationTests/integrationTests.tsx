@@ -5,46 +5,133 @@ import { act, screen, render, fireEvent, waitFor, cleanup } from "@testing-libra
 import { TopicMenu } from "../../topicMenu";
 import { App } from "../../../../popup";
 import { TopicContext } from '../../../../popup/popup'
+import { chrome } from 'jest-chrome'
 
 
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
 
+class Tab {
+    // could make obj for apartment like open weather data
+    public index;
+    public pinned;
+    public highlighted;
+    public windowId;
+    public active;
+    public incognito;
+    public selected;
+    public discarded;
+    public autoDiscardable;
+    public groupId;
+    public url;
+    public constructor() {
+        this.index = 3
+        this.highlighted = true
+        this.windowId = 0
+        this.active = true
+        this.incognito = true
+        this.selected = true
+        this.discarded = true
+        this.autoDiscardable = true
+        this.groupId = 3
+        this.url = "https://www.realtor.com/realestateandhomes-detail/6224-S-Rockwell-St_Chicago_IL_60629_M83401-45847"
+    }
+}
 
-describe("Integration Test: ", () => {
+async function mockTabAPI() {
+    await chrome.tabs.query.mockImplementation(async (queryInfo) => {
+        let f = new Array<Tab>()
+        f.push(new Tab())
+        return Promise.resolve(f)
 
-    it("should be able to see cards when change topic to food", async () => {
-        mockFetch.mockResolvedValue({
-            json: () => Promise.resolve({
-                results: [{
-                    name: "Fake Bakery",
-                    price_level: 3,
-                    rating: 5,
-                    user_ratings_total: 90,
-                    vicinity: "Fake address"
-                }]
+    })
+}
 
+function mockAddressAPI() {
+    mockFetch.mockResolvedValue({
+        json: () => Promise.resolve({
+            results: [{
 
-            },
-            ),
-
-        } as any)
-
-        let coordinate = {
-            "results": [{
-                "geometry": {
-                    "location": {
+                geometry: {
+                    location: {
                         lat: 41.814637,
                         lng: -87.596083
                     }
                 }
             }]
-        }
 
 
-        await act(async () => { render(<App coordinate={coordinate} />) })
+        },
+        ),
+
+    } as any)
+}
+
+function mockBadAddressAPI() {
+    mockFetch.mockResolvedValue({
+        json: () => Promise.resolve({
+            results: []
+
+
+        },
+        ),
+
+    } as any)
+}
+
+function mockNearbyPlacesAPI() {
+    mockFetch.mockResolvedValue({
+        json: () => Promise.resolve({
+            results: [{
+                name: "Bakery 1",
+                price_level: 0,
+                rating: 2,
+                user_ratings_total: 56,
+                vicinity: "Fake address 1",
+                photos: [
+                    {
+                        height: 1840,
+                        photo_reference: "fake photo reference",
+                        width: 3264
+                    }
+                ],
+                url: "fake url"
+            }]
+
+
+        },
+        ),
+
+    } as any)
+}
+
+function mockSecondNearbyPlacesAPI() {
+    mockFetch.mockResolvedValue({
+        json: () => Promise.resolve({
+            results: [{
+                name: "Fake Bakery",
+                price_level: 3,
+                rating: 5,
+                user_ratings_total: 90,
+                vicinity: "Fake address"
+            }]
+
+
+        },
+        ),
+
+    } as any)
+}
+describe("Integration Test: ", () => {
+
+    it("should be able to see cards when change topic to food", async () => {
+        mockTabAPI()
+        mockAddressAPI()
+
+        await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockNearbyPlacesAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
@@ -56,37 +143,13 @@ describe("Integration Test: ", () => {
     });
 
     it("should be able to see cards values when change topic to food", async () => {
-        mockFetch.mockResolvedValue({
-            json: () => Promise.resolve({
-                results: [{
-                    name: "Fake Bakery",
-                    price_level: 3,
-                    rating: 5,
-                    user_ratings_total: 90,
-                    vicinity: "Fake address"
-                }]
+        mockTabAPI()
+        mockAddressAPI()
 
-
-            },
-            ),
-
-        } as any)
-
-        let coordinate = {
-            "results": [{
-                "geometry":{
-                    "location":{
-                        lat:41.814637,
-                        lng:-87.596083
-                    }
-                }
-            }]
-        }
-
-
-        await act(async () => {render(<App coordinate={coordinate}/>)})
+        await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockSecondNearbyPlacesAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
@@ -115,27 +178,16 @@ describe("Negative Test Suite: Topic Menu Integration Tests ", () => {
 
 
     it("should be able to none cards if empty latitude and longitude", async () => {
-        mockFetch.mockResolvedValue({
-            json: () => Promise.resolve({
-                results: [{
-                    name: "Fake Bakery",
-                    price_level: 3,
-                    rating: 5,
-                    user_ratings_total: 90,
-                    vicinity: "Fake address"
-                }]
-
-
-            },
-            ),
-
-        } as any)
+        mockTabAPI()
+        mockBadAddressAPI()
 
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockNearbyPlacesAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        mockSecondNearbyPlacesAPI()
 
         const card = await screen.findByTestId("result card none") 
         expect(card).toBeVisible()
@@ -145,30 +197,16 @@ describe("Negative Test Suite: Topic Menu Integration Tests ", () => {
     });
 
     it("should be able to see none cards values when change topic to food", async () => {
-        mockFetch.mockResolvedValue({
-            json: () => Promise.resolve({
-                results: [{
-                    name: "Fake Bakery",
-                    price_level: 3,
-                    rating: 5,
-                    user_ratings_total: 90,
-                    vicinity: "Fake address"
-                }]
+        mockTabAPI()
+        mockBadAddressAPI()
 
-
-            },
-            ),
-
-        } as any)
-
-       
-
-
-        await act(async () => { render(<App  />) })
+        await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockNearbyPlacesAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        mockSecondNearbyPlacesAPI()
 
         const name = await screen.findByTestId("result card none") as HTMLParagraphElement
         expect(name.innerHTML).toBe("No data to show")

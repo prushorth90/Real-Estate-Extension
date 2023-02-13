@@ -18,15 +18,21 @@ export const App: React.FC<{coordinate?: AddressData}> = ({coordinate}) => {
   console.log("1")
   // Get the url from the current tab
   useEffect(() => {
-    chrome.tabs.query({ active: true, lastFocusedWindow: true}, (tabs)=> {
-      let updatedAddress = getAddressFromURL(tabs)
-      getLatitudeAndLongitude(updatedAddress)
-    })
+    getCurrentTab()
+   
     console.log("2")
   }, [])
-
+  async function getCurrentTab() {
+    let queryOptions = { active: true, lastFocusedWindow: true };
+    // `tab` will either be a `tabs.Tab` instance or `undefined`.
+    let [tabs] = await chrome.tabs.query(queryOptions);
+    console.log(tabs)
+    let updatedAddress = getAddressFromURL(tabs)
+    getLatitudeAndLongitude(updatedAddress)
+  }
+ 
   const getAddressFromURL = (tabs) => {
-    let currentTab = tabs[0];
+    let currentTab = tabs;
     console.log("1.1")
     console.log(currentTab.url);
     //mayve if to check in manifest settings which url
