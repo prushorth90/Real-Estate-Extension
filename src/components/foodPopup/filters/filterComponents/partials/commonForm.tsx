@@ -10,11 +10,11 @@ export const CommonForm: React.FC<{
   const [apiInput, setAPIInput] = useContext(APIContext)
 
   //delete later - never used
-  const handleChangeDefault = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setAPIInput(prevState => {
-      return {...prevState, keyword: event.target.value as string}
-   })
-  }
+  // const handleChangeDefault = (event: React.ChangeEvent<{ value: unknown }>) => {
+  //   setAPIInput(prevState => {
+  //     return {...prevState, keyword: event.target.value as string}
+  //  })
+  // }
 
   return (
     <FormControl className={useStyles().formControl}>
@@ -25,7 +25,7 @@ export const CommonForm: React.FC<{
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={keyword}
-          onChange={handleChange == "" ? handleChangeDefault : handleChange}
+          onChange={handleChange}
         >
         {options.map((val, index) => (
           <MenuItem key={index} value={val}>{val}</MenuItem>
