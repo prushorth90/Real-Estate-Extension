@@ -85,3 +85,21 @@ describe("card UI values", () => {
 
 });
 
+describe("card UI values", () => {
+
+    it("should show the values of result card success", async () => {
+
+        let res = {
+            name:undefined,
+            price_level: undefined,
+            rating: undefined,
+            user_ratings_total: undefined,
+            vicinity: undefined
+        }
+        render(<Result result={res} />)
+        const name = await screen.findByTestId("result card") as HTMLParagraphElement
+        expect(name.innerHTML).toBe("")
+
+    })
+
+});
