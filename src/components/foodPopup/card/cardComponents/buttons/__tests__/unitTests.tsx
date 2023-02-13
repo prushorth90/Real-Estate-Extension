@@ -10,7 +10,7 @@ import UserEvent from '@testing-library/user-event'
 
 describe("Components Render", () => {
 
-    it("should render result card success", () => {
+    it("should render photo button", () => {
         let res = {
             name: "Fake Bakery",
             price_level: 3,
@@ -26,9 +26,9 @@ describe("Components Render", () => {
 
 });
 
-describe("Card UI in doc", () => {
+describe("Photo button UI in doc", () => {
 
-    it("should render card in document ", () => {
+    it("should render photo button in document ", () => {
         let res = {
             name: "Fake Bakery",
             price_level: 3,
@@ -46,9 +46,9 @@ describe("Card UI in doc", () => {
 
 });
 
-describe("Card UI visible", () => {
+describe("Photo button UI visible", () => {
 
-    it("should show the card to user ", () => {
+    it("should show the photo button to user ", () => {
         let res = {
             name: "Fake Bakery",
             price_level: 3,
