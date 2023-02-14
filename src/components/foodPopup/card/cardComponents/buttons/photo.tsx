@@ -30,7 +30,7 @@ export const PhotoButton: React.FC<{result, index}> = ({result, index}) => {
               onClick={() => setPhotoId(result,index)}>
               View Photo
       </Button>
-      {index == currIndex ? <PhotoDialog open={openPhoto} onClose={() => setOpenPhoto(false)} photo_reference={photoReference}/> : null}
+      {index == currIndex && <PhotoDialog open={openPhoto} onClose={() => setOpenPhoto(false)} photo_reference={photoReference}/> }
       </div>
     )
 }

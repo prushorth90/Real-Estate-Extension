@@ -133,7 +133,7 @@ describe("Event test click photo button", () => {
         //const photoDialog = await screen.findByTestId("photo dialogs")
         //expect(photoDialog).toBeInTheDocument()
 
-        screen.debug(undefined, 10000)
+        //screen.debug(undefined, 10000)
     });
 
 });
@@ -159,5 +159,30 @@ describe("Negative test suite", () => {
         expect(foodPhoto).toBeInTheDocument()
         expect(foodPhoto).toBeVisible()
     });
+    
+    it("should show no photo if click and photo res is undefined", async () => {
+        mockTabAPI()
+        mockAddressAPI()
 
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockNearbyPlacesPhotoAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
+
+        await act(async () => { fireEvent.click(photoButton) });
+        const foodPhoto = screen.getByTestId("food photo none") as HTMLImageElement
+        //https://stackoverflow.com/questions/59572341/fireevent-keydown-not-working-as-expected-on-my-jest-react-testing-library-tes
+        fireEvent.keyDown(screen.getByTestId("food photo none"), {
+            key: "Escape",
+            code: "Escape",
+            keyCode: 27,
+            charCode: 27
+        });
+        expect(foodPhoto).not.toBeInTheDocument()
+        expect(foodPhoto).not.toBeVisible()
+    });
 });

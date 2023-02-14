@@ -10,14 +10,15 @@ import {Address, AddressData, AddressAPI} from '../utils/api/address/addressInde
 export const TopicContext = createContext([])
 export const CoordContext = createContext([])
 
-export const App: React.FC<{coordinate?: AddressData}> = ({coordinate}) => {
+export const App: React.FC<{}> = () => {
   const [topic, setTopic] = useState<Topic>(Topic.Topics)
   const [addr, setAddr] = useState<Address>(new Address(""))
-  const [coord, setCoord] = useState<AddressData>(coordinate)
+  const [coord, setCoord] = useState<AddressData>()
 
   console.log("1")
   // Get the url from the current tab
   useEffect(() => {
+    //https://developer.chrome.com/docs/extensions/reference/tabs/
     getCurrentTab()
    
     console.log("2")
