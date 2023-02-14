@@ -74,9 +74,9 @@ function mockNearbyPlacesAPI(){
                 vicinity: "Fake address 1",
                 photos: [
                     {
-                        height: 1840,
-                        photo_reference: "fake photo reference",
-                        width: 3264
+                        height: 100,
+                        photo_reference: "fake url",
+                        width:100
                     }
                 ],
                 url: "fake url"
@@ -109,6 +109,86 @@ function mockNearbyPlacesPhotoAPI() {
     } as any)
 }
 
+function mockNearbyPlacesBadPhotoAPI() {
+    mockFetch.mockResolvedValue({
+        json: () => Promise.resolve({
+            results: [{
+                name: "Bakery 1",
+                price_level: 0,
+                rating: 2,
+                user_ratings_total: 56,
+                vicinity: "Fake address 1",
+                photos: [
+                    {
+                        height: undefined,
+                        photo_reference: "fake photo reference",
+                        width: undefined
+                    }
+                ],
+                url: "fake url"
+            }]
+
+
+        },
+        ),
+
+    } as any)
+}
+
+class Response {
+    // could make obj for apartment like open weather data
+    public headers;
+    public ok;
+    public redirected;
+    public status;
+    public body;
+    public bodyUsed;
+    public statusText;
+    public trailer;
+    public type;
+    public url;
+    public clone;
+    public arrayBuffer;
+    public blob;
+    public formData;
+    public json;
+    public text;
+
+
+
+    
+    public constructor(url) {
+        this.headers = 3
+        this.ok = true
+        this.redirected = 0
+        this.status = true
+        this.url=url
+
+    }
+}
+
+async function mockGoodPhotoAPI() {
+
+    await mockFetch.mockImplementation(async (queryInfo) => {
+        let f = new Response("fake url")
+        return Promise.resolve(f)
+
+    })
+   
+}
+
+async function mockBadPhotoAPI() {
+
+    await mockFetch.mockImplementation(async (queryInfo) => {
+        let f = new Response(undefined)
+        return Promise.resolve(f)
+
+    })
+
+}
+
+
+
 describe("Event test click photo button", () => {
     
     it("should be able to see photo dialog after click photo button", async () => {
@@ -121,19 +201,15 @@ describe("Event test click photo button", () => {
         mockNearbyPlacesAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        mockGoodPhotoAPI()
 
         const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
-        
         await act(async () => { fireEvent.click(photoButton) });
         const foodPhoto = screen.getByTestId("food photo") as HTMLImageElement
 
         expect(foodPhoto).toBeInTheDocument()
         expect(foodPhoto).toBeVisible()
 
-        //const photoDialog = await screen.findByTestId("photo dialogs")
-        //expect(photoDialog).toBeInTheDocument()
-
-        //screen.debug(undefined, 10000)
     });
 
 });
@@ -184,5 +260,27 @@ describe("Negative test suite", () => {
         });
         expect(foodPhoto).not.toBeInTheDocument()
         expect(foodPhoto).not.toBeVisible()
+    });
+
+    it("should show error if click and photo res is undefined", async () => {
+        mockTabAPI()
+        mockAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockNearbyPlacesAPI()
+
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        mockBadPhotoAPI()
+
+        const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
+        await act(async () => { fireEvent.click(photoButton) });
+        const foodPhoto = await screen.findByTestId("food photo error") as HTMLImageElement
+
+        expect(foodPhoto).toBeInTheDocument()
+        expect(foodPhoto).toBeVisible()
+        screen.debug(undefined,10000)
     });
 });
