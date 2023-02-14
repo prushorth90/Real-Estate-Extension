@@ -189,7 +189,7 @@ describe("Negative Test Suite: Topic Menu Integration Tests ", () => {
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
         mockSecondNearbyPlacesAPI()
 
-        const card = await screen.findByTestId("result card none") 
+        const card = await screen.findByTestId("result card other") 
         expect(card).toBeVisible()
 
 
@@ -208,8 +208,8 @@ describe("Negative Test Suite: Topic Menu Integration Tests ", () => {
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
         mockSecondNearbyPlacesAPI()
 
-        const name = await screen.findByTestId("result card none") as HTMLParagraphElement
-        expect(name.innerHTML).toBe("No data to show")
+        const name = await screen.findByTestId("result card other") as HTMLParagraphElement
+        expect(name.innerHTML).toBe("Loading. Please wait while we collect your results")
 
 
     });

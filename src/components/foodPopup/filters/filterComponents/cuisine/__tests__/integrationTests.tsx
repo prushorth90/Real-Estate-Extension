@@ -113,33 +113,6 @@ function mockSecondNearbyPlacesAPI() {
 }
 
 describe("Event test change value of type filter", () => {
-
-   
-    it("should be able to see update of value filter of type", async () => {
-        mockTabAPI()
-        mockAddressAPI()
-
-        await act(async () => { render(<App />) })
-
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockNearbyPlacesAPI() 
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        mockSecondNearbyPlacesAPI()
-
-        const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
-        const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
-        expect(type.value).toBe("Restaurant")
-        
-        const cuisine = screen.getByTestId("Input Cuisine") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
-        const cuisineOptions = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(cuisineOptions.getByText(/Italian/i)) });
-        expect(cuisine.value).toBe("Italian")
-
-    });
     
 
     it("should be able to see card when change filter of type", async () => {
@@ -160,7 +133,7 @@ describe("Event test change value of type filter", () => {
         await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
         expect(type.value).toBe("Restaurant")
 
-        const cuisine = screen.getByTestId("Input Cuisine") as HTMLSelectElement
+        const cuisine = await screen.findByTestId("Input Cuisine") as HTMLSelectElement
         await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const cuisineOptions = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(cuisineOptions.getByText(/Italian/i)) });

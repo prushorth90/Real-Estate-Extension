@@ -111,6 +111,59 @@ function mockSecondNearbyPlacesAPI() {
 
     } as any)
 }
+
+function mockThirdNearbyPlacesAPI() {
+    mockFetch.mockResolvedValue({
+        json: () => Promise.resolve({
+            results: Array(0)
+
+        },
+        ),
+
+    } as any)
+}
+
+class Response {
+    // could make obj for apartment like open weather data
+    public headers;
+    public ok;
+    public redirected;
+    public status;
+    public body;
+    public bodyUsed;
+    public statusText;
+    public trailer;
+    public type;
+    public url;
+    public clone;
+    public arrayBuffer;
+    public blob;
+    public formData;
+    public json;
+    public text;
+
+
+
+
+    public constructor(status) {
+        this.headers = 3
+        this.ok = true
+        this.redirected = 0
+        this.status = status
+
+    }
+}
+
+
+async function mockBadFoodAPI() {
+
+    await mockFetch.mockImplementation(async (queryInfo) => {
+        let f = new Response(400)
+        return Promise.resolve(f)
+
+    })
+
+}
 describe("Event test change value of radius filter", () => {
 
     it("should be able to see update of value filter of radius", async () => {
@@ -189,6 +242,45 @@ describe("Event test change value of radius filter", () => {
         expect(photoButton).toBeInTheDocument()
 
         screen.debug(undefined, 100000)
+    });
+
+    it("should be able to see update to cards values when change filter of radius", async () => {
+        mockTabAPI()
+        mockAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockThirdNearbyPlacesAPI() 
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const foodPhoto = await screen.findByTestId("result card none") as HTMLParagraphElement
+
+        expect(foodPhoto).toBeInTheDocument()
+        expect(foodPhoto).toBeVisible()
+
+        expect(foodPhoto.innerHTML).toBe("No data to show")
+
+        screen.debug(undefined,10000)
+    });
+
+    it("should be able to see error", async () => {
+        mockTabAPI()
+        mockAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockBadFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        
+        const foodPhoto = await screen.findByTestId("result card other") as HTMLImageElement
+
+        expect(foodPhoto).toBeInTheDocument()
+        expect(foodPhoto).toBeVisible()
+       
     });
 
    

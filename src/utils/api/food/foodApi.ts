@@ -24,6 +24,10 @@ export class FoodAPI extends API {
     // if (!res.ok) {
     //   throw new Error('not found')
     // }
+    console.log(res.status)
+    if (res.status==400) {
+      throw new Error('not found')
+    }
 
     const data: NearbySearchData = await res.json()
     return data

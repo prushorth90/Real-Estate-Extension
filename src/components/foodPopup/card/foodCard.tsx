@@ -21,7 +21,7 @@ export const FoodCard: React.FC<{}> = ({}) => {
 
   if (cardState === ResultState.Loading || cardState === ResultState.Error || cardState === ResultState.None) {
     return (
-      <MessageCard cardState/>
+      <MessageCard cardState={cardState}/>
     )
   } else {
 
