@@ -38,12 +38,6 @@ export const FoodCard: React.FC<{}> = ({}) => {
               <div style={{ display: 'flex' }} >
                 <PhotoButton result={result} index={index}/>
 
-                <Button className="foodCard-body"
-                        key={result.photos !== undefined ? result.photos[0].photo_reference: null}
-                        variant="outlined"
-                        color="primary">
-                        View Time
-                </Button>
               </div>
             </Grid>
           </Grid>
