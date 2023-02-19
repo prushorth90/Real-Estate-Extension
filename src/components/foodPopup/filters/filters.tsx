@@ -24,6 +24,8 @@ export const Filter: React.FC<{}> = ({}) => {
           data.results.length === 0 ?setCardState(ResultState.None): setCardState(ResultState.Ready)
         })
         .catch((err) => setCardState(ResultState.Error))
+    } else {
+      setCardState(ResultState.None)
     }
   }, [apiInput])
 

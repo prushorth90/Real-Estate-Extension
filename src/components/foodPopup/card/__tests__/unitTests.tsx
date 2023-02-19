@@ -11,7 +11,7 @@ describe("FoodPopup card UI in document", () => {
         // 2. render
         render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
 
-        const card = screen.getByTestId("result card other") 
+        const card = screen.getByTestId("result card none") 
 
         expect(card).toBeInTheDocument()
     });
@@ -25,7 +25,7 @@ describe("FoodPopup card UI is visible to user", () => {
         // 2. render
         render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
 
-        const card = screen.getByTestId("result card other") 
+        const card = screen.getByTestId("result card none") 
         expect(card).toBeVisible()
     });
 
@@ -37,8 +37,8 @@ describe("FoodPopup card UI value", () => {
         // 2. render
         render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
 
-        const card = screen.getByTestId("result card other") as HTMLParagraphElement
+        const card = screen.getByTestId("result card none") as HTMLParagraphElement
 
-        expect(card.innerHTML).toBe("Loading. Please wait while we collect your results")
+        expect(card.innerHTML).toBe("No data to show")
     });
 });
