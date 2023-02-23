@@ -19,16 +19,16 @@ export const App: React.FC<{}> = () => {
   // Get the url from the current tab
   useEffect(() => {
     //https://developer.chrome.com/docs/extensions/reference/tabs/
-    getCurrentTab()
+    findCoordinates()
    
     console.log("2")
   }, [])
-  async function getCurrentTab() {
+  async function findCoordinates() {
     let queryOptions = { active: true, lastFocusedWindow: true };
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
-    let [tabs] = await chrome.tabs.query(queryOptions);
-    console.log(tabs)
-    let updatedAddress = getAddressFromURL(tabs)
+    let [tab] = await chrome.tabs.query(queryOptions);
+    console.log(tab)
+    let updatedAddress = getAddressFromURL(tab)
     getLatitudeAndLongitude(updatedAddress)
   }
  
@@ -75,8 +75,8 @@ export const App: React.FC<{}> = () => {
   )
 }
 
-// const root = document.createElement('div')
-// document.body.appendChild(root)
-// ReactDOM.render(<App />, root)
+const root = document.createElement('div')
+document.body.appendChild(root)
+ReactDOM.render(<App />, root)
 
 export default App

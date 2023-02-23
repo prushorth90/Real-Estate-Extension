@@ -9,6 +9,7 @@ export class FoodAPI extends API {
   //   super(apiKey);
   // }
 
+  // https://developer.chrome.com/docs/extensions/mv3/tut_oauth/
   public async fetchData(coord, apiInput): Promise<NearbySearchData> {
     let latitude = coord.results[0].geometry.location.lat
     let longitude = coord.results[0].geometry.location.lng
