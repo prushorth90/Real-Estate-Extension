@@ -111,10 +111,10 @@ async function mockBadInvalidAddressAPI() {
   })
 }
 
-describe("when the popup has been rendered", () => {
+describe("when the subcomponents have been rendered", () => {
 
   it("should show the topic select menu", async () => {
-      // 2. render
+      
       mockTabAPI()
       mockGoodAddressAPI()
 
@@ -127,7 +127,7 @@ describe("when the popup has been rendered", () => {
   });
 
   it("should show the topic select menu even if bad empty address", async () => {
-    // 2. render
+    
     mockTabAPI()
     mockBadEmptyAddressAPI()
 
@@ -140,7 +140,7 @@ describe("when the popup has been rendered", () => {
   });
 
   it("should show the topic select menu even if bad invalid address", async () => {
-    // 2. render
+    
     mockTabAPI()
     mockBadInvalidAddressAPI()
 
