@@ -24,34 +24,36 @@ class Tab {
     public autoDiscardable;
     public groupId;
     public url;
-    public constructor() {
+    public constructor(active, url) {
         this.index = 3
         this.highlighted = true
         this.windowId = 0
-        this.active = true
+        this.active = active
         this.incognito = true
         this.selected = true
         this.discarded = true
         this.autoDiscardable = true
         this.groupId = 3
-        this.url = "https://www.realtor.com/realestateandhomes-detail/6224-S-Rockwell-St_Chicago_IL_60629_M83401-45847"
+        this.url = url
     }
 }
 
-async function mockTabAPI() {
+async function mockGoodTabAPI() {
     await chrome.tabs.query.mockImplementation(async (queryInfo) => {
         let f = new Array<Tab>()
-        f.push(new Tab())
+        let active = true
+        let url = "https://www.realtor.com/realestateandhomes-detail/6224-S-Rockwell-St_Chicago_IL_60629_M83401-45847"
+        f.push(new Tab(active, url))
         return Promise.resolve(f)
 
     })
 }
 
-function mockAddressAPI() {
+
+function mockGoodAddressAPI() {
     mockFetch.mockResolvedValue({
         json: () => Promise.resolve({
             results: [{
-
                 geometry: {
                     location: {
                         lat: 41.814637,
@@ -67,27 +69,33 @@ function mockAddressAPI() {
     } as any)
 }
 
-function mockBadAddressAPI() {
+function mockBadEmptyAddressAPI() {
     mockFetch.mockResolvedValue({
         json: () => Promise.resolve({
             results: []
-
-
         },
         ),
 
     } as any)
 }
 
-function mockNearbyPlacesAPI() {
+async function mockBadInvalidAddressAPI() {
+    await mockFetch.mockImplementation(async (queryInfo) => {
+        let f = new Response(400)
+        return Promise.resolve(f)
+
+    })
+}
+
+function mockGoodFoodAPI() {
     mockFetch.mockResolvedValue({
         json: () => Promise.resolve({
             results: [{
-                name: "Bakery 1",
-                price_level: 0,
-                rating: 2,
-                user_ratings_total: 56,
-                vicinity: "Fake address 1",
+                name: "Fake Bakery",
+                price_level: 3,
+                rating: 5,
+                user_ratings_total: 90,
+                vicinity: "Fake address",
                 photos: [
                     {
                         height: 1840,
@@ -105,23 +113,24 @@ function mockNearbyPlacesAPI() {
     } as any)
 }
 
-function mockSecondNearbyPlacesAPI() {
+function mockBadEmptyFoodAPI() {
     mockFetch.mockResolvedValue({
         json: () => Promise.resolve({
-            results: [{
-                name: "Fake Bakery",
-                price_level: 3,
-                rating: 5,
-                user_ratings_total: 90,
-                vicinity: "Fake address"
-            }]
-
-
+            results: []
         },
         ),
 
     } as any)
 }
+
+async function mockBadInvalidFoodAPI() {
+    await mockFetch.mockImplementation(async (queryInfo) => {
+        let f = new Response(400)
+        return Promise.resolve(f)
+
+    })
+}
+
 
 class Response {
     // could make obj for apartment like open weather data
@@ -155,46 +164,23 @@ class Response {
 }
 
 
-async function mockBadFoodAPI() {
+describe("tests when change from topic to food", () => {
 
-    await mockFetch.mockImplementation(async (queryInfo) => {
-        let f = new Response(400)
-        return Promise.resolve(f)
-
-    })
-
-}
-
-describe("Positive integration tests: ", () => {
-
-    it("should be able to see cards when change topic to food", async () => {
-        mockTabAPI()
-        mockAddressAPI()
+    it("should be able to see ready result cards", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
 
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockNearbyPlacesAPI()
+        mockGoodFoodAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
         const card = await screen.findByTestId("result card") as HTMLDivElement
         expect(card).toBeVisible()
+        expect(card).toBeInTheDocument()
 
-        
-
-    });
-
-    it("should be able to see cards values when change topic to food", async () => {
-        mockTabAPI()
-        mockAddressAPI()
-
-        await act(async () => { render(<App />) })
-
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockSecondNearbyPlacesAPI()
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
         const name = await screen.findByTestId("result name") as HTMLParagraphElement
         expect(name.innerHTML).toBe(" Fake Bakery ")
@@ -207,127 +193,205 @@ describe("Positive integration tests: ", () => {
 
         const vicinity = await screen.findByTestId("result vicinity") as HTMLParagraphElement
         expect(vicinity.innerHTML).toBe(" Vicinity: Fake address ")
-        
+
         const photoButton = await screen.findByTestId("photo button") as HTMLButtonElement
         expect(photoButton).toBeInTheDocument()
+        
 
     });
 
-   
+    it("should be able to see none card as empty food api", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockBadEmptyFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        expect(card).toBeVisible()
+        expect(card).toBeInTheDocument()
+        expect(card.innerHTML).toBe("No data to show")
+
+
+    });
+
+    it("should be able to see error cards as bad food api", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockBadInvalidFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
+        expect(card).toBeVisible()
+        expect(card).toBeInTheDocument()
+        expect(card.innerHTML).toBe("Error. Our API request has failed")
+
+
+    });
+
+    it("should be able to see none card as bad address", async () => {
+        mockGoodTabAPI()
+        mockBadEmptyAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        //mockBadInvalidFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        expect(card).toBeVisible()
+        expect(card).toBeInTheDocument()
+        expect(card.innerHTML).toBe("No data to show")
+
+
+
+
+    });
+
+    it("should be able to see none card as invalid address", async () => {
+        mockGoodTabAPI()
+        mockBadInvalidAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        //mockBadInvalidFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        expect(card).toBeVisible()
+        expect(card).toBeInTheDocument()
+        expect(card.innerHTML).toBe("No data to show")
+
+
+
+    });
+
 });
 
 
-describe("Negative Test Suite: Topic Menu Integration Tests ", () => {
+describe("tests when change from food to topic", () => {
 
-    it("should be able to see value of select menu to be topics when change food to topics", async () => {
-        mockTabAPI()
-        mockAddressAPI()
-
-        await act(async () => { render(<App />) })
-
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockNearbyPlacesAPI()
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
-        
-        // expect(card).not.toBeVisible()
-
-        expect(topicMenuSelect.value).toBe("Topics");
-
-    });
-
-    it("should be able to see no cards when change food to topics", async () => {
-        mockTabAPI()
-        mockAddressAPI()
+    it("should be able to see no cards", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
 
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockNearbyPlacesAPI()
+        mockGoodFoodAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
         const card = await screen.findByTestId("result card") as HTMLDivElement
-
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
 
+        // expect(card).not.toBeVisible()
+
+        expect(topicMenuSelect.value).toBe("Topics");
         expect(card).not.toBeInTheDocument()
 
     });
 
-
-    it("should be able to none cards if empty latitude and longitude", async () => {
-        mockTabAPI()
-        mockBadAddressAPI()
+    it("should be able to see no cards if empty food api", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
 
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockNearbyPlacesAPI()
+        mockBadEmptyFoodAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        mockSecondNearbyPlacesAPI()
 
-        const card = await screen.findByTestId("result card none") 
-        expect(card).toBeVisible()
+        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
+
+        // expect(card).not.toBeVisible()
+
+        expect(topicMenuSelect.value).toBe("Topics");
+        expect(card).not.toBeInTheDocument()
+
+    });
+
+    it("should be able to see no cards if bad food api", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockBadInvalidFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
+
+        // expect(card).not.toBeVisible()
+
+        expect(topicMenuSelect.value).toBe("Topics");
+        expect(card).not.toBeInTheDocument()
+
+
+    });
+
+    it("should be able to see no cards if bad address", async () => {
+        mockGoodTabAPI()
+        mockBadEmptyAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        //mockGoodFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
+
+        // expect(card).not.toBeVisible()
+
+        expect(topicMenuSelect.value).toBe("Topics");
+        expect(card).not.toBeInTheDocument()
+
 
 
 
     });
 
-    it("should be able to see none cards values when change topic to food", async () => {
-        mockTabAPI()
-        mockBadAddressAPI()
+    it("should be able to see no cards if invalid address", async () => {
+        mockGoodTabAPI()
+        mockBadInvalidAddressAPI()
 
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockNearbyPlacesAPI()
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        mockSecondNearbyPlacesAPI()
-
-        const name = await screen.findByTestId("result card none") as HTMLParagraphElement
-        expect(name.innerHTML).toBe("No data to show")
-
-
-    });
-
-    it("should be able to error cards if network request failed", async () => {
-        mockTabAPI()
-        mockAddressAPI()
-
-        await act(async () => { render(<App />) })
-
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockBadFoodAPI()
+        //mockBadInvalidFoodAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const card = await screen.findByTestId("result card other") as HTMLParagraphElement
-        expect(card).toBeInTheDocument()
+        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
 
+        // expect(card).not.toBeVisible()
 
-
-    });
-
-    it("should be able to error cards valueif network request failed", async () => {
-        mockTabAPI()
-        mockAddressAPI()
-
-        await act(async () => { render(<App />) })
-
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockBadFoodAPI()
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-
-        const card = await screen.findByTestId("result card other") as HTMLParagraphElement
-        expect(card.innerHTML).toBe("Error. Our API request has failed")
+        expect(topicMenuSelect.value).toBe("Topics");
+        expect(card).not.toBeInTheDocument()
 
 
 
     });
 
 });
-
