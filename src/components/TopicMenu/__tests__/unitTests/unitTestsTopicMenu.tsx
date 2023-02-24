@@ -163,32 +163,63 @@ class Response {
 }
 
 describe("when the topic menu has been rendered", () => {
-    // 1. IS (<TEXT>)OFELE IN DOM,
-    it("should show the topic menu", () => {
-        // 2. render
+    it("should show and check the values of topic menu", () => {
         render((<TopicContext.Provider value={["Topics", jest.fn()]}> <TopicMenu /></TopicContext.Provider>))
         
         const topicMenuSelect = screen.getByTestId("topic_menu_select")
 
         expect(topicMenuSelect).toBeVisible()
         expect(topicMenuSelect).toBeInTheDocument()
+
+        const topicMenuInput = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        expect(topicMenuInput.value).toBe("Topics")
         
     });
 
-    it("should make topic select menu visible to user", () => {
+    it("should show the topic select menu", async () => {
 
-        render((<TopicContext.Provider value={["Topics", jest.fn()]}> <TopicMenu /></TopicContext.Provider>))
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
 
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        await act(async () => { render(<App />) })
+        const topicMenuInput = screen.getByTestId("topic_menu_input") as HTMLSelectElement
 
-        expect(topicMenuSelect.value).toBe("Topics")
+        expect(topicMenuInput).toBeInTheDocument()
+        expect(topicMenuInput.value).toBe("Topics")
+
+    });
+
+    it("should show and check the values the topic select menu even if bad empty address", async () => {
+
+        mockGoodTabAPI()
+        mockBadEmptyAddressAPI()
+
+        await act(async () => { render(<App />) })
+        const topicMenuInput = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        expect(topicMenuInput).toBeInTheDocument()
+        expect(topicMenuInput.value).toBe("Topics")
+
+    });
+
+    it("should show and check the values the topic select menu even if bad invalid address", async () => {
+
+        mockGoodTabAPI()
+        mockBadInvalidAddressAPI()
+
+        await act(async () => { render(<App />) })
+        const topicMenuInput = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        expect(topicMenuInput).toBeInTheDocument()
+        expect(topicMenuInput.value).toBe("Topics")
 
     });
 
 });
 
 
-describe("for the topic menu change event", () => {
+describe("for the topic menu change event topic to food", () => {
     it("should be able to change topic to food", async () => {
         mockGoodTabAPI()
         mockGoodAddressAPI()

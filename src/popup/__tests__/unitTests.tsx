@@ -66,7 +66,7 @@ class Response {
 }
 
 
-async function mockTabAPI() {
+async function mockGoodTabAPI() {
   await chrome.tabs.query.mockImplementation(async (queryInfo) => {
     let f = new Array<Tab>()
     f.push(new Tab())
@@ -111,46 +111,45 @@ async function mockBadInvalidAddressAPI() {
   })
 }
 
-describe("when the subcomponents have been rendered", () => {
+describe("when the main component popup has been rendered", () => {
 
-  it("should show the topic select menu", async () => {
-      
-      mockTabAPI()
-      mockGoodAddressAPI()
+  it("should show the popup", async () => {
 
-      await act(async () => {render(<App />)})
-      const topicMenuInput = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+    mockGoodTabAPI()
+    mockGoodAddressAPI()
 
-      expect(topicMenuInput).toBeInTheDocument()
-      expect(topicMenuInput.value).toBe("Topics") 
+    await act(async () => { render(<App />) })
+    const popup= screen.getByTestId("popup") 
+
+    expect(popup).toBeInTheDocument()
 
   });
 
-  it("should show the topic select menu even if bad empty address", async () => {
-    
-    mockTabAPI()
+  it("should show the popup even if bad empty address", async () => {
+
+    mockGoodTabAPI()
     mockBadEmptyAddressAPI()
 
     await act(async () => { render(<App />) })
-    const topicMenuInput = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+    const popup = screen.getByTestId("popup")
 
-    expect(topicMenuInput).toBeInTheDocument()
-    expect(topicMenuInput.value).toBe("Topics") 
+    expect(popup).toBeInTheDocument()
+
 
   });
 
-  it("should show the topic select menu even if bad invalid address", async () => {
-    
-    mockTabAPI()
+  it("should show the popup even if bad invalid address", async () => {
+
+    mockGoodTabAPI()
     mockBadInvalidAddressAPI()
 
     await act(async () => { render(<App />) })
-    const topicMenuInput = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+    const popup = screen.getByTestId("popup")
 
-    expect(topicMenuInput).toBeInTheDocument()
-    expect(topicMenuInput.value).toBe("Topics") 
+    expect(popup).toBeInTheDocument()
 
   });
 
 });
+
 
