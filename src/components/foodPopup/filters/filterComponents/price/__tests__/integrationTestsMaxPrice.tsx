@@ -182,7 +182,7 @@ class Response {
     }
 }
 
-describe("change value of min price filter", () => {
+describe("change value of max price filter", () => {
 
     //move to unit tests
 
