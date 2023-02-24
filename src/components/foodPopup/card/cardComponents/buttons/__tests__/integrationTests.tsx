@@ -20,34 +20,36 @@ class Tab {
     public autoDiscardable;
     public groupId;
     public url;
-    public constructor() {
+    public constructor(active, url) {
         this.index = 3
         this.highlighted = true
         this.windowId = 0
-        this.active = true
+        this.active = active
         this.incognito = true
         this.selected = true
         this.discarded = true
         this.autoDiscardable = true
         this.groupId = 3
-        this.url = "https://www.realtor.com/realestateandhomes-detail/6224-S-Rockwell-St_Chicago_IL_60629_M83401-45847"
+        this.url = url
     }
 }
 
-async function mockTabAPI() {
+async function mockGoodTabAPI() {
     await chrome.tabs.query.mockImplementation(async (queryInfo) => {
         let f = new Array<Tab>()
-        f.push(new Tab())
+        let active = true
+        let url = "https://www.realtor.com/realestateandhomes-detail/6224-S-Rockwell-St_Chicago_IL_60629_M83401-45847"
+        f.push(new Tab(active, url))
         return Promise.resolve(f)
 
     })
 }
 
-function mockAddressAPI() {
+
+function mockGoodAddressAPI() {
     mockFetch.mockResolvedValue({
         json: () => Promise.resolve({
             results: [{
-
                 geometry: {
                     location: {
                         lat: 41.814637,
@@ -63,66 +65,20 @@ function mockAddressAPI() {
     } as any)
 }
 
-function mockNearbyPlacesAPI(){
+function mockGoodFoodAPI() {
     mockFetch.mockResolvedValue({
         json: () => Promise.resolve({
             results: [{
-                name: "Bakery 1",
-                price_level: 0,
-                rating: 2,
-                user_ratings_total: 56,
-                vicinity: "Fake address 1",
+                name: "Fake Bakery",
+                price_level: 3,
+                rating: 5,
+                user_ratings_total: 90,
+                vicinity: "Fake address",
                 photos: [
                     {
-                        height: 100,
-                        photo_reference: "fake url",
-                        width:100
-                    }
-                ],
-                url: "fake url"
-            }]
-
-
-        },
-        ),
-
-    } as any)
-}
-
-function mockNearbyPlacesPhotoAPI() {
-    mockFetch.mockResolvedValue({
-        json: () => Promise.resolve({
-            results: [{
-                name: "Bakery 1",
-                price_level: 0,
-                rating: 2,
-                user_ratings_total: 56,
-                vicinity: "Fake address 1",
-                photos: undefined,
-                url: "fake url"
-            }]
-
-
-        },
-        ),
-
-    } as any)
-}
-
-function mockNearbyPlacesBadPhotoAPI() {
-    mockFetch.mockResolvedValue({
-        json: () => Promise.resolve({
-            results: [{
-                name: "Bakery 1",
-                price_level: 0,
-                rating: 2,
-                user_ratings_total: 56,
-                vicinity: "Fake address 1",
-                photos: [
-                    {
-                        height: undefined,
+                        height: 1840,
                         photo_reference: "fake photo reference",
-                        width: undefined
+                        width: 3264
                     }
                 ],
                 url: "fake url"
@@ -134,6 +90,9 @@ function mockNearbyPlacesBadPhotoAPI() {
 
     } as any)
 }
+
+
+
 
 class Response {
     // could make obj for apartment like open weather data
@@ -156,13 +115,13 @@ class Response {
 
 
 
-    
+
     public constructor(url) {
         this.headers = 3
         this.ok = true
         this.redirected = 0
         this.status = true
-        this.url=url
+        this.url = url
 
     }
 }
@@ -174,10 +133,30 @@ async function mockGoodPhotoAPI() {
         return Promise.resolve(f)
 
     })
-   
+
 }
 
-async function mockBadPhotoAPI() {
+function mockBadEmptyPhotoAPI() {
+    mockFetch.mockResolvedValue({
+        json: () => Promise.resolve({
+            results: [{
+                name: "Bakery 1",
+                price_level: 0,
+                rating: 2,
+                user_ratings_total: 56,
+                vicinity: "Fake address 1",
+                photos: undefined,
+                url: "fake url"
+            }]
+
+
+        },
+        ),
+
+    } as any)
+}
+
+async function mockBadInvalidPhotoAPI() {
 
     await mockFetch.mockImplementation(async (queryInfo) => {
         let f = new Response(undefined)
@@ -189,16 +168,16 @@ async function mockBadPhotoAPI() {
 
 
 
-describe("Event test click photo button", () => {
-    
+describe("click photo button and see dialog open", () => {
+
     it("should be able to see photo dialog after click photo button", async () => {
-        mockTabAPI()
-        mockAddressAPI()
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
 
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockNearbyPlacesAPI()
+        mockGoodFoodAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
         mockGoodPhotoAPI()
@@ -212,18 +191,14 @@ describe("Event test click photo button", () => {
 
     });
 
-});
-
-describe("Negative test suite", () => {
-
-    it("should show no photo if click and photo res is undefined", async () => {
-        mockTabAPI()
-        mockAddressAPI()
+    it("should show no photo after click photo button", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
 
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockNearbyPlacesPhotoAPI()
+        mockBadEmptyPhotoAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
@@ -235,15 +210,71 @@ describe("Negative test suite", () => {
         expect(foodPhoto).toBeInTheDocument()
         expect(foodPhoto).toBeVisible()
     });
-    
-    it("should show no photo if click and photo res is undefined", async () => {
-        mockTabAPI()
-        mockAddressAPI()
+
+    it("should show error after click photo button as network request failed", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
 
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockNearbyPlacesPhotoAPI()
+        mockGoodFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        mockBadInvalidPhotoAPI()
+
+        const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
+        await act(async () => { fireEvent.click(photoButton) });
+        const foodPhoto = await screen.findByTestId("food photo error") as HTMLImageElement
+
+        expect(foodPhoto).toBeInTheDocument()
+        expect(foodPhoto).toBeVisible()
+    });
+
+
+});
+
+
+
+
+
+describe("close photo dialog tests", () => {
+
+    it("should close the photo dialog", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockGoodFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        mockGoodPhotoAPI()
+
+        const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
+
+        await act(async () => { fireEvent.click(photoButton) });
+        const foodPhoto = screen.getByTestId("food photo") as HTMLImageElement
+        //https://stackoverflow.com/questions/59572341/fireevent-keydown-not-working-as-expected-on-my-jest-react-testing-library-tes
+        fireEvent.keyDown(screen.getByTestId("food photo"), {
+            key: "Escape",
+            code: "Escape",
+            keyCode: 27,
+            charCode: 27
+        });
+        expect(foodPhoto).not.toBeInTheDocument()
+        expect(foodPhoto).not.toBeVisible()
+    });
+
+    it("should close the photo dialog", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockBadEmptyPhotoAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
@@ -262,25 +293,31 @@ describe("Negative test suite", () => {
         expect(foodPhoto).not.toBeVisible()
     });
 
-    it("should show error if click and photo res is undefined", async () => {
-        mockTabAPI()
-        mockAddressAPI()
+    it("should close the photo dialog", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
 
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockNearbyPlacesAPI()
-
+        mockGoodFoodAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        mockBadPhotoAPI()
+        mockBadInvalidPhotoAPI()
 
         const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
-        await act(async () => { fireEvent.click(photoButton) });
-        const foodPhoto = await screen.findByTestId("food photo error") as HTMLImageElement
 
-        expect(foodPhoto).toBeInTheDocument()
-        expect(foodPhoto).toBeVisible()
-        screen.debug(undefined,10000)
+        await act(async () => { fireEvent.click(photoButton) });
+        const foodPhoto = screen.getByTestId("food photo error") as HTMLImageElement
+        //https://stackoverflow.com/questions/59572341/fireevent-keydown-not-working-as-expected-on-my-jest-react-testing-library-tes
+        fireEvent.keyDown(screen.getByTestId("food photo error"), {
+            key: "Escape",
+            code: "Escape",
+            keyCode: 27,
+            charCode: 27
+        });
+        expect(foodPhoto).not.toBeInTheDocument()
+        expect(foodPhoto).not.toBeVisible()
     });
+
 });
