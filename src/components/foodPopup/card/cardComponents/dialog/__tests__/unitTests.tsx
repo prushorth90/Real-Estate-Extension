@@ -53,7 +53,8 @@ async function mockGoodPhotoAPI() {
     })
    
 }
-function mockNearbyPlacesAPI() {
+
+function mockBadEmptyPhotoAPI() {
     mockFetch.mockResolvedValue({
         json: () => Promise.resolve({
             results: [{
@@ -62,13 +63,7 @@ function mockNearbyPlacesAPI() {
                 rating: 2,
                 user_ratings_total: 56,
                 vicinity: "Fake address 1",
-                photos: [
-                    {
-                        height: 1840,
-                        photo_reference: "fake photo reference",
-                        width: 3264
-                    }
-                ],
+                photos: undefined,
                 url: "fake url"
             }]
 
@@ -78,79 +73,93 @@ function mockNearbyPlacesAPI() {
 
     } as any)
 }
-describe("Components Render", () => {
+
+async function mockBadInvalidPhotoAPI() {
+
+    await mockFetch.mockImplementation(async (queryInfo) => {
+        let f = new Response(undefined)
+        return Promise.resolve(f)
+
+    })
+
+}
+
+describe("for when the dialog renders", () => {
     
     it("should render result dialog success", async () => {
-        mockNearbyPlacesAPI()
-        await act(async () => {render(<PhotoDialog open={true} onClose={jest.fn()} photo_reference={"fake photo reference"} />)})
-    });
-    
-
-    it("should render dialog in document ", async () => {
         mockGoodPhotoAPI()
-
-        await act(async () => { render(<PhotoDialog open={true} onClose={jest.fn()} photo_reference={"fake photo reference"} />) })
-
+        await act(async () => {render(<PhotoDialog open={true} onClose={jest.fn()} photo_reference={"fake photo reference"} />)})
         const foodPhoto = await screen.findByTestId("food photo")
 
         expect(foodPhoto).toBeInTheDocument()
         expect(foodPhoto).toBeVisible()
-        screen.debug()
     });
     
+
+    it("should render dialog in document even if error ", async () => {
+        mockBadInvalidPhotoAPI()
+
+        await act(async () => { render(<PhotoDialog open={true} onClose={jest.fn()} photo_reference={undefined} />) })
+
+        const foodPhoto = await screen.findByTestId("food photo error") as HTMLDivElement
+
+        expect(foodPhoto).toBeInTheDocument()
+        expect(foodPhoto).toBeVisible()
+        expect(foodPhoto.innerHTML).toBe("Error. Our API request has failed ")
+
+
+
+    });
+
+    it("should render dialog in document even if empty ", async () => {
+        mockBadEmptyPhotoAPI()
+
+        await act(async () => { render(<PhotoDialog open={true} onClose={jest.fn()} photo_reference={""} />) })
+
+        const foodPhoto = await screen.findByTestId("food photo none")
+
+        expect(foodPhoto).toBeInTheDocument()
+        expect(foodPhoto).toBeVisible()
+        expect(foodPhoto.innerHTML).toBe(" No Photo ")
+
+    });
     
-    // it("should be able to see close photo dialog", async () => {
-    //     mockFetch.mockResolvedValue({
-    //         json: () => Promise.resolve({
-    //             results: [{
-    //                 name: "Bakery 1",
-    //                 price_level: 0,
-    //                 rating: 2,
-    //                 user_ratings_total: 56,
-    //                 vicinity: "Fake address 1",
-    //                 photos: [
-    //                     {
-    //                         height: 1840,
-    //                         photo_reference: "fake photo reference",
-    //                         width: 3264
-    //                     }
-    //                 ],
-    //                 url: "fake url"
-    //             }]
+    it("should not render dialog in document as open false", async () => {
+        mockGoodPhotoAPI()
+
+        await act(async () => { render(<PhotoDialog open={false} onClose={jest.fn()} photo_reference={""} />) })
+
+        const foodPhoto = await screen.queryByTestId("food photo none")
+
+        expect(foodPhoto).not.toBeInTheDocument()
+
+    });
+
+    it("should not render dialog in document as open false with bad empty photo api", async () => {
+        mockBadEmptyPhotoAPI()
+
+        await act(async () => { render(<PhotoDialog open={false} onClose={jest.fn()} photo_reference={""} />) })
+
+        const foodPhoto = await screen.queryByTestId("food photo none")
+
+        expect(foodPhoto).not.toBeInTheDocument()
+
+    });
+
+    it("should not render dialog in document as open false with bad invalid photo api", async () => {
+        mockBadInvalidPhotoAPI()
+
+        await act(async () => { render(<PhotoDialog open={false} onClose={jest.fn()} photo_reference={""} />) })
+
+        const foodPhoto = await screen.queryByTestId("food photo none")
+
+        expect(foodPhoto).not.toBeInTheDocument()
+
+    });
 
 
-    //         },
-    //         ),
-
-    //     } as any)
-
-    //     let coordinate = {
-    //         "results": [{
-    //             "geometry": {
-    //                 "location": {
-    //                     lat: 41.814637,
-    //                     lng: -87.596083
-    //                 }
-    //             }
-    //         }]
-    //     }
-
-
-    //     await act(async () => { render(<App coordinate={coordinate} />) })
-
-    //     const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-
-    //     await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-
-    //     const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
-       
-    //     await act(async () => { fireEvent.click(photoButton) });
-        
-    //     const backdrop = screen.getByRole('dialog', { hidden: true });
-    //     await fireEvent.click(backdrop);
-    //     screen.debug(undefined, 100000)
-    // });
-
+    
+  
 
 });
 

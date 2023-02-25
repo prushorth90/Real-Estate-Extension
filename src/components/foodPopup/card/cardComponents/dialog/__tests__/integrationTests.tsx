@@ -194,7 +194,7 @@ describe("close photo dialog tests", () => {
         expect(foodPhoto).not.toBeVisible()
     });
 
-    it("should close the photo dialog", async () => {
+    it("should close the photo dialog even if no photo dialog", async () => {
         mockGoodTabAPI()
         mockGoodAddressAPI()
 
@@ -220,7 +220,7 @@ describe("close photo dialog tests", () => {
         expect(foodPhoto).not.toBeVisible()
     });
 
-    it("should close the photo dialog", async () => {
+    it("should close the photo dialog even if error photo dialog", async () => {
         mockGoodTabAPI()
         mockGoodAddressAPI()
 
