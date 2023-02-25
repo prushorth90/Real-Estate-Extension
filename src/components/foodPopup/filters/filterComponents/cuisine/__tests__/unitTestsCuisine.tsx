@@ -208,6 +208,100 @@ describe("For when the main-component have been rendered", () => {
 
     });  
 
+    it("should be able to see cuisine filter even if bad empty food api response", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockBadEmptyFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        mockBadEmptyFoodAPI()
+
+        const type = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        const options = within(screen.getByRole('listbox'));
+        await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
+        expect(type.value).toBe("Restaurant")
+
+        const cuisine = await screen.findByTestId("Input Cuisine") as HTMLSelectElement
+        expect(cuisine).toBeInTheDocument()
+        expect(cuisine.value).toBe("Pizza")
+
+    });  
+
+    it("should be able to see cuisine filter even if bad invalid food api response", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockBadInvalidFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        mockBadInvalidFoodAPI()
+
+        const type = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        const options = within(screen.getByRole('listbox'));
+        await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
+        expect(type.value).toBe("Restaurant")
+
+        const cuisine = await screen.findByTestId("Input Cuisine") as HTMLSelectElement
+        expect(cuisine).toBeInTheDocument()
+        expect(cuisine.value).toBe("Pizza")
+
+    });  
+
+    it("should be able to see cuisine filter even if bad empty address api response", async () => {
+        mockGoodTabAPI()
+        mockBadEmptyAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const type = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        const options = within(screen.getByRole('listbox'));
+        await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
+        expect(type.value).toBe("Restaurant")
+
+        const cuisine = await screen.findByTestId("Input Cuisine") as HTMLSelectElement
+        expect(cuisine).toBeInTheDocument()
+        expect(cuisine.value).toBe("Pizza")
+
+    });  
+
+    it("should be able to see cuisine filter even if bad invalid address api response", async () => {
+        mockGoodTabAPI()
+        mockBadInvalidAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockBadInvalidFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        mockBadInvalidFoodAPI()
+
+        const type = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        const options = within(screen.getByRole('listbox'));
+        await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
+        expect(type.value).toBe("Restaurant")
+
+        const cuisine = await screen.findByTestId("Input Cuisine") as HTMLSelectElement
+        expect(cuisine).toBeInTheDocument()
+        expect(cuisine.value).toBe("Pizza")
+
+    });  
+
 });
 
 

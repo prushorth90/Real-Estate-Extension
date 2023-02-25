@@ -1,13 +1,12 @@
-
 import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
 import { act, screen, render, fireEvent, waitFor, cleanup, within, getByTestId } from "@testing-library/react";
-import FoodPopup from "../../../../foodPopup";
-import { MaxPriceFilter } from '../maxPriceFilter'
-import { MinPriceFilter } from '../MinPriceFilter'
-import App, { TopicContext } from '../../../../../../popup/popup'
-import { APIContext } from '../../../filters'
-import { APIInput } from '../../../apiInput'
+import FoodPopup from "../../../../../foodPopup";
+import { MaxPriceFilter } from '../../maxPriceFilter'
+import { MinPriceFilter } from '../../MinPriceFilter'
+import App, { TopicContext } from '../../../../../../../popup/popup'
+import { APIContext } from '../../../../filters'
+import { APIInput } from '../../../../apiInput'
 import { InputLabel } from '@material-ui/core';
 import { chrome } from 'jest-chrome'
 
@@ -182,8 +181,8 @@ class Response {
     }
 }
 
-describe("change value of max price filter", () => {
-
+describe("change value of min price filter", () => {
+   
     //move to unit tests
 
     // it("should be able to see update filter values of min price", async () => {
@@ -207,7 +206,7 @@ describe("change value of max price filter", () => {
 
 
 
-    it("should be able to see card when change filter of max price", async () => {
+    it("should be able to see card when change filter of min price", async () => {
         mockGoodTabAPI()
         mockGoodAddressAPI()
 
@@ -219,10 +218,10 @@ describe("change value of max price filter", () => {
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
         mockSecondGoodFoodAPI()
 
-        const maxPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
+        const minPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/3/i)) });
+        await act(async () => { fireEvent.click(options.getByText(/0/i)) });
 
         const card = await screen.findByTestId("result card") as HTMLDivElement
         expect(card).toBeVisible()
@@ -245,7 +244,7 @@ describe("change value of max price filter", () => {
     });
 
 
-    it("should be able to see none card when change filter of max price  as bad empty address", async () => {
+    it("should be able to see none card when change filter of min price  as bad empty address", async () => {
         mockGoodTabAPI()
         mockGoodAddressAPI()
 
@@ -258,10 +257,10 @@ describe("change value of max price filter", () => {
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
         mockBadEmptyFoodAPI()
 
-        const maxPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
+        const minPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/3/i)) });
+        await act(async () => { fireEvent.click(options.getByText(/0/i)) });
 
 
         const card = await screen.findByTestId("result card none") as HTMLDivElement
@@ -272,7 +271,7 @@ describe("change value of max price filter", () => {
 
     });
 
-    it("should be able to see error card when change filter of max price as bad invalid food", async () => {
+    it("should be able to see error card when change filter of min price as bad invalid food", async () => {
         mockGoodTabAPI()
         mockGoodAddressAPI()
 
@@ -285,10 +284,10 @@ describe("change value of max price filter", () => {
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
         mockBadInvalidFoodAPI()
 
-        const maxPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
+        const minPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/3/i)) });
+        await act(async () => { fireEvent.click(options.getByText(/0/i)) });
 
 
         const card = await screen.findByTestId("result card other") as HTMLDivElement
@@ -299,7 +298,7 @@ describe("change value of max price filter", () => {
 
     });
 
-    it("should be able to see none card when change filter of max price as bad empty address", async () => {
+    it("should be able to see none card when change filter of min price as bad empty address", async () => {
         mockGoodTabAPI()
         mockBadEmptyAddressAPI()
 
@@ -312,10 +311,10 @@ describe("change value of max price filter", () => {
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
         // mockBadInvalidFoodAPI()
 
-        const maxPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
+        const minPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/3/i)) });
+        await act(async () => { fireEvent.click(options.getByText(/0/i)) });
 
 
         const card = await screen.findByTestId("result card none") as HTMLDivElement
@@ -326,7 +325,7 @@ describe("change value of max price filter", () => {
 
     });
 
-    it("should be able to see none card when change filter of max price as bad invalid address", async () => {
+    it("should be able to see none card when change filter of min price as bad invalid address", async () => {
         mockGoodTabAPI()
         mockBadInvalidAddressAPI()
 
@@ -339,10 +338,10 @@ describe("change value of max price filter", () => {
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
         // mockBadInvalidFoodAPI()
 
-        const maxPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
+        const minPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/3/i)) });
+        await act(async () => { fireEvent.click(options.getByText(/0/i)) });
 
 
         const card = await screen.findByTestId("result card none") as HTMLDivElement
