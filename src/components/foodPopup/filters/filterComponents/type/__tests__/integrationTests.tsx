@@ -353,5 +353,184 @@ describe("change value of type filter", () => {
 
 })
 
+describe("change value of type filter to restaurant", () => {
 
+    it("should be able to see added cuisine filter", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockGoodFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        mockSecondGoodFoodAPI()
+
+        const type = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        const options = within(screen.getByRole('listbox'));
+        await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
+        expect(type.value).toBe("Restaurant")
+
+        const cuisine = await screen.findByTestId("Input Cuisine") as HTMLSelectElement
+
+
+        expect(cuisine).toBeInTheDocument()
+        expect(cuisine.value).toBe("Pizza")
+
+
+
+    });
+
+    it("should be able to see cards", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockGoodFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        mockSecondGoodFoodAPI()
+
+        const type = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        const options = within(screen.getByRole('listbox'));
+        await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
+        expect(type.value).toBe("Restaurant")
+
+        const card = await screen.findByTestId("result card") as HTMLDivElement
+        expect(card).toBeVisible()
+        expect(card).toBeInTheDocument()
+
+        const name = await screen.findByTestId("result name") as HTMLParagraphElement
+        expect(name.innerHTML).toBe(" Fake Bakery 2 ")
+
+        const totalUserRating = await screen.findByTestId("result user rating total") as HTMLParagraphElement
+        expect(totalUserRating.innerHTML).toBe("Total User Ratings: 10 ")
+
+        const priceLevel = await screen.findByTestId("result price level") as HTMLParagraphElement
+        expect(priceLevel.innerHTML).toBe("Price Level: 4")
+
+        const vicinity = await screen.findByTestId("result vicinity") as HTMLParagraphElement
+        expect(vicinity.innerHTML).toBe(" Vicinity: Fake address 2 ")
+
+        const photoButton = await screen.findByTestId("photo button") as HTMLButtonElement
+        expect(photoButton).toBeInTheDocument()
+
+
+
+    });
+
+    it("should be able to see none cards if bad empty food api", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
+
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockBadEmptyFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        mockBadEmptyFoodAPI()
+
+        const type = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        const options = within(screen.getByRole('listbox'));
+        await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
+        expect(type.value).toBe("Restaurant")
+
+        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        expect(card).toBeVisible()
+        expect(card).toBeInTheDocument()
+        expect(card.innerHTML).toBe("No data to show")
+
+    });
+
+    it("should be able to see error card", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
+
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockBadInvalidFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        mockBadInvalidFoodAPI()
+
+        const type = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        const options = within(screen.getByRole('listbox'));
+        await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
+        expect(type.value).toBe("Restaurant")
+
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
+        expect(card).toBeVisible()
+        expect(card).toBeInTheDocument()
+        expect(card.innerHTML).toBe("Error. Our API request has failed")
+
+    });
+
+
+    it("should be able to see none card when change filter of type as bad empty address", async () => {
+        mockGoodTabAPI()
+        mockBadEmptyAddressAPI()
+
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        //mockBadInvalidFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        // mockBadInvalidFoodAPI()
+
+        const type = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        const options = within(screen.getByRole('listbox'));
+        await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
+        expect(type.value).toBe("Restaurant")
+
+        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        expect(card).toBeVisible()
+        expect(card).toBeInTheDocument()
+        expect(card.innerHTML).toBe("No data to show")
+
+
+    });
+
+    it("should be able to see none card when change filter of type  as bad invalid address", async () => {
+        mockGoodTabAPI()
+        mockBadInvalidAddressAPI()
+
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        //mockBadInvalidFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        // mockBadInvalidFoodAPI()
+
+        const type = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        const options = within(screen.getByRole('listbox'));
+        await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
+        expect(type.value).toBe("Restaurant")
+
+        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        expect(card).toBeVisible()
+        expect(card).toBeInTheDocument()
+        expect(card.innerHTML).toBe("No data to show")
+
+
+    });
+
+
+});
 

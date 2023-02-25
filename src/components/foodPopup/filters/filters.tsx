@@ -30,7 +30,7 @@ export const Filter: React.FC<{}> = ({}) => {
   }, [apiInput])
 
   return (
-     <div>
+     <div data-testid="food-filter">
      <APIContext.Provider value={[apiInput, setAPIInput]}>
 
           <RadiusFilter />
