@@ -12,50 +12,20 @@ describe("Components Render", () => {
 
     it("should render type Filter ", () => {
         render(<APIContext.Provider value={[new APIInput()]}> <TypeFilter /></APIContext.Provider>)
-    });
-
-});
-
-describe("Filters UI in doc", () => {
-
-    it("should render type Filter ", () => {
-        render(<APIContext.Provider value={[new APIInput()]}> <TypeFilter /></APIContext.Provider>)
-
         const type = screen.getByTestId("Type") as HTMLSelectElement
 
         expect(type).toBeInTheDocument()
-    });
-
-});
-
-describe("Filters UI visible", () => {
-
-    it("should show the type filter to user ", () => {
-        render(<APIContext.Provider value={[new APIInput()]}> <TypeFilter /></APIContext.Provider>)
-
-        const type = screen.getByTestId("Type") as HTMLSelectElement
-
         expect(type).toBeVisible()
+        const typeIn = screen.getByTestId("Input Type") as HTMLInputElement
+        expect(typeIn.value).toBe("Bakery")
+
     });
 
 });
 
-describe("UI values", () => {
+describe("change value of type filter", () => {
 
-    it("should show the value of type filter to user", () => {
-        render(<APIContext.Provider value={[new APIInput()]}> <TypeFilter /></APIContext.Provider>)
-
-        const type = screen.getByTestId("Input Type") as HTMLInputElement
-
-        expect(type.value).toBe("Bakery")
-    });
-
-});
-
-
-describe("Event test change value of filter", () => {
-
-    it("should change from 1500 to 1000 ", () => {
+    it("should change from bakery to cafe ", () => {
         const { getByTestId, getAllByRole } = render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
@@ -66,7 +36,7 @@ describe("Event test change value of filter", () => {
         expect(type.value).toBe("Cafe")
     });
 
-    it("should change from 1500 to 1000 to 1500", () => {
+    it("should change from bakery to cafe to bakery", () => {
         const { getByTestId, getAllByRole } = render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
