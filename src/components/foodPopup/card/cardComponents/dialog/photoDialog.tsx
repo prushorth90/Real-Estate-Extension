@@ -7,24 +7,24 @@ import {PhotoAPI} from '../../../../../utils/api/photo/photoIndex'
 import {PhotoDialogState} from './photoDialogState'
 import {PhotoDialogContainer} from './photoDialogContainer'
 
-export const PhotoDialog: React.FC<{open: boolean, onClose: () => void,photo_reference}> = ({open,onClose, photo_reference}) => {
+export const PhotoDialog: React.FC<{isPhotoOpen: boolean, onClose: () => void,photo_reference}> = ({isPhotoOpen,onClose, photo_reference}) => {
 
     const [photo, setPhoto] = useState<string>("")
-    const [opened, setOpened] = useState<boolean>(false)
+    //const [opened, setOpened] = useState<boolean>(false)
     const [photoState, setPhotoState] = useState<PhotoDialogState>(PhotoDialogState.Start)
     let photoAPI = new PhotoAPI()
     const handleClose = () => {
       onClose();
       setPhoto("")
       setPhotoState(PhotoDialogState.Start)
-      setOpened(false)
+      //setOpened(false)
     }
 
     console.log("998")
 
     const getPhoto = () => {
       // let photo_reference = nearby.results[index].photos[0].photo_reference
-      if (photo_reference != "" && opened != true) {
+      if (photo_reference != "" ) {
         console.log("999")//*20
         setPhotoState(PhotoDialogState.Loading)
         photoAPI.fetchData(photo_reference)
@@ -32,7 +32,7 @@ export const PhotoDialog: React.FC<{open: boolean, onClose: () => void,photo_ref
             console.log("1000")// not reached
             console.log(data.url)
             if (data.url == undefined) throw new Error('e')
-            setOpened(true)
+            //setOpened(true)
             setPhoto(data.url)
             setPhotoState(PhotoDialogState.Ready)
             console.log("1001")
@@ -43,7 +43,7 @@ export const PhotoDialog: React.FC<{open: boolean, onClose: () => void,photo_ref
     }
 
     return (
-      <PhotoDialogContainer handleClose={handleClose} open={open} >
+      <PhotoDialogContainer handleClose={handleClose} open={isPhotoOpen} >
           {photoState === PhotoDialogState.Start && <div> {getPhoto()} </div>}
           {photoState === PhotoDialogState.Loading && <Typography>{PhotoDialogState.Loading}  </Typography>}
           {photoState === PhotoDialogState.Error && <Typography data-testid="food photo error">{PhotoDialogState.Error} </Typography>}

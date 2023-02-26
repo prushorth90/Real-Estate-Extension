@@ -88,7 +88,7 @@ describe("for when the dialog renders", () => {
     
     it("should render result dialog success", async () => {
         mockGoodPhotoAPI()
-        await act(async () => {render(<PhotoDialog open={true} onClose={jest.fn()} photo_reference={"fake photo reference"} />)})
+        await act(async () => {render(<PhotoDialog isPhotoOpen={true} onClose={jest.fn()} photo_reference={"fake photo reference"} />)})
         const foodPhoto = await screen.findByTestId("food photo")
 
         expect(foodPhoto).toBeInTheDocument()
@@ -99,7 +99,7 @@ describe("for when the dialog renders", () => {
     it("should render dialog in document even if error ", async () => {
         mockBadInvalidPhotoAPI()
 
-        await act(async () => { render(<PhotoDialog open={true} onClose={jest.fn()} photo_reference={undefined} />) })
+        await act(async () => { render(<PhotoDialog isPhotoOpen={true} onClose={jest.fn()} photo_reference={undefined} />) })
 
         const foodPhoto = await screen.findByTestId("food photo error") as HTMLDivElement
 
@@ -114,7 +114,7 @@ describe("for when the dialog renders", () => {
     it("should render dialog in document even if empty ", async () => {
         mockBadEmptyPhotoAPI()
 
-        await act(async () => { render(<PhotoDialog open={true} onClose={jest.fn()} photo_reference={""} />) })
+        await act(async () => { render(<PhotoDialog isPhotoOpen={true} onClose={jest.fn()} photo_reference={""} />) })
 
         const foodPhoto = await screen.findByTestId("food photo none")
 
@@ -127,7 +127,7 @@ describe("for when the dialog renders", () => {
     it("should not render dialog in document as open false", async () => {
         mockGoodPhotoAPI()
 
-        await act(async () => { render(<PhotoDialog open={false} onClose={jest.fn()} photo_reference={""} />) })
+        await act(async () => { render(<PhotoDialog isPhotoOpen={false} onClose={jest.fn()} photo_reference={""} />) })
 
         const foodPhoto = await screen.queryByTestId("food photo none")
 
@@ -138,7 +138,7 @@ describe("for when the dialog renders", () => {
     it("should not render dialog in document as open false with bad empty photo api", async () => {
         mockBadEmptyPhotoAPI()
 
-        await act(async () => { render(<PhotoDialog open={false} onClose={jest.fn()} photo_reference={""} />) })
+        await act(async () => { render(<PhotoDialog isPhotoOpen={false} onClose={jest.fn()} photo_reference={""} />) })
 
         const foodPhoto = await screen.queryByTestId("food photo none")
 
@@ -149,7 +149,7 @@ describe("for when the dialog renders", () => {
     it("should not render dialog in document as open false with bad invalid photo api", async () => {
         mockBadInvalidPhotoAPI()
 
-        await act(async () => { render(<PhotoDialog open={false} onClose={jest.fn()} photo_reference={""} />) })
+        await act(async () => { render(<PhotoDialog isPhotoOpen={false} onClose={jest.fn()} photo_reference={""} />) })
 
         const foodPhoto = await screen.queryByTestId("food photo none")
 
