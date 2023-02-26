@@ -353,7 +353,7 @@ describe("change value of type filter", () => {
 
 })
 
-describe("change value of type filter to restaurant", () => {
+describe("change value of type filter to restaurant and see cuisine filter", () => {
 
     it("should be able to see added cuisine filter", async () => {
         mockGoodTabAPI()
@@ -534,3 +534,100 @@ describe("change value of type filter to restaurant", () => {
 
 });
 
+describe("change value of type filter to restaurant and then bakery so cuisine filter removed", () => {
+
+    it("should not be able to see added cuisine filter", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockGoodFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        mockSecondGoodFoodAPI()
+
+        const type = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        const options = within(screen.getByRole('listbox'));
+        await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
+        expect(type.value).toBe("Restaurant")
+
+        const cuisine = await screen.findByTestId("Input Cuisine") as HTMLSelectElement
+
+        const secondType = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        const optionsBakery = within(screen.getByRole('listbox'));
+        await act(async () => { fireEvent.click(optionsBakery.getByText(/Bakery/i)) });
+        expect(secondType.value).toBe("Bakery")
+
+        expect(cuisine).not.toBeInTheDocument()
+
+
+    });
+
+    it("should not be able to see added cuisine filter even if bad empty food", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockBadEmptyFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const type = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        const options = within(screen.getByRole('listbox'));
+        await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
+        expect(type.value).toBe("Restaurant")
+
+        const cuisine = await screen.findByTestId("Input Cuisine") as HTMLSelectElement
+
+        const secondType = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        const optionsBakery = within(screen.getByRole('listbox'));
+        await act(async () => { fireEvent.click(optionsBakery.getByText(/Bakery/i)) });
+        expect(secondType.value).toBe("Bakery")
+
+        expect(cuisine).not.toBeInTheDocument()
+
+
+    });
+
+    it("should not be able to see added cuisine filter even if bad invalid food", async () => {
+        mockGoodTabAPI()
+        mockGoodAddressAPI()
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockBadInvalidFoodAPI()
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const type = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        const options = within(screen.getByRole('listbox'));
+        await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
+        expect(type.value).toBe("Restaurant")
+
+        const cuisine = await screen.findByTestId("Input Cuisine") as HTMLSelectElement
+
+        const secondType = screen.getByTestId("Input Type") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        const optionsBakery = within(screen.getByRole('listbox'));
+        await act(async () => { fireEvent.click(optionsBakery.getByText(/Bakery/i)) });
+        expect(secondType.value).toBe("Bakery")
+
+        expect(cuisine).not.toBeInTheDocument()
+
+
+    });
+
+
+
+
+});
