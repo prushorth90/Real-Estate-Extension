@@ -4,7 +4,6 @@ import { FoodAPI, NearbySearchData } from '../../../utils/api/food/foodIndex'
 import './foodCard.css'
 import {ResultState} from './cardComponents/result/resultState'
 import {FoodCardContainer} from './cardComponents/partials/foodCardContainer'
-import {MessageCard} from './cardComponents/partials/messageCard'
 import {Type} from '../filters/filterComponents/type/type'
 import {Result} from './cardComponents/result/result'
 import {PhotoButton} from './cardComponents/buttons/photo'
@@ -21,7 +20,11 @@ export const FoodCard: React.FC<{}> = ({}) => {
 
   if (cardState === ResultState.Loading || cardState === ResultState.Error || cardState === ResultState.None) {
     return (
-      <MessageCard cardState={cardState}/>
+      <FoodCardContainer>
+        <Typography data-testid="result card other" className="foodCard-body">
+          {cardState}
+        </Typography>
+      </FoodCardContainer>
     )
   } else {
 

@@ -241,7 +241,7 @@ describe("change value of radius filter to see cards", () => {
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
 
-        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
         expect(card).toBeVisible()
         expect(card).toBeInTheDocument()
         expect(card.innerHTML).toBe("No data to show")
@@ -293,7 +293,7 @@ describe("change value of radius filter to see cards", () => {
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
 
-        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
         expect(card).toBeVisible()
         expect(card).toBeInTheDocument()
         expect(card.innerHTML).toBe("No data to show")
@@ -319,7 +319,7 @@ describe("change value of radius filter to see cards", () => {
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
 
-        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
         expect(card).toBeVisible()
         expect(card).toBeInTheDocument()
         expect(card.innerHTML).toBe("No data to show")

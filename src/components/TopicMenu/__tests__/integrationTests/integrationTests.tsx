@@ -211,7 +211,7 @@ describe("tests when change from topic to food", () => {
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
         expect(card).toBeVisible()
         expect(card).toBeInTheDocument()
         expect(card.innerHTML).toBe("No data to show")
@@ -249,7 +249,7 @@ describe("tests when change from topic to food", () => {
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
         expect(card).toBeVisible()
         expect(card).toBeInTheDocument()
         expect(card.innerHTML).toBe("No data to show")
@@ -270,7 +270,7 @@ describe("tests when change from topic to food", () => {
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
         expect(card).toBeVisible()
         expect(card).toBeInTheDocument()
         expect(card.innerHTML).toBe("No data to show")
@@ -315,7 +315,7 @@ describe("tests when change from food to topic", () => {
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
 
         // expect(card).not.toBeVisible()
@@ -358,7 +358,7 @@ describe("tests when change from food to topic", () => {
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
 
         // expect(card).not.toBeVisible()
@@ -382,7 +382,7 @@ describe("tests when change from food to topic", () => {
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
 
         // expect(card).not.toBeVisible()

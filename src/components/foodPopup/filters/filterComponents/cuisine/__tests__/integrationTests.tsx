@@ -255,7 +255,7 @@ describe("change value of cuisine filter to italian", () => {
             await act(async () => { fireEvent.click(cuisineOptions.getByText(/Italian/i)) });
             expect(cuisine.value).toBe("Italian")
 
-            const card = await screen.findByTestId("result card none") as HTMLDivElement
+            const card = await screen.findByTestId("result card other") as HTMLDivElement
             expect(card).toBeVisible()
             expect(card).toBeInTheDocument()
             expect(card.innerHTML).toBe("No data to show")
@@ -321,7 +321,7 @@ describe("change value of cuisine filter to italian", () => {
             await act(async () => { fireEvent.click(cuisineOptions.getByText(/Italian/i)) });
             expect(cuisine.value).toBe("Italian")
 
-            const card = await screen.findByTestId("result card none") as HTMLDivElement
+            const card = await screen.findByTestId("result card other") as HTMLDivElement
             expect(card).toBeVisible()
             expect(card).toBeInTheDocument()
             expect(card.innerHTML).toBe("No data to show")
@@ -354,7 +354,7 @@ describe("change value of cuisine filter to italian", () => {
             await act(async () => { fireEvent.click(cuisineOptions.getByText(/Italian/i)) });
             expect(cuisine.value).toBe("Italian")
 
-            const card = await screen.findByTestId("result card none") as HTMLDivElement
+            const card = await screen.findByTestId("result card other") as HTMLDivElement
             expect(card).toBeVisible()
             expect(card).toBeInTheDocument()
             expect(card.innerHTML).toBe("No data to show")

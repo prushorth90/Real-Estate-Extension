@@ -260,7 +260,7 @@ describe("change value of type filter", () => {
         await act(async () => { fireEvent.click(options.getByText(/Cafe/i)) });
 
 
-        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
         expect(card).toBeVisible()
         expect(card).toBeInTheDocument()
         expect(card.innerHTML).toBe("No data to show")
@@ -316,7 +316,7 @@ describe("change value of type filter", () => {
 
 
 
-        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
         expect(card).toBeVisible()
         expect(card).toBeInTheDocument()
         expect(card.innerHTML).toBe("No data to show")
@@ -343,7 +343,7 @@ describe("change value of type filter", () => {
         await act(async () => { fireEvent.click(options.getByText(/Cafe/i)) });
 
 
-        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
         expect(card).toBeVisible()
         expect(card).toBeInTheDocument()
         expect(card.innerHTML).toBe("No data to show")
@@ -443,7 +443,7 @@ describe("change value of type filter to restaurant and see cuisine filter", () 
         await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
         expect(type.value).toBe("Restaurant")
 
-        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
         expect(card).toBeVisible()
         expect(card).toBeInTheDocument()
         expect(card.innerHTML).toBe("No data to show")
@@ -496,7 +496,7 @@ describe("change value of type filter to restaurant and see cuisine filter", () 
         await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
         expect(type.value).toBe("Restaurant")
 
-        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
         expect(card).toBeVisible()
         expect(card).toBeInTheDocument()
         expect(card.innerHTML).toBe("No data to show")
@@ -523,7 +523,7 @@ describe("change value of type filter to restaurant and see cuisine filter", () 
         await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
         expect(type.value).toBe("Restaurant")
 
-        const card = await screen.findByTestId("result card none") as HTMLDivElement
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
         expect(card).toBeVisible()
         expect(card).toBeInTheDocument()
         expect(card.innerHTML).toBe("No data to show")
