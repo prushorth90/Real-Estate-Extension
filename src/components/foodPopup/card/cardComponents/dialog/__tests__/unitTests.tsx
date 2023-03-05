@@ -23,7 +23,6 @@ afterEach(() => {
     mockedFoodPhoto = null
 })
 
-
 describe("for when the dialog renders", () => {
     
     it("should render result dialog success", async () => {
@@ -35,7 +34,6 @@ describe("for when the dialog renders", () => {
         expect(foodPhoto).toBeVisible()
     });
     
-
     it("should render dialog in document even if error ", async () => {
         mockedFoodPhoto.mockBadInvalidPhotoAPI(mockFetch)
 
@@ -46,8 +44,6 @@ describe("for when the dialog renders", () => {
         expect(foodPhoto).toBeInTheDocument()
         expect(foodPhoto).toBeVisible()
         expect(foodPhoto.innerHTML).toBe("Error. Our API request has failed ")
-
-
 
     });
 
@@ -96,11 +92,6 @@ describe("for when the dialog renders", () => {
         expect(foodPhoto).not.toBeInTheDocument()
 
     });
-
-
-    
-  
-
 });
 
 

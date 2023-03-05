@@ -347,13 +347,5 @@ describe("for when the components render", () => {
 
     })
 
-
-
-
-
-
-
-    
-
 });
 

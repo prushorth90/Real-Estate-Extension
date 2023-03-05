@@ -35,25 +35,7 @@ afterEach(() => {
 
 
 describe("change value of type filter", () => {
-    // see if unit test
-    // it("should be able to see update of value filter of type", async () => {
-    //     mockTabAPI()
-    //     mockAddressAPI()
-
-    //     await act(async () => { render(<App />) })
-
-    //     const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-    //     mockNearbyPlacesAPI()
-
-    //     await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-    //     mockSecondNearbyPlacesAPI()
-    //     const type = screen.getByTestId("Input Type") as HTMLSelectElement
-    //     await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
-    //     const options = within(screen.getByRole('listbox'));
-    //     await act(async () => { fireEvent.click(options.getByText(/Cafe/i)) });
-    //     expect(type.value).toBe("Cafe")
-    // });
-
+  
     it("should be able to see card when change filter of type", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
@@ -155,10 +137,8 @@ describe("change value of type filter", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        //mockBadInvalidFoodAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        // mockBadInvalidFoodAPI()
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
         await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
@@ -183,10 +163,8 @@ describe("change value of type filter", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        //mockBadInvalidFoodAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        // mockBadInvalidFoodAPI()
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
         await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
@@ -336,10 +314,8 @@ describe("change value of type filter to restaurant and see cuisine filter", () 
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        //mockBadInvalidFoodAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        // mockBadInvalidFoodAPI()
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
         await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
@@ -363,10 +339,8 @@ describe("change value of type filter to restaurant and see cuisine filter", () 
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        //mockBadInvalidFoodAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        // mockBadInvalidFoodAPI()
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
         await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });

@@ -42,7 +42,7 @@ export const App: React.FC<{}> = () => {
               .then((data) => {
                 setCoord(data)
               })
-              .catch((err) => console.log(err))
+              .catch((err) => setCoord(undefined))
   }
 
   return (
@@ -59,8 +59,8 @@ export const App: React.FC<{}> = () => {
   )
 }
 
-const root = document.createElement('div')
-document.body.appendChild(root)
-ReactDOM.render(<App />, root)
+// const root = document.createElement('div')
+// document.body.appendChild(root)
+// ReactDOM.render(<App />, root)
 
 export default App

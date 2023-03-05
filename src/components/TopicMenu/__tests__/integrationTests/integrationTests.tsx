@@ -112,7 +112,6 @@ describe("tests when change from topic to food", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        //mockBadInvalidFoodAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
@@ -133,7 +132,6 @@ describe("tests when change from topic to food", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        //mockBadInvalidFoodAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
@@ -164,7 +162,6 @@ describe("tests when change from food to topic", () => {
         const card = await screen.findByTestId("result card") as HTMLDivElement
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
 
-        // expect(card).not.toBeVisible()
 
         expect(topicMenuSelect.value).toBe("Topics");
         expect(card).not.toBeInTheDocument()
@@ -185,7 +182,6 @@ describe("tests when change from food to topic", () => {
         const card = await screen.findByTestId("result card other") as HTMLDivElement
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
 
-        // expect(card).not.toBeVisible()
 
         expect(topicMenuSelect.value).toBe("Topics");
         expect(card).not.toBeInTheDocument()
@@ -206,7 +202,6 @@ describe("tests when change from food to topic", () => {
         const card = await screen.findByTestId("result card other") as HTMLDivElement
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
 
-        // expect(card).not.toBeVisible()
 
         expect(topicMenuSelect.value).toBe("Topics");
         expect(card).not.toBeInTheDocument()
@@ -221,14 +216,11 @@ describe("tests when change from food to topic", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        //mockGoodFoodAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
         const card = await screen.findByTestId("result card other") as HTMLDivElement
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
-
-        // expect(card).not.toBeVisible()
 
         expect(topicMenuSelect.value).toBe("Topics");
         expect(card).not.toBeInTheDocument()
@@ -245,14 +237,11 @@ describe("tests when change from food to topic", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        //mockBadInvalidFoodAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
         const card = await screen.findByTestId("result card other") as HTMLDivElement
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
-
-        // expect(card).not.toBeVisible()
 
         expect(topicMenuSelect.value).toBe("Topics");
         expect(card).not.toBeInTheDocument()

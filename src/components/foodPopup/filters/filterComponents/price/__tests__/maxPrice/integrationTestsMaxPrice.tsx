@@ -137,10 +137,8 @@ describe("change value of max price filter", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        //mockBadInvalidFoodAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        // mockBadInvalidFoodAPI()
 
         const maxPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
         await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
@@ -164,10 +162,8 @@ describe("change value of max price filter", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        //mockBadInvalidFoodAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        // mockBadInvalidFoodAPI()
 
         const maxPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
         await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });

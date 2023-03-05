@@ -137,7 +137,6 @@ describe("for the topic menu change event topic to food", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        //mockGoodFoodAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 

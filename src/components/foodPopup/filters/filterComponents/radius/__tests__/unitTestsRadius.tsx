@@ -32,7 +32,6 @@ describe("Event test change value of filter", () => {
 
         const radius = screen.getByTestId("Input Radius") as HTMLSelectElement
         fireEvent.mouseDown(getAllByRole('button')[0]);
-        //expect(maxPriceLevel).toBeInTheDocument()
         const options = within(screen.getByRole('listbox'));
         fireEvent.click(options.getByText(/1000/i));
         expect(radius.value).toBe("1000")
@@ -43,7 +42,6 @@ describe("Event test change value of filter", () => {
 
         const radius = screen.getByTestId("Input Radius") as HTMLSelectElement
         fireEvent.mouseDown(getAllByRole('button')[0]);
-        //expect(maxPriceLevel).toBeInTheDocument()
         const options = within(screen.getByRole('listbox'));
         fireEvent.click(options.getByText(/1000/i));
         expect(radius.value).toBe("1000")

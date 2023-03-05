@@ -155,10 +155,8 @@ describe("change value of cuisine filter to italian", () => {
             await act(async () => { render(<App />) })
 
             const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-            //mockBadInvalidFoodAPI()
 
             await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-            // mockBadInvalidFoodAPI()
 
             const type = screen.getByTestId("Input Type") as HTMLSelectElement
             await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
@@ -188,10 +186,8 @@ describe("change value of cuisine filter to italian", () => {
             await act(async () => { render(<App />) })
 
             const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-            //mockBadInvalidFoodAPI()
 
             await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-            // mockBadInvalidFoodAPI()
 
             const type = screen.getByTestId("Input Type") as HTMLSelectElement
             await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });

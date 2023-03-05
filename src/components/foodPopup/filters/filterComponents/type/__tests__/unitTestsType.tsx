@@ -30,7 +30,6 @@ describe("change value of type filter", () => {
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
         fireEvent.mouseDown(getAllByRole('button')[1]);
-        //expect(maxPriceLevel).toBeInTheDocument()
         const options = within(screen.getByRole('listbox'));
         fireEvent.click(options.getByText(/Cafe/i));
         expect(type.value).toBe("Cafe")
@@ -41,7 +40,6 @@ describe("change value of type filter", () => {
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
         fireEvent.mouseDown(getAllByRole('button')[1]);
-        //expect(maxPriceLevel).toBeInTheDocument()
         const options = within(screen.getByRole('listbox'));
         fireEvent.click(options.getByText(/Cafe/i));
         expect(type.value).toBe("Cafe")
@@ -49,8 +47,4 @@ describe("change value of type filter", () => {
         fireEvent.click(options.getByText(/Bakery/i));
         expect(type.value).toBe("Bakery")
     });
-
-
-
-
 });
