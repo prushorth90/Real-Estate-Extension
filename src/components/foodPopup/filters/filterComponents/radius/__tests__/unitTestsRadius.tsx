@@ -12,42 +12,14 @@ describe("Components Render", () => {
 
     it("should render Radius Filter ", () => {
         render(<APIContext.Provider value={[new APIInput()]}> <RadiusFilter /></APIContext.Provider>)
-    });
-
-});
-
-describe("Filters UI in doc", () => {
-
-    it("should render radius Filter ", () => {
-        render(<APIContext.Provider value={[new APIInput()]}> <RadiusFilter /></APIContext.Provider>)
-
         const radius = screen.getByTestId("Radius") as HTMLSelectElement
 
         expect(radius).toBeInTheDocument()
-    });
-
-});
-
-describe("Filters UI visible", () => {
-
-    it("should show the radius filter to user ", () => {
-        render(<APIContext.Provider value={[new APIInput()]}> <RadiusFilter /></APIContext.Provider>)
-
-        const radius = screen.getByTestId("Radius") as HTMLSelectElement
-
         expect(radius).toBeVisible()
-    });
+        
+        const radiusIn = screen.getByTestId("Input Radius") as HTMLInputElement
 
-});
-
-describe("UI values", () => {
-
-    it("should show the value of radius filter to user", () => {
-        render(<APIContext.Provider value={[new APIInput()]}> <RadiusFilter /></APIContext.Provider>)
-
-        const radius = screen.getByTestId("Input Radius") as HTMLInputElement
-
-        expect(radius.value).toBe("1500")
+        expect(radiusIn.value).toBe("1500")
     });
 
 });
@@ -80,7 +52,7 @@ describe("Event test change value of filter", () => {
         expect(radius.value).toBe("1500")
     });
 
-   
+
 
 
 });

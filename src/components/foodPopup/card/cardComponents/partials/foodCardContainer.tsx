@@ -10,13 +10,6 @@ export const FoodCardContainer: React.FC<{
     <Box mx={'4px'} my={'16px'}>
       <Card>
         <CardContent>{children}</CardContent>
-        <CardActions>
-          {onDelete && (
-            <Button color="secondary" onClick={onDelete}>
-              <Typography className="foodCard-body">Delete</Typography>
-            </Button>
-          )}
-        </CardActions>
       </Card>
     </Box>
   )

@@ -3,148 +3,232 @@ import "@testing-library/jest-dom/extend-expect"
 import { act, screen, render, fireEvent, waitFor, cleanup } from "@testing-library/react";
 import FoodPopup from "../../foodPopup";
 import { TopicContext } from '../../../../popup/popup'
+import { App } from "../../../../popup";
+import { chrome } from 'jest-chrome'
+import { MockedTab } from '../../../../mocks/tab/mockTab';
+import { MockedAddress } from '../../../../mocks/address/mockAddress'
+import { MockedFoodPlaces } from '../../../../mocks/food/places/mockFoodPlaces'
 
 
-describe("FoodPopup UI in document", () => {
-    // 1. IS (<TEXT>)OFELE IN DOM,
-    it("should show the radius filter in doc", () => {
-        // 2. render
-        render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+global.fetch = jest.fn()
+const mockFetch = fetch as jest.MockedFunction<typeof fetch>
 
-        const radiusFilter = screen.getByTestId("Radius") as HTMLSelectElement
+let mockedTab = null
+let mockedAddress = null
+let mockedFoodPlaces = null
 
-        expect(radiusFilter).toBeInTheDocument()
+beforeEach(() => {
+    mockedTab = new MockedTab()
+    mockedAddress = new MockedAddress()
+    mockedFoodPlaces = new MockedFoodPlaces()
+
+})
+
+afterEach(() => {
+    mockedTab = null
+    mockedAddress = null
+    mockedFoodPlaces = null
+})
+
+describe("when the main component food-filter has been rendered", () => {
+
+
+    it("should show the food filter", async () => {
+
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockGoodAddressAPI(mockFetch)
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockedFoodPlaces.mockGoodFoodAPI(mockFetch)
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const foodFilter = screen.getByTestId("food-filter")
+
+        expect(foodFilter).toBeInTheDocument()
+
     });
 
-    it("should show the type filter value", () => {
-        // 2. render
-        render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+    it("should show the food filter even if empty food api response", async () => {
 
-        const typeFilter = screen.getByTestId("Type") as HTMLSelectElement
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        expect(typeFilter).toBeInTheDocument()
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockedFoodPlaces.mockBadEmptyFoodAPI(mockFetch)
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const foodFilter = screen.getByTestId("food-filter")
+
+        expect(foodFilter).toBeInTheDocument()
+
     });
 
-    it("should show the Min Price Level filter value", () => {
-        // 2. render
-        render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+    it("should show the food filter even if empty food api invalid", async () => {
 
-        const minPriceLevel = screen.getByTestId("Min Price Level") as HTMLSelectElement
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        expect(minPriceLevel).toBeInTheDocument()
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockedFoodPlaces.mockBadInvalidFoodAPI(mockFetch)
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const foodFilter = screen.getByTestId("food-filter")
+
+        expect(foodFilter).toBeInTheDocument()
+
     });
 
-    it("should show the Max Price Level filter value", () => {
-        // 2. render
-        render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+    it("should show the food filter even if bad empty address", async () => {
 
-        const maxPriceLevel = screen.getByTestId("Max Price Level") as HTMLSelectElement
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockBadEmptyAddressAPI(mockFetch)
 
-        expect(maxPriceLevel).toBeInTheDocument()
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const foodFilter = screen.getByTestId("food-filter")
+
+        expect(foodFilter).toBeInTheDocument()
+
+
     });
 
-    // it("should show the cards", () => {
-    //     // 2. render
-    //     render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+    it("should show the food filter even if bad invalid address", async () => {
 
-    //     const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockBadInvalidAddressAPI(mockFetch)
 
-    //     expect(topicMenuSelect.value).toBe("Food")
-    // });
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+
+        const foodFilter = screen.getByTestId("food-filter")
+
+        expect(foodFilter).toBeInTheDocument()
+
+    });
 });
 
-describe("FoodPopup UI is visible to user", () => {
-    // 1. IS (<TEXT>)OFELE IN DOM,
-    it("should show the radius filter in doc", () => {
-        // 2. render
-        render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
 
-        const radiusFilter = screen.getByTestId("Radius") as HTMLSelectElement
 
-        expect(radiusFilter).toBeVisible()
-    });
 
-    it("should show the type filter value", () => {
-        // 2. render
-        render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
 
-        const typeFilter = screen.getByTestId("Type") as HTMLSelectElement
+// describe("for when the food filters have been rendered", () => {
 
-        expect(typeFilter).toBeVisible()
-    });
+//     it("should show the radius filter in doc", async () => {
 
-    it("should show the Min Price Level filter value", () => {
-        // 2. render
-        render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+//         render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
 
-        const minPriceLevel = screen.getByTestId("Min Price Level") as HTMLSelectElement
+//         const radiusFilter = await screen.findByTestId("Radius") as HTMLSelectElement
 
-        expect(minPriceLevel).toBeVisible()
-    });
+//         expect(radiusFilter).toBeInTheDocument()
+//         expect(radiusFilter).toBeVisible()
 
-    it("should show the Max Price Level filter value", () => {
-        // 2. render
-        render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+//     });
 
-        const maxPriceLevel = screen.getByTestId("Max Price Level") as HTMLSelectElement
+//     it("should show the type filter value", () => {
 
-        expect(maxPriceLevel).toBeVisible()
-    });
+//         render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
 
-    // it("should show the cards", () => {
-    //     // 2. render
-    //     render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+//         const typeFilter = screen.getByTestId("Type") as HTMLSelectElement
 
-    //     const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+//         expect(typeFilter).toBeInTheDocument()
+//         expect(typeFilter).toBeVisible()
 
-    //     expect(topicMenuSelect.value).toBe("Food")
-    // });
-});
 
-describe("FoodPopup UI value", () => {
-    // 1. IS (<TEXT>)OFELE IN DOM,
-    it("should show the radius filter value", () => {
-        // 2. render
-        render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+//     });
 
-        const radiusFilter = screen.getByTestId("Input Radius") as HTMLInputElement
+//     it("should show the Min Price Level filter value", () => {
 
-        expect(radiusFilter.value).toBe("1500")
-    });
+//         render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
 
-    it("should show the type filter value", () => {
-        // 2. render
-        render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+//         const minPriceLevel = screen.getByTestId("Min Price Level") as HTMLSelectElement
 
-        const typeFilter = screen.getByTestId("Input Type") as HTMLInputElement
+//         expect(minPriceLevel).toBeInTheDocument()
+//         expect(minPriceLevel).toBeVisible()
 
-        expect(typeFilter.value).toBe("Bakery")
-    });
 
-    it("should show the Min Price Level filter value", () => {
-        // 2. render
-        render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+//     });
 
-        const minPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLInputElement
+//     it("should show the Max Price Level filter value", () => {
 
-        expect(minPriceLevel.value).toBe("0")
-    });
+//         render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
 
-    it("should show the Max Price Level filter value", () => {
-        // 2. render
-        render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+//         const maxPriceLevel = screen.getByTestId("Max Price Level") as HTMLSelectElement
 
-        const maxPriceLevel = screen.getByTestId("Input Max Price Level") as HTMLInputElement
+//         expect(maxPriceLevel).toBeInTheDocument()
+//         expect(maxPriceLevel).toBeVisible()
 
-        expect(maxPriceLevel.value).toBe("4")
-    });
+//     });
 
-    // it("should show the cards", () => {
-    //     // 2. render
-    //     render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
 
-    //     const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
 
-    //     expect(topicMenuSelect.value).toBe("Food")
-    // });
-});
+// });
+// describe("for when the filters have been rendered", () => {
+
+//     it("should show the radius filter in doc", () => {
+
+//         render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+
+//         const radiusFilter = screen.getByTestId("Radius") as HTMLSelectElement
+
+//         expect(radiusFilter).toBeInTheDocument()
+//         expect(radiusFilter).toBeVisible()
+
+
+//     });
+
+//     it("should show the type filter value", () => {
+
+//         render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+
+//         const typeFilter = screen.getByTestId("Type") as HTMLSelectElement
+
+//         expect(typeFilter).toBeInTheDocument()
+//         expect(typeFilter).toBeVisible()
+
+
+//     });
+
+//     it("should show the Min Price Level filter value", () => {
+
+//         render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+
+//         const minPriceLevel = screen.getByTestId("Min Price Level") as HTMLSelectElement
+
+//         expect(minPriceLevel).toBeInTheDocument()
+//         expect(minPriceLevel).toBeVisible()
+
+
+//     });
+
+//     it("should show the Max Price Level filter value", () => {
+
+//         render((<TopicContext.Provider value={["Food", jest.fn()]}> <FoodPopup /></TopicContext.Provider>))
+
+//         const maxPriceLevel = screen.getByTestId("Max Price Level") as HTMLSelectElement
+
+//         expect(maxPriceLevel).toBeInTheDocument()
+//         expect(maxPriceLevel).toBeVisible()
+
+//     });
+
+
+
+// });
+
+

@@ -15,23 +15,6 @@ export class APIInput {
     this.maxprice = "4"
 
   }
-
-
-  public getRadius() : string {
-    return this.radius
-  }
-  public getType() : string {
-    return this.type
-  }
-  public getKeyword() : string {
-    return this.keyword
-  }
-  public getMinPrice() : string {
-    return this.minprice
-  }
-  public getMaxPrice() : string {
-    return this.maxprice
-  }
 }
 
 // export class APIInput {

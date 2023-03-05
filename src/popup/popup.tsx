@@ -10,23 +10,30 @@ import {Address, AddressData, AddressAPI} from '../utils/api/address/addressInde
 export const TopicContext = createContext([])
 export const CoordContext = createContext([])
 
-export const App: React.FC<{coordinate?: AddressData}> = ({coordinate}) => {
+export const App: React.FC<{}> = () => {
   const [topic, setTopic] = useState<Topic>(Topic.Topics)
   const [addr, setAddr] = useState<Address>(new Address(""))
-  const [coord, setCoord] = useState<AddressData>(coordinate)
+  const [coord, setCoord] = useState<AddressData>()
 
   console.log("1")
   // Get the url from the current tab
   useEffect(() => {
-    chrome.tabs.query({ active: true, lastFocusedWindow: true}, (tabs)=> {
-      let updatedAddress = getAddressFromURL(tabs)
-      getLatitudeAndLongitude(updatedAddress)
-    })
+    //https://developer.chrome.com/docs/extensions/reference/tabs/
+    findCoordinates()
+   
     console.log("2")
   }, [])
-
+  async function findCoordinates() {
+    let queryOptions = { active: true, lastFocusedWindow: true };
+    // `tab` will either be a `tabs.Tab` instance or `undefined`.
+    let [tab] = await chrome.tabs.query(queryOptions);
+    console.log(tab)
+    let updatedAddress = getAddressFromURL(tab)
+    getLatitudeAndLongitude(updatedAddress)
+  }
+ 
   const getAddressFromURL = (tabs) => {
-    let currentTab = tabs[0];
+    let currentTab = tabs;
     console.log("1.1")
     console.log(currentTab.url);
     //mayve if to check in manifest settings which url
@@ -54,7 +61,7 @@ export const App: React.FC<{coordinate?: AddressData}> = ({coordinate}) => {
   }
   // case1: return if nothing card foreach api?????? 1 topic to many api and dataset
   return (
-    <Box mx="8px" my="16px">
+    <Box data-testid="popup" mx="8px" my="16px">
       {console.log("3")}
       <TopicContext.Provider value={[topic,setTopic]}>
         <TopicMenu />

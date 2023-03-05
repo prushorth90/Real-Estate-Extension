@@ -7,31 +7,32 @@ import {PhotoAPI} from '../../../../../utils/api/photo/photoIndex'
 import {PhotoDialogState} from './photoDialogState'
 import {PhotoDialogContainer} from './photoDialogContainer'
 
-export const PhotoDialog: React.FC<{open: boolean, onClose: () => void,photo_reference}> = ({open,onClose, photo_reference}) => {
+export const PhotoDialog: React.FC<{isPhotoOpen: boolean, onClose: () => void,photo_reference}> = ({isPhotoOpen,onClose, photo_reference}) => {
 
     const [photo, setPhoto] = useState<string>("")
-    const [opened, setOpened] = useState<boolean>(false)
+    //const [opened, setOpened] = useState<boolean>(false)
     const [photoState, setPhotoState] = useState<PhotoDialogState>(PhotoDialogState.Start)
     let photoAPI = new PhotoAPI()
     const handleClose = () => {
       onClose();
       setPhoto("")
       setPhotoState(PhotoDialogState.Start)
-      setOpened(false)
+      //setOpened(false)
     }
 
     console.log("998")
 
     const getPhoto = () => {
       // let photo_reference = nearby.results[index].photos[0].photo_reference
-      if (photo_reference != "" && opened != true) {
+      if (photo_reference != "" ) {
         console.log("999")//*20
         setPhotoState(PhotoDialogState.Loading)
         photoAPI.fetchData(photo_reference)
           .then((data) => {
             console.log("1000")// not reached
             console.log(data.url)
-            setOpened(true)
+            if (data.url == undefined) throw new Error('e')
+            //setOpened(true)
             setPhoto(data.url)
             setPhotoState(PhotoDialogState.Ready)
             console.log("1001")
@@ -42,13 +43,12 @@ export const PhotoDialog: React.FC<{open: boolean, onClose: () => void,photo_ref
     }
 
     return (
-      <PhotoDialogContainer handleClose={handleClose} open={open} >
-          {photoState === PhotoDialogState.Start ? <div> {open == true? getPhoto() : ""} </div>
-            :photoState === PhotoDialogState.Loading ? <Typography>{PhotoDialogState.Loading}  </Typography>
-            :photoState ===PhotoDialogState.Error ? <Typography>{PhotoDialogState.Error} </Typography>
-            :photoState === PhotoDialogState.None ? <Typography> {PhotoDialogState.None} </Typography>
-            :photoState === PhotoDialogState.Ready ? <img data-testid="food photo" src={photo}/>
-            :""}
+      <PhotoDialogContainer handleClose={handleClose} open={isPhotoOpen} >
+          {photoState === PhotoDialogState.Start && <div> {getPhoto()} </div>}
+          {photoState === PhotoDialogState.Loading && <Typography>{PhotoDialogState.Loading}  </Typography>}
+          {photoState === PhotoDialogState.Error && <Typography data-testid="food photo error">{PhotoDialogState.Error} </Typography>}
+          {photoState === PhotoDialogState.None && <Typography data-testid="food photo none"> {PhotoDialogState.None} </Typography>}
+          {photoState === PhotoDialogState.Ready && <img data-testid="food photo" src={photo}/> }
       </PhotoDialogContainer>
     )
 

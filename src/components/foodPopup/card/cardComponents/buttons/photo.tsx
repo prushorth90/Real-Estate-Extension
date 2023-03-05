@@ -5,19 +5,13 @@ import {PhotoDialog} from '../dialog/photoDialog'
 
 
 export const PhotoButton: React.FC<{result, index}> = ({result, index}) => {
-//setOpenPhoto={setOpenPhoto} setPhotoId={setPhotoId} openPhoto={openPhoto} photoReference={photoReference}
-    const [openPhoto, setOpenPhoto] = useState<boolean>(false);
+
+    const [isPhotoOpen, setIsPhotoOpen] = useState<boolean>(false);
     const [photoReference, setPhotoReference] = useState<string>("");
-    const [currIndex, setCurrIndex ] = useState<number>(-1);
 
     const setPhotoId = (result, index) => {
-        if (result.photos !== undefined) {
-          setPhotoReference(result.photos[0].photo_reference)
-        } else if (result.photos === undefined) {
-          setPhotoReference("")
-        }
-        setOpenPhoto(true)
-        setCurrIndex(index)
+        result.photos !== undefined ? setPhotoReference(result.photos[0].photo_reference) : setPhotoReference("")
+        setIsPhotoOpen(true)
     }
 
     return (
@@ -30,7 +24,7 @@ export const PhotoButton: React.FC<{result, index}> = ({result, index}) => {
               onClick={() => setPhotoId(result,index)}>
               View Photo
       </Button>
-      {index == currIndex ? <PhotoDialog open={openPhoto} onClose={() => setOpenPhoto(false)} photo_reference={photoReference}/> : null}
+      {isPhotoOpen && <PhotoDialog isPhotoOpen={isPhotoOpen} onClose={() => setIsPhotoOpen(false)} photo_reference={photoReference}/> }
       </div>
     )
 }

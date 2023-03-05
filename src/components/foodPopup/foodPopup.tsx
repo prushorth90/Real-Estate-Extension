@@ -19,7 +19,7 @@ const FoodPopup: React.FC<{
     <div>
     {console.log("8")}
       {topic == Topic.Food &&
-        <Box>
+        <Box data-testid="food-popup">
          <NearbySearchContext.Provider value={[nearbySearchData,setNearbySearchData]}>
           <CardStateContext.Provider value={[cardState, setCardState]}>
             <Filter />

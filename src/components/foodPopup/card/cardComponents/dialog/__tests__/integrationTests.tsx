@@ -10,7 +10,6 @@ import { MockedFoodPhoto } from '../../../../../../mocks/food/photos/mockFoodPho
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
 
-
 let mockedTab = null
 let mockedAddress = null
 let mockedFoodPlaces = null
@@ -30,11 +29,9 @@ afterEach(() => {
 })
 
 
+describe("close photo dialog tests", () => {
 
-
-describe("click photo button and see dialog open", () => {
-
-    it("should be able to see photo dialog after click photo button", async () => {
+    it("should close the photo dialog", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
@@ -47,15 +44,21 @@ describe("click photo button and see dialog open", () => {
         mockedFoodPhoto.mockGoodPhotoAPI(mockFetch)
 
         const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
+
         await act(async () => { fireEvent.click(photoButton) });
         const foodPhoto = screen.getByTestId("food photo") as HTMLImageElement
-
-        expect(foodPhoto).toBeInTheDocument()
-        expect(foodPhoto).toBeVisible()
-
+        //https://stackoverflow.com/questions/59572341/fireevent-keydown-not-working-as-expected-on-my-jest-react-testing-library-tes
+        fireEvent.keyDown(screen.getByTestId("food photo"), {
+            key: "Escape",
+            code: "Escape",
+            keyCode: 27,
+            charCode: 27
+        });
+        expect(foodPhoto).not.toBeInTheDocument()
+        expect(foodPhoto).not.toBeVisible()
     });
 
-    it("should show no photo after click photo button", async () => {
+    it("should close the photo dialog even if no photo dialog", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
@@ -70,12 +73,18 @@ describe("click photo button and see dialog open", () => {
 
         await act(async () => { fireEvent.click(photoButton) });
         const foodPhoto = screen.getByTestId("food photo none") as HTMLImageElement
-
-        expect(foodPhoto).toBeInTheDocument()
-        expect(foodPhoto).toBeVisible()
+        //https://stackoverflow.com/questions/59572341/fireevent-keydown-not-working-as-expected-on-my-jest-react-testing-library-tes
+        fireEvent.keyDown(screen.getByTestId("food photo none"), {
+            key: "Escape",
+            code: "Escape",
+            keyCode: 27,
+            charCode: 27
+        });
+        expect(foodPhoto).not.toBeInTheDocument()
+        expect(foodPhoto).not.toBeVisible()
     });
 
-    it("should show error after click photo button as network request failed", async () => {
+    it("should close the photo dialog even if error photo dialog", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
@@ -88,15 +97,18 @@ describe("click photo button and see dialog open", () => {
         mockedFoodPhoto.mockBadInvalidPhotoAPI(mockFetch)
 
         const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
-        await act(async () => { fireEvent.click(photoButton) });
-        const foodPhoto = await screen.findByTestId("food photo error") as HTMLImageElement
 
-        expect(foodPhoto).toBeInTheDocument()
-        expect(foodPhoto).toBeVisible()
+        await act(async () => { fireEvent.click(photoButton) });
+        const foodPhoto = screen.getByTestId("food photo error") as HTMLImageElement
+        //https://stackoverflow.com/questions/59572341/fireevent-keydown-not-working-as-expected-on-my-jest-react-testing-library-tes
+        fireEvent.keyDown(screen.getByTestId("food photo error"), {
+            key: "Escape",
+            code: "Escape",
+            keyCode: 27,
+            charCode: 27
+        });
+        expect(foodPhoto).not.toBeInTheDocument()
+        expect(foodPhoto).not.toBeVisible()
     });
 
-
 });
-
-
-

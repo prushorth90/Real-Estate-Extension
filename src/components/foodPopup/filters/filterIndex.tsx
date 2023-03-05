@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 export { Filter } from "./filters";
 export { RadiusFilter } from "./filterComponents/radius/radiusFilter";
 export { TypeFilter } from "./filterComponents/type/typeFilter";

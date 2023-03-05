@@ -7,222 +7,210 @@ import App, { TopicContext } from '../../../../../../popup/popup'
 import { APIContext } from '../../../filters'
 import { APIInput } from '../../../apiInput'
 import { InputLabel } from '@material-ui/core';
+import { chrome } from 'jest-chrome'
+import { MockedTab } from '../../../../../../mocks/tab/mockTab';
+import { MockedAddress } from '../../../../../../mocks/address/mockAddress'
+import { MockedFoodPlaces } from '../../../../../../mocks/food/places/mockFoodPlaces'
+
+global.fetch = jest.fn()
+const mockFetch = fetch as jest.MockedFunction<typeof fetch>
+
+let mockedTab = null
+let mockedAddress = null
+let mockedFoodPlaces = null
+
+beforeEach(() => {
+    mockedTab = new MockedTab()
+    mockedAddress = new MockedAddress()
+    mockedFoodPlaces = new MockedFoodPlaces()
+
+})
+
+afterEach(() => {
+    mockedTab = null
+    mockedAddress = null
+    mockedFoodPlaces = null
+})
 
 
-describe("Event test change value of type filter", () => {
-
-    global.fetch = jest.fn()
-    const mockFetch = fetch as jest.MockedFunction<typeof fetch>
-    it("should be able to see update of value filter of type", async () => {
-        mockFetch.mockResolvedValue({
-            json: () => Promise.resolve({
-                results: [{
-                    name: "Bakery 1",
-                    price_level: 0,
-                    rating: 2,
-                    user_ratings_total: 56,
-                    vicinity: "Fake address 1"
-                }]
+describe("change value of cuisine filter to italian", () => {
 
 
-            },
-            ),
+        it("should be able to see card when change cuisine to italian", async () => {
+            mockedTab.mockGoodTabAPI(mockFetch)
+            mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        } as any)
+            await act(async () => { render(<App />) })
 
-        let coordinate = {
-            "results": [{
-                "geometry": {
-                    "location": {
-                        lat: 41.814637,
-                        lng: -87.596083
-                    }
-                }
-            }]
-        }
+            const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+            mockedFoodPlaces.mockGoodFoodAPI(mockFetch)
 
+            await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+            mockedFoodPlaces.mockSecondGoodFoodAPI(mockFetch)
 
-        await act(async () => { render(<App coordinate={coordinate} />) })
+            const type = screen.getByTestId("Input Type") as HTMLSelectElement
+            await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+            const options = within(screen.getByRole('listbox'));
+            await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
+            expect(type.value).toBe("Restaurant")
 
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+            const cuisine = await screen.findByTestId("Input Cuisine") as HTMLSelectElement
+            await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
+            const cuisineOptions = within(screen.getByRole('listbox'));
+            await act(async () => { fireEvent.click(cuisineOptions.getByText(/Italian/i)) });
+            expect(cuisine.value).toBe("Italian")
 
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        mockFetch.mockResolvedValue({
-            json: () => Promise.resolve({
-                results: [{
-                    name: "Fake Bakery",
-                    price_level: 3,
-                    rating: 5,
-                    user_ratings_total: 90,
-                    vicinity: "Fake address"
-                }]
+            const card = await screen.findByTestId("result card") as HTMLDivElement
+            expect(card).toBeVisible()
+            expect(card).toBeInTheDocument()
 
+            const name = await screen.findByTestId("result name") as HTMLParagraphElement
+            expect(name.innerHTML).toBe(" Fake Bakery 2 ")
 
-            },
-            ),
+            const totalUserRating = await screen.findByTestId("result user rating total") as HTMLParagraphElement
+            expect(totalUserRating.innerHTML).toBe("Total User Ratings: 10 ")
 
-        } as any)
+            const priceLevel = await screen.findByTestId("result price level") as HTMLParagraphElement
+            expect(priceLevel.innerHTML).toBe("Price Level: 4")
 
-        const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
-        const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
-        expect(type.value).toBe("Restaurant")
-        
-        const cuisine = screen.getByTestId("Input Cuisine") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
-        const cuisineOptions = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(cuisineOptions.getByText(/Italian/i)) });
-        expect(cuisine.value).toBe("Italian")
+            const vicinity = await screen.findByTestId("result vicinity") as HTMLParagraphElement
+            expect(vicinity.innerHTML).toBe(" Vicinity: Fake address 2 ")
 
-    });
-    
+            const photoButton = await screen.findByTestId("photo button") as HTMLButtonElement
+            expect(photoButton).toBeInTheDocument()
 
-    it("should be able to see card when change filter of type", async () => {
-        mockFetch.mockResolvedValue({
-            json: () => Promise.resolve({
-                results: [{
-                    name: "Bakery 1",
-                    price_level: 0,
-                    rating: 2,
-                    user_ratings_total: 56,
-                    vicinity: "Fake address 1"
-                }]
+        });
+
+        it("should be able to see none card when change filter of cuisine as bad empty address", async () => {
+            mockedTab.mockGoodTabAPI(mockFetch)
+            mockedAddress.mockGoodAddressAPI(mockFetch)
 
 
-            },
-            ),
+            await act(async () => { render(<App />) })
 
-        } as any)
+            const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+            mockedFoodPlaces.mockBadEmptyFoodAPI(mockFetch)
 
-        let coordinate = {
-            "results": [{
-                "geometry": {
-                    "location": {
-                        lat: 41.814637,
-                        lng: -87.596083
-                    }
-                }
-            }]
-        }
+            await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+            mockedFoodPlaces.mockBadEmptyFoodAPI(mockFetch)
 
+            const type = screen.getByTestId("Input Type") as HTMLSelectElement
+            await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+            const options = within(screen.getByRole('listbox'));
+            await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
+            expect(type.value).toBe("Restaurant")
 
-        await act(async () => { render(<App coordinate={coordinate} />) })
+            const cuisine = await screen.findByTestId("Input Cuisine") as HTMLSelectElement
+            await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
+            const cuisineOptions = within(screen.getByRole('listbox'));
+            await act(async () => { fireEvent.click(cuisineOptions.getByText(/Italian/i)) });
+            expect(cuisine.value).toBe("Italian")
 
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        mockFetch.mockResolvedValue({
-            json: () => Promise.resolve({
-                results: [{
-                    name: "Fake Bakery",
-                    price_level: 3,
-                    rating: 5,
-                    user_ratings_total: 90,
-                    vicinity: "Fake address"
-                }]
-            },
-            ),
-
-        } as any)
-
-        const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
-        const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
-        expect(type.value).toBe("Restaurant")
-
-        const cuisine = screen.getByTestId("Input Cuisine") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
-        const cuisineOptions = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(cuisineOptions.getByText(/Italian/i)) });
-        expect(cuisine.value).toBe("Italian")
-
-        const card = await screen.findByTestId("result card") as HTMLDivElement
-        expect(card).toBeVisible()
+            const card = await screen.findByTestId("result card other") as HTMLDivElement
+            expect(card).toBeVisible()
+            expect(card).toBeInTheDocument()
+            expect(card.innerHTML).toBe("No data to show")
 
 
-    });
+        });
+
+        it("should be able to see error card when change cuisine as bad invalid food", async () => {
+            mockedTab.mockGoodTabAPI(mockFetch)
+            mockedAddress.mockGoodAddressAPI(mockFetch)
 
 
-    it("should be able to see update to cards values when change filter of type", async () => {
-        mockFetch.mockResolvedValue({
-            json: () => Promise.resolve({
-                results: [{
-                    name: "Bakery 1",
-                    price_level: 0,
-                    rating: 2,
-                    user_ratings_total: 56,
-                    vicinity: "Fake address 1"
-                }]
+            await act(async () => { render(<App />) })
+
+            const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+            mockedFoodPlaces.mockBadInvalidFoodAPI(mockFetch)
+
+            await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+            mockedFoodPlaces.mockBadInvalidFoodAPI(mockFetch)
+
+            const type = screen.getByTestId("Input Type") as HTMLSelectElement
+            await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+            const options = within(screen.getByRole('listbox'));
+            await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
+            expect(type.value).toBe("Restaurant")
+
+            const cuisine = await screen.findByTestId("Input Cuisine") as HTMLSelectElement
+            await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
+            const cuisineOptions = within(screen.getByRole('listbox'));
+            await act(async () => { fireEvent.click(cuisineOptions.getByText(/Italian/i)) });
+            expect(cuisine.value).toBe("Italian")
+
+            const card = await screen.findByTestId("result card other") as HTMLDivElement
+            expect(card).toBeVisible()
+            expect(card).toBeInTheDocument()
+            expect(card.innerHTML).toBe("Error. Our API request has failed")
 
 
-            },
-            ),
+        });
 
-        } as any)
-
-        let coordinate = {
-            "results": [{
-                "geometry": {
-                    "location": {
-                        lat: 41.814637,
-                        lng: -87.596083
-                    }
-                }
-            }]
-        }
+        it("should be able to see none card when change cuisine as bad empty address", async () => {
+            mockedTab.mockGoodTabAPI(mockFetch)
+            mockedAddress.mockBadEmptyAddressAPI(mockFetch)
 
 
-        await act(async () => { render(<App coordinate={coordinate} />) })
+            await act(async () => { render(<App />) })
 
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+            const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+            //mockBadInvalidFoodAPI()
 
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        mockFetch.mockResolvedValue({
-            json: () => Promise.resolve({
-                results: [{
-                    name: "Fake Italian Restaurant",
-                    price_level: 3,
-                    rating: 5,
-                    user_ratings_total: 90,
-                    vicinity: "Fake address"
-                }]
-            },
-            ),
+            await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+            // mockBadInvalidFoodAPI()
 
-        } as any)
+            const type = screen.getByTestId("Input Type") as HTMLSelectElement
+            await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+            const options = within(screen.getByRole('listbox'));
+            await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
+            expect(type.value).toBe("Restaurant")
 
-        const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
-        const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
-        expect(type.value).toBe("Restaurant")
+            const cuisine = await screen.findByTestId("Input Cuisine") as HTMLSelectElement
+            await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
+            const cuisineOptions = within(screen.getByRole('listbox'));
+            await act(async () => { fireEvent.click(cuisineOptions.getByText(/Italian/i)) });
+            expect(cuisine.value).toBe("Italian")
+
+            const card = await screen.findByTestId("result card other") as HTMLDivElement
+            expect(card).toBeVisible()
+            expect(card).toBeInTheDocument()
+            expect(card.innerHTML).toBe("No data to show")
 
 
-        const cuisine = screen.getByTestId("Input Cuisine") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
-        const cuisineOptions = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(cuisineOptions.getByText(/Italian/i)) });
+        });
 
-        const name = await screen.findByTestId("result name") as HTMLParagraphElement
-        expect(name.innerHTML).toBe(" Fake Italian Restaurant ")
+        it("should be able to see none card when change cuisine   as bad invalid address", async () => {
+            mockedTab.mockGoodTabAPI(mockFetch)
+            mockedAddress.mockBadInvalidAddressAPI(mockFetch)
 
-        const totalUserRating = await screen.findByTestId("result user rating total") as HTMLParagraphElement
-        expect(totalUserRating.innerHTML).toBe("Total User Ratings: 90 ")
 
-        const priceLevel = await screen.findByTestId("result price level") as HTMLParagraphElement
-        expect(priceLevel.innerHTML).toBe("Price Level: 3")
+            await act(async () => { render(<App />) })
 
-        const vicinity = await screen.findByTestId("result vicinity") as HTMLParagraphElement
-        expect(vicinity.innerHTML).toBe(" Vicinity: Fake address ")
+            const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+            //mockBadInvalidFoodAPI()
 
-        const photoButton = await screen.findByTestId("photo button") as HTMLButtonElement
-        expect(photoButton).toBeInTheDocument()
+            await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+            // mockBadInvalidFoodAPI()
 
-        screen.debug(undefined, 100000)
-    });
+            const type = screen.getByTestId("Input Type") as HTMLSelectElement
+            await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+            const options = within(screen.getByRole('listbox'));
+            await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
+            expect(type.value).toBe("Restaurant")
 
+            const cuisine = await screen.findByTestId("Input Cuisine") as HTMLSelectElement
+            await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
+            const cuisineOptions = within(screen.getByRole('listbox'));
+            await act(async () => { fireEvent.click(cuisineOptions.getByText(/Italian/i)) });
+            expect(cuisine.value).toBe("Italian")
+
+            const card = await screen.findByTestId("result card other") as HTMLDivElement
+            expect(card).toBeVisible()
+            expect(card).toBeInTheDocument()
+            expect(card.innerHTML).toBe("No data to show")
+
+
+        });
 
 });
-

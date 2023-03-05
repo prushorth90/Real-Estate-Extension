@@ -8,63 +8,52 @@ import App, { TopicContext } from '../../../../../../popup/popup'
 //import { APIInput } from '../../../apiInput'
 import UserEvent from '@testing-library/user-event'
 
-describe("Components Render", () => {
 
-    it("should render result card success", () => {
-        let res = {
-            name: "Fake Bakery",
-            price_level: 3,
-            rating: 5,
-            user_ratings_total: 90,
-            vicinity: "Fake address"
-        }
+describe("for when the button component renders", () => {
 
+    it("should render photo button", () => {
+        let res = createMockResult({photo_reference:"fake photo reference"})
         render(<PhotoButton result={res} index={1}/>)
-    });
-
-
-
-});
-
-describe("Card UI in doc", () => {
-
-    it("should render card in document ", () => {
-        let res = {
-            name: "Fake Bakery",
-            price_level: 3,
-            rating: 5,
-            user_ratings_total: 90,
-            vicinity: "Fake address"
-        }
-
-        render(<PhotoButton result={res} index={1} />)
-
         const photoButton = screen.getByTestId("photo button")
-
         expect(photoButton).toBeInTheDocument()
-    });
-
-});
-
-describe("Card UI visible", () => {
-
-    it("should show the card to user ", () => {
-        let res = {
-            name: "Fake Bakery",
-            price_level: 3,
-            rating: 5,
-            user_ratings_total: 90,
-            vicinity: "Fake address"
-        }
-
-        render(<PhotoButton result={res} index={1} />)
-
-
-        const photoButton = screen.getByTestId("photo button")
-
         expect(photoButton).toBeVisible()
+        const {getByText} = within(screen.getByTestId("photo button"))
+        expect(getByText('View Photo')).toBeInTheDocument()
+
     });
+
+
+    it("should render photo button even if photo reference empty - will see no photo if clicked", () => {
+        let res = createMockResult({})
+        render(<PhotoButton result={res} index={1} />)
+        const photoButton = screen.getByTestId("photo button")
+        expect(photoButton).toBeInTheDocument()
+        expect(photoButton).toBeVisible()
+        const { getByText } = within(screen.getByTestId("photo button"))
+        expect(getByText('View Photo')).toBeInTheDocument()
+
+    });
+
+    it("should render photo button even if photo reference undefined - will see error if clicked", () => {
+        let res = createMockResult({ photo_reference: undefined })
+        render(<PhotoButton result={res} index={1} />)
+        const photoButton = screen.getByTestId("photo button")
+        expect(photoButton).toBeInTheDocument()
+        expect(photoButton).toBeVisible()
+        const { getByText } = within(screen.getByTestId("photo button"))
+        expect(getByText('View Photo')).toBeInTheDocument()
+
+    });
+
+
 
 });
 
 
+
+function createMockResult(mapping) {
+    let res = {
+        photos: [mapping],
+    }
+    return res
+}

@@ -20,9 +20,9 @@ export class AddressAPI extends API {
     //1. https://maps.googleapis.com/maps/api/geocode/json?address=1414-170th-Pl-NE%2CBellevue%2CWA%2C98008&key=AIzaSyDbq-ALkqgJHFvNBDQc-1MJjCk6schskEw
 
     // for bs.ts and wc.tsx if the thing fails // &type=indian
-    if (!res.ok) {
-      throw new Error('not found')
-    }
+    // if (!res.ok) {
+    //   throw new Error('not found')
+    // }
 
     const data: AddressData = await res.json()
     return data

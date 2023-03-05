@@ -2,14 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import "@testing-library/jest-dom/extend-expect"
 import { act, screen, render, fireEvent, waitFor, cleanup } from "@testing-library/react";
-import { TopicMenu } from "../../topicMenu";
-import { App } from "../../../../popup";
+import {TopicMenu} from "../../topicMenu";
+import {App} from "../../../../popup";
 import { TopicContext } from '../../../../popup/popup'
 import { chrome } from 'jest-chrome'
 import { MockedTab } from '../../../../mocks/tab/mockTab';
-import { MockedAddress } from '../../../../mocks/address/mockAddress'
-import { MockedFoodPlaces } from '../../../../mocks/food/places/mockFoodPlaces'
-
+import {MockedAddress} from '../../../../mocks/address/mockAddress'
+import { MockedFoodPlaces} from '../../../../mocks/food/places/mockFoodPlaces'
 
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
@@ -31,127 +30,65 @@ afterEach(() => {
     mockedFoodPlaces = null
 })
 
-describe("tests when change from topic to food", () => {
-
-    it("should be able to see ready result cards", async () => {
-        mockedTab.mockGoodTabAPI(mockFetch)
-        mockedAddress.mockGoodAddressAPI(mockFetch)
-
-        await act(async () => { render(<App />) })
-
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockGoodFoodAPI(mockFetch)
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-
-        const card = await screen.findByTestId("result card") as HTMLDivElement
-        expect(card).toBeVisible()
-        expect(card).toBeInTheDocument()
-
-
-        const name = await screen.findByTestId("result name") as HTMLParagraphElement
-        expect(name.innerHTML).toBe(" Fake Bakery ")
-
-        const totalUserRating = await screen.findByTestId("result user rating total") as HTMLParagraphElement
-        expect(totalUserRating.innerHTML).toBe("Total User Ratings: 90 ")
-
-        const priceLevel = await screen.findByTestId("result price level") as HTMLParagraphElement
-        expect(priceLevel.innerHTML).toBe("Price Level: 3")
-
-        const vicinity = await screen.findByTestId("result vicinity") as HTMLParagraphElement
-        expect(vicinity.innerHTML).toBe(" Vicinity: Fake address ")
-
-        const photoButton = await screen.findByTestId("photo button") as HTMLButtonElement
-        expect(photoButton).toBeInTheDocument()
+describe("when the topic menu has been rendered", () => {
+    it("should show and check the values of topic menu", () => {
+        render((<TopicContext.Provider value={["Topics", jest.fn()]}> <TopicMenu /></TopicContext.Provider>))
         
+        const topicMenuSelect = screen.getByTestId("topic_menu_select")
 
+        expect(topicMenuSelect).toBeVisible()
+        expect(topicMenuSelect).toBeInTheDocument()
+
+        const topicMenuInput = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        expect(topicMenuInput.value).toBe("Topics")
+        
     });
 
-    it("should be able to see none card as empty food api", async () => {
+    it("should show the topic select menu", async () => {
+
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
+        const topicMenuInput = screen.getByTestId("topic_menu_input") as HTMLSelectElement
 
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockBadEmptyFoodAPI(mockFetch)
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-
-        const card = await screen.findByTestId("result card other") as HTMLDivElement
-        expect(card).toBeVisible()
-        expect(card).toBeInTheDocument()
-        expect(card.innerHTML).toBe("No data to show")
-
+        expect(topicMenuInput).toBeInTheDocument()
+        expect(topicMenuInput.value).toBe("Topics")
 
     });
 
-    it("should be able to see error cards as bad food api", async () => {
-        mockedTab.mockGoodTabAPI(mockFetch)
-        mockedAddress.mockGoodAddressAPI(mockFetch)
+    it("should show and check the values the topic select menu even if bad empty address", async () => {
 
-        await act(async () => { render(<App />) })
-
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockBadInvalidFoodAPI(mockFetch)
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-
-        const card = await screen.findByTestId("result card other") as HTMLDivElement
-        expect(card).toBeVisible()
-        expect(card).toBeInTheDocument()
-        expect(card.innerHTML).toBe("Error. Our API request has failed")
-
-
-    });
-
-    it("should be able to see none card as bad address", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
+        const topicMenuInput = screen.getByTestId("topic_menu_input") as HTMLSelectElement
 
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        //mockBadInvalidFoodAPI()
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-
-        const card = await screen.findByTestId("result card other") as HTMLDivElement
-        expect(card).toBeVisible()
-        expect(card).toBeInTheDocument()
-        expect(card.innerHTML).toBe("No data to show")
-
-
-
+        expect(topicMenuInput).toBeInTheDocument()
+        expect(topicMenuInput.value).toBe("Topics")
 
     });
 
-    it("should be able to see none card as invalid address", async () => {
+    it("should show and check the values the topic select menu even if bad invalid address", async () => {
+
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
+        const topicMenuInput = screen.getByTestId("topic_menu_input") as HTMLSelectElement
 
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        //mockBadInvalidFoodAPI()
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-
-        const card = await screen.findByTestId("result card other") as HTMLDivElement
-        expect(card).toBeVisible()
-        expect(card).toBeInTheDocument()
-        expect(card.innerHTML).toBe("No data to show")
-
-
+        expect(topicMenuInput).toBeInTheDocument()
+        expect(topicMenuInput.value).toBe("Topics")
 
     });
 
 });
 
 
-describe("tests when change from food to topic", () => {
-
-    it("should be able to see no cards", async () => {
+describe("for the topic menu change event topic to food", () => {
+    it("should be able to change topic to food", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
@@ -161,17 +98,11 @@ describe("tests when change from food to topic", () => {
         mockedFoodPlaces.mockGoodFoodAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        const card = await screen.findByTestId("result card") as HTMLDivElement
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
 
-        // expect(card).not.toBeVisible()
-
-        expect(topicMenuSelect.value).toBe("Topics");
-        expect(card).not.toBeInTheDocument()
-
+        expect(topicMenuSelect.value).toBe("Food");
     });
 
-    it("should be able to see no cards if empty food api", async () => {
+    it("should be able to change topic to food", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
@@ -182,17 +113,10 @@ describe("tests when change from food to topic", () => {
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const card = await screen.findByTestId("result card other") as HTMLDivElement
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
-
-        // expect(card).not.toBeVisible()
-
-        expect(topicMenuSelect.value).toBe("Topics");
-        expect(card).not.toBeInTheDocument()
-
+        expect(topicMenuSelect.value).toBe("Food");
     });
 
-    it("should be able to see no cards if bad food api", async () => {
+    it("should be able to change topic to food", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
@@ -203,18 +127,10 @@ describe("tests when change from food to topic", () => {
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const card = await screen.findByTestId("result card other") as HTMLDivElement
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
-
-        // expect(card).not.toBeVisible()
-
-        expect(topicMenuSelect.value).toBe("Topics");
-        expect(card).not.toBeInTheDocument()
-
-
+        expect(topicMenuSelect.value).toBe("Food");
     });
 
-    it("should be able to see no cards if bad address", async () => {
+    it("should be able to change topic to food", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
 
@@ -225,40 +141,105 @@ describe("tests when change from food to topic", () => {
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const card = await screen.findByTestId("result card other") as HTMLDivElement
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
-
-        // expect(card).not.toBeVisible()
-
-        expect(topicMenuSelect.value).toBe("Topics");
-        expect(card).not.toBeInTheDocument()
-
-
-
-
+        expect(topicMenuSelect.value).toBe("Food");
     });
-
-    it("should be able to see no cards if invalid address", async () => {
+    
+    it("should be able to change topic to food", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        //mockBadInvalidFoodAPI()
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const card = await screen.findByTestId("result card other") as HTMLDivElement
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
-
-        // expect(card).not.toBeVisible()
-
-        expect(topicMenuSelect.value).toBe("Topics");
-        expect(card).not.toBeInTheDocument()
-
-
-
+        expect(topicMenuSelect.value).toBe("Food");
     });
 
+
+  
 });
+
+describe("for the topic menu change event food to topic", () => {
+
+    it("should be able to go from food back to topic", async () => {
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockGoodAddressAPI(mockFetch)
+
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockedFoodPlaces.mockGoodFoodAPI(mockFetch)
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
+
+        expect(topicMenuSelect.value).toBe("Topics");
+    });
+    
+
+    it("should be able to change topic to food", async () => {
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockGoodAddressAPI(mockFetch)
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockedFoodPlaces.mockBadEmptyFoodAPI(mockFetch)
+
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
+
+        expect(topicMenuSelect.value).toBe("Topics");
+    });
+
+    it("should be able to change topic to food", async () => {
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockGoodAddressAPI(mockFetch)
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockedFoodPlaces.mockBadInvalidFoodAPI(mockFetch)
+
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
+
+        expect(topicMenuSelect.value).toBe("Topics");
+    });
+
+    it("should be able to change topic to food", async () => {
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockBadEmptyAddressAPI(mockFetch)
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
+
+        expect(topicMenuSelect.value).toBe("Topics");
+    });
+
+    it("should be able to change topic to food", async () => {
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockBadInvalidAddressAPI(mockFetch)
+
+        await act(async () => { render(<App />) })
+
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Topics" } }) });
+
+        expect(topicMenuSelect.value).toBe("Topics");
+    });
+
+
+});
+

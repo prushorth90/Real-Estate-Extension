@@ -1,16 +1,18 @@
+
 import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
 import { act, screen, render, fireEvent, waitFor, cleanup, within, getByTestId } from "@testing-library/react";
-import FoodPopup from "../../../../foodPopup";
-import { RadiusFilter } from '../radiusFilter'
-import App, { TopicContext } from '../../../../../../popup/popup'
-import { APIContext } from '../../../filters'
-import { APIInput } from '../../../apiInput'
+import FoodPopup from "../../../../../foodPopup";
+import { MaxPriceFilter } from '../../maxPriceFilter'
+import { MinPriceFilter } from '../../MinPriceFilter'
+import App, { TopicContext } from '../../../../../../../popup/popup'
+import { APIContext } from '../../../../filters'
+import { APIInput } from '../../../../apiInput'
 import { InputLabel } from '@material-ui/core';
 import { chrome } from 'jest-chrome'
-import { MockedTab } from '../../../../../../mocks/tab/mockTab';
-import { MockedAddress } from '../../../../../../mocks/address/mockAddress'
-import { MockedFoodPlaces } from '../../../../../../mocks/food/places/mockFoodPlaces'
+import { MockedTab } from '../../../../../../../mocks/tab/mockTab';
+import { MockedAddress } from '../../../../../../../mocks/address/mockAddress'
+import { MockedFoodPlaces } from '../../../../../../../mocks/food/places/mockFoodPlaces'
 
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
@@ -32,13 +34,12 @@ afterEach(() => {
     mockedFoodPlaces = null
 })
 
+describe("change value of max price filter", () => {
 
-describe("change value of radius filter to see cards", () => {
 
-    it("should be able to see ready results card when change filter of radius", async () => {
+    it("should be able to see card when change filter of max price", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
-
 
         await act(async () => { render(<App />) })
 
@@ -48,16 +49,13 @@ describe("change value of radius filter to see cards", () => {
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
         mockedFoodPlaces.mockSecondGoodFoodAPI(mockFetch)
 
-        const radius = screen.getByTestId("Input Radius") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[1]) });
+        const maxPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
         const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
+        await act(async () => { fireEvent.click(options.getByText(/3/i)) });
 
         const card = await screen.findByTestId("result card") as HTMLDivElement
         expect(card).toBeVisible()
-        expect(card).toBeInTheDocument()
-
-
         const name = await screen.findByTestId("result name") as HTMLParagraphElement
         expect(name.innerHTML).toBe(" Fake Bakery 2 ")
 
@@ -76,7 +74,8 @@ describe("change value of radius filter to see cards", () => {
 
     });
 
-    it("should be able to see none card when change filter of radius as bad empty address", async () => {
+
+    it("should be able to see none card when change filter of max price  as bad empty address", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
@@ -89,10 +88,11 @@ describe("change value of radius filter to see cards", () => {
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
         mockedFoodPlaces.mockBadEmptyFoodAPI(mockFetch)
 
-        const radius = screen.getByTestId("Input Radius") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[1]) });
+        const maxPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
         const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
+        await act(async () => { fireEvent.click(options.getByText(/3/i)) });
+
 
         const card = await screen.findByTestId("result card other") as HTMLDivElement
         expect(card).toBeVisible()
@@ -102,7 +102,7 @@ describe("change value of radius filter to see cards", () => {
 
     });
 
-    it("should be able to see error card when change filter of radius as bad invalid food", async () => {
+    it("should be able to see error card when change filter of max price as bad invalid food", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
@@ -115,10 +115,11 @@ describe("change value of radius filter to see cards", () => {
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
         mockedFoodPlaces.mockBadInvalidFoodAPI(mockFetch)
 
-        const radius = screen.getByTestId("Input Radius") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[1]) });
+        const maxPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
         const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
+        await act(async () => { fireEvent.click(options.getByText(/3/i)) });
+
 
         const card = await screen.findByTestId("result card other") as HTMLDivElement
         expect(card).toBeVisible()
@@ -128,7 +129,7 @@ describe("change value of radius filter to see cards", () => {
 
     });
 
-    it("should be able to see none card when change filter of radius as bad empty address", async () => {
+    it("should be able to see none card when change filter of max price as bad empty address", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
 
@@ -141,10 +142,11 @@ describe("change value of radius filter to see cards", () => {
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
         // mockBadInvalidFoodAPI()
 
-        const radius = screen.getByTestId("Input Radius") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[1]) });
+        const maxPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
         const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
+        await act(async () => { fireEvent.click(options.getByText(/3/i)) });
+
 
         const card = await screen.findByTestId("result card other") as HTMLDivElement
         expect(card).toBeVisible()
@@ -154,7 +156,7 @@ describe("change value of radius filter to see cards", () => {
 
     });
 
-    it("should be able to see none card when change filter of radius as bad invalid address", async () => {
+    it("should be able to see none card when change filter of max price as bad invalid address", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
 
@@ -167,10 +169,11 @@ describe("change value of radius filter to see cards", () => {
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
         // mockBadInvalidFoodAPI()
 
-        const radius = screen.getByTestId("Input Radius") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[1]) });
+        const maxPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
         const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
+        await act(async () => { fireEvent.click(options.getByText(/3/i)) });
+
 
         const card = await screen.findByTestId("result card other") as HTMLDivElement
         expect(card).toBeVisible()
@@ -179,7 +182,5 @@ describe("change value of radius filter to see cards", () => {
 
 
     });
-
-
 });
 
