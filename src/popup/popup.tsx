@@ -1,12 +1,10 @@
 import React, { useEffect, useState, createContext } from 'react'
 import ReactDOM from 'react-dom'
 import { Box } from '@material-ui/core'
-//import 'fontsource-roboto'
 import './popup.css'
 import {Topic, TopicMenu} from '../components/TopicMenu'
 import FoodPopup from '../components/foodPopup'
 import {Address, AddressData, AddressAPI} from '../utils/api/address/addressIndex'
-// https://v4.mui.com/components/selects/
 export const TopicContext = createContext([])
 export const CoordContext = createContext([])
 

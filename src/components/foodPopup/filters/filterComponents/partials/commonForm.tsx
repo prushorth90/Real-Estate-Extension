@@ -1,9 +1,8 @@
-import React,{ useEffect, useState, useContext } from 'react'
-import {FormControl, InputLabel, MenuItem, Select, FormHelperText} from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import React,{ useContext } from 'react'
+import {FormControl, InputLabel, MenuItem, Select} from '@material-ui/core'
 import {useStyles} from '../../style'
 import {APIContext} from '../../filters'
-import {APIInput} from '../../apiInput'
+
 export const CommonForm: React.FC<{
   options, keyword, name, handleChange
 }> = ({ options, keyword, name,handleChange}) => {

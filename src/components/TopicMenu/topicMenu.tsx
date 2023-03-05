@@ -1,7 +1,6 @@
 import React,{useContext} from 'react'
 import {Topic} from './topics'
 import {Typography, MenuItem, FormControl, Select } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles';
 import {TopicContext} from '../../popup/popup'
 import {useStyles} from './style'
 

@@ -1,10 +1,8 @@
-import React,{ useEffect, useState, useContext } from 'react'
-import {FormControl, InputLabel, MenuItem, Select, FormHelperText} from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import React,{ useEffect, useContext } from 'react'
 import {Cuisine} from './Cuisine'
-import {useStyles} from '../../style'
 import {CommonForm} from '../partials/commonForm'
 import {APIContext} from '../../filters'
+
 export const CuisineFilter: React.FC<{
 }> = ({ }) => {
    const [apiInput, setAPIInput] = useContext(APIContext)

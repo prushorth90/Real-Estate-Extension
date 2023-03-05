@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
-import {Box,Button,Card,CardActions,CardContent,Grid,Typography} from '@material-ui/core'
+import {Box,Card,CardContent} from '@material-ui/core'
 
 export const FoodCardContainer: React.FC<{
   children: React.ReactNode
-  onDelete?: () => void
-}> = ({ children, onDelete }) => {
+}> = ({ children }) => {
   return (
     <Box mx={'4px'} my={'16px'}>
       <Card>

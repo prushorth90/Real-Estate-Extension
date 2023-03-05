@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Typography,} from '@material-ui/core'
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useState } from 'react'
+import {Typography,} from '@material-ui/core'
 import {PhotoAPI} from '../../../../../utils/api/photo/photoIndex'
 import {PhotoDialogState} from './photoDialogState'
 import {PhotoDialogContainer} from './photoDialogContainer'

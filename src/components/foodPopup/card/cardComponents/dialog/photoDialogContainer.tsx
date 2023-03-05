@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import Dialog  from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
-import DialogContent from '@material-ui/core/DialogContent';
 
 export const PhotoDialogContainer: React.FC<{
   children: React.ReactNode

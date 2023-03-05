@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Box, Typography,} from '@material-ui/core'
+import React from 'react'
+import { Typography,} from '@material-ui/core'
 import '../../foodCard.css'
 import Rating from '@material-ui/lab/Rating';
 
