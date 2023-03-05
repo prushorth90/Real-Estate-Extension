@@ -8,86 +8,26 @@ import App, { TopicContext } from '../../../../../../popup/popup'
 //import { APIInput } from '../../../apiInput'
 import UserEvent from '@testing-library/user-event'
 import { chrome } from 'jest-chrome'
+import { MockedFoodPhoto } from '../../../../../../mocks/food/photos/mockFoodPhoto'
 
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
 
-class Response {
-    // could make obj for apartment like open weather data
-    public headers;
-    public ok;
-    public redirected;
-    public status;
-    public body;
-    public bodyUsed;
-    public statusText;
-    public trailer;
-    public type;
-    public url;
-    public clone;
-    public arrayBuffer;
-    public blob;
-    public formData;
-    public json;
-    public text;
 
+let mockedFoodPhoto = null
+beforeEach(() => {
+    mockedFoodPhoto = new MockedFoodPhoto()
+})
 
+afterEach(() => {
+    mockedFoodPhoto = null
+})
 
-    
-    public constructor(url) {
-        this.headers = 3
-        this.ok = true
-        this.redirected = 0
-        this.status = true
-        this.url=url
-
-    }
-}
-
-async function mockGoodPhotoAPI() {
-
-    await mockFetch.mockImplementation(async (queryInfo) => {
-        let f = new Response("fake url")
-        return Promise.resolve(f)
-
-    })
-   
-}
-
-function mockBadEmptyPhotoAPI() {
-    mockFetch.mockResolvedValue({
-        json: () => Promise.resolve({
-            results: [{
-                name: "Bakery 1",
-                price_level: 0,
-                rating: 2,
-                user_ratings_total: 56,
-                vicinity: "Fake address 1",
-                photos: undefined,
-                url: "fake url"
-            }]
-
-
-        },
-        ),
-
-    } as any)
-}
-
-async function mockBadInvalidPhotoAPI() {
-
-    await mockFetch.mockImplementation(async (queryInfo) => {
-        let f = new Response(undefined)
-        return Promise.resolve(f)
-
-    })
-
-}
 
 describe("for when the dialog renders", () => {
     
     it("should render result dialog success", async () => {
-        mockGoodPhotoAPI()
+        mockedFoodPhoto.mockGoodPhotoAPI(mockFetch)
         await act(async () => {render(<PhotoDialog isPhotoOpen={true} onClose={jest.fn()} photo_reference={"fake photo reference"} />)})
         const foodPhoto = await screen.findByTestId("food photo")
 
@@ -97,7 +37,7 @@ describe("for when the dialog renders", () => {
     
 
     it("should render dialog in document even if error ", async () => {
-        mockBadInvalidPhotoAPI()
+        mockedFoodPhoto.mockBadInvalidPhotoAPI(mockFetch)
 
         await act(async () => { render(<PhotoDialog isPhotoOpen={true} onClose={jest.fn()} photo_reference={undefined} />) })
 
@@ -112,7 +52,7 @@ describe("for when the dialog renders", () => {
     });
 
     it("should render dialog in document even if empty ", async () => {
-        mockBadEmptyPhotoAPI()
+        mockedFoodPhoto.mockBadEmptyPhotoAPI(mockFetch)
 
         await act(async () => { render(<PhotoDialog isPhotoOpen={true} onClose={jest.fn()} photo_reference={""} />) })
 
@@ -125,7 +65,7 @@ describe("for when the dialog renders", () => {
     });
     
     it("should not render dialog in document as open false", async () => {
-        mockGoodPhotoAPI()
+        mockedFoodPhoto.mockGoodPhotoAPI(mockFetch)
 
         await act(async () => { render(<PhotoDialog isPhotoOpen={false} onClose={jest.fn()} photo_reference={""} />) })
 
@@ -136,7 +76,7 @@ describe("for when the dialog renders", () => {
     });
 
     it("should not render dialog in document as open false with bad empty photo api", async () => {
-        mockBadEmptyPhotoAPI()
+        mockedFoodPhoto.mockBadEmptyPhotoAPI(mockFetch)
 
         await act(async () => { render(<PhotoDialog isPhotoOpen={false} onClose={jest.fn()} photo_reference={""} />) })
 
@@ -147,7 +87,7 @@ describe("for when the dialog renders", () => {
     });
 
     it("should not render dialog in document as open false with bad invalid photo api", async () => {
-        mockBadInvalidPhotoAPI()
+        mockedFoodPhoto.mockBadInvalidPhotoAPI(mockFetch)
 
         await act(async () => { render(<PhotoDialog isPhotoOpen={false} onClose={jest.fn()} photo_reference={""} />) })
 

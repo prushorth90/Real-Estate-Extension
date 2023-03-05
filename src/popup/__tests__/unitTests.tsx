@@ -3,120 +3,31 @@ import "@testing-library/jest-dom/extend-expect"
 import { act,screen, render, fireEvent, waitFor, cleanup } from "@testing-library/react";
 import App from "../popup";
 import { chrome } from 'jest-chrome'
+import {MockedAddress} from '../../mocks/address/mockAddress'
+import { MockedTab } from '../../mocks/tab/mockTab'
 
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
 
-class Tab {
-  // could make obj for apartment like open weather data
-  public index;
-  public pinned;
-  public highlighted;
-  public windowId;
-  public active;
-  public incognito;
-  public selected;
-  public discarded;
-  public autoDiscardable;
-  public groupId;
-  public url;
-  public constructor() {
-    this.index = 3
-    this.highlighted = true
-    this.windowId=0
-    this.active=true
-    this.incognito=true
-    this.selected=true
-    this.discarded=true
-    this.autoDiscardable=true
-    this.groupId=3
-    this.url ="https://www.realtor.com/realestateandhomes-detail/6224-S-Rockwell-St_Chicago_IL_60629_M83401-45847"
-  }
-} 
+let mockedTab = null
+let mockedAddress = null
 
-class Response {
-  // could make obj for apartment like open weather data
-  public headers;
-  public ok;
-  public redirected;
-  public status;
-  public body;
-  public bodyUsed;
-  public statusText;
-  public trailer;
-  public type;
-  public url;
-  public clone;
-  public arrayBuffer;
-  public blob;
-  public formData;
-  public json;
-  public text;
+beforeEach(()=>{
+  mockedTab = new MockedTab()
+  mockedAddress = new MockedAddress()
+})
 
-
-
-
-  public constructor(status) {
-    this.headers = 3
-    this.ok = true
-    this.redirected = 0
-    this.status = status
-
-  }
-}
-
-
-async function mockGoodTabAPI() {
-  await chrome.tabs.query.mockImplementation(async (queryInfo) => {
-    let f = new Array<Tab>()
-    f.push(new Tab())
-    return Promise.resolve(f)
-
-  })
-}
-
-function mockGoodAddressAPI(){
-  mockFetch.mockResolvedValue({
-    json: () => Promise.resolve({
-      results: [{
-
-        geometry: {
-          location: {
-            lat: 41.814637,
-            lng: -87.596083
-          }
-        }
-      }]
-    },
-    ),
-
-  } as any)
-}
-
-function mockBadEmptyAddressAPI() {
-  mockFetch.mockResolvedValue({
-    json: () => Promise.resolve({
-      results: []
-    },
-    ),
-
-  } as any)
-}
-
-async function mockBadInvalidAddressAPI() {
-  await mockFetch.mockImplementation(async (queryInfo) => {
-    let f = new Response(400)
-    return Promise.resolve(f)
-
-  })
-}
+afterEach(() => {
+  mockedTab = null
+  mockedAddress = null
+})
 
 describe("when the main component popup has been rendered", () => {
 
   it("should show the popup", async () => {
 
-    mockGoodTabAPI()
-    mockGoodAddressAPI()
+    mockedTab.mockGoodTabAPI(mockFetch)
+    mockedAddress.mockGoodAddressAPI(mockFetch)
 
     await act(async () => { render(<App />) })
     const popup= screen.getByTestId("popup") 
@@ -127,8 +38,8 @@ describe("when the main component popup has been rendered", () => {
 
   it("should show the popup even if bad empty address", async () => {
 
-    mockGoodTabAPI()
-    mockBadEmptyAddressAPI()
+    mockedTab.mockGoodTabAPI(mockFetch)
+    mockedAddress.mockBadEmptyAddressAPI(mockFetch)
 
     await act(async () => { render(<App />) })
     const popup = screen.getByTestId("popup")
@@ -140,8 +51,8 @@ describe("when the main component popup has been rendered", () => {
 
   it("should show the popup even if bad invalid address", async () => {
 
-    mockGoodTabAPI()
-    mockBadInvalidAddressAPI()
+    mockedTab.mockGoodTabAPI(mockFetch)
+    mockedAddress.mockBadInvalidAddressAPI(mockFetch)
 
     await act(async () => { render(<App />) })
     const popup = screen.getByTestId("popup")
