@@ -1,13 +1,7 @@
 import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
-import { act, screen, render, fireEvent, waitFor, cleanup, within, getByTestId } from "@testing-library/react";
-import FoodPopup from "../../../../foodPopup";
+import {  screen, render  } from "@testing-library/react";
 import { Result } from '../result'
-import App, { TopicContext } from '../../../../../../popup/popup'
-//import { APIContext } from '../../../filters'
-//import { APIInput } from '../../../apiInput'
-import UserEvent from '@testing-library/user-event'
-
 
 
 describe("for when the components render", () => {

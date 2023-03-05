@@ -1,13 +1,7 @@
 import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
-import { act, screen, render, fireEvent, waitFor, cleanup, within, getByTestId } from "@testing-library/react";
-import FoodPopup from "../../../../foodPopup";
+import { act, screen, render } from "@testing-library/react";
 import { PhotoDialog } from '../photoDialog'
-import App, { TopicContext } from '../../../../../../popup/popup'
-//import { APIContext } from '../../../filters'
-//import { APIInput } from '../../../apiInput'
-import UserEvent from '@testing-library/user-event'
-import { chrome } from 'jest-chrome'
 import { MockedFoodPhoto } from '../../../../../../mocks/food/photos/mockFoodPhoto'
 
 global.fetch = jest.fn()

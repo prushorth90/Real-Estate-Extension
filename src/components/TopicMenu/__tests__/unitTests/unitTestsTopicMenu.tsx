@@ -1,11 +1,9 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import "@testing-library/jest-dom/extend-expect"
-import { act, screen, render, fireEvent, waitFor, cleanup } from "@testing-library/react";
+import { act, screen, render, fireEvent } from "@testing-library/react";
 import {TopicMenu} from "../../topicMenu";
 import {App} from "../../../../popup";
 import { TopicContext } from '../../../../popup/popup'
-import { chrome } from 'jest-chrome'
 import { MockedTab } from '../../../../mocks/tab/mockTab';
 import {MockedAddress} from '../../../../mocks/address/mockAddress'
 import { MockedFoodPlaces} from '../../../../mocks/food/places/mockFoodPlaces'

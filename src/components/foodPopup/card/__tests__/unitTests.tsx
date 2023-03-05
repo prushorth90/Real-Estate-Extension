@@ -1,6 +1,6 @@
 import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
-import { act, screen, render, fireEvent, waitFor, cleanup } from "@testing-library/react";
+import { screen, render  } from "@testing-library/react";
 import FoodPopup from "../../foodPopup";
 import { TopicContext } from '../../../../popup/popup'
 
