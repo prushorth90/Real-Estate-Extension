@@ -61,5 +61,3 @@ describe("when the main component popup has been rendered", () => {
   });
 
 });
-
-

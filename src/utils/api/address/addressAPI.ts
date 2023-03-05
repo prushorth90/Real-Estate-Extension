@@ -10,7 +10,7 @@ export class AddressAPI extends API {
     let city = address.getCity()
     let state = address.getState()
     let zipCode = address.getZipCode()
-
+    //https://www.w3schools.com/jsref/api_fetch.asp
     const res = await fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?address=${street}%2C${city}%2C${state}%2C${zipCode}&key=${this.ADDRESS_API_KEY}`
     )
