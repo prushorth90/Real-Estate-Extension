@@ -17,7 +17,6 @@ const FoodPopup: React.FC<{
   const [cardState, setCardState] = useState<ResultState>(ResultState.Loading)
   return (
     <div>
-    {console.log("8")}
       {topic == Topic.Food &&
         <Box data-testid="food-popup">
          <NearbySearchContext.Provider value={[nearbySearchData,setNearbySearchData]}>

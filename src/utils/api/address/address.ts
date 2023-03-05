@@ -1,5 +1,4 @@
 export class Address {
-  // could make obj for apartment like open weather data
   private street: string
   private city: string
   private state: string

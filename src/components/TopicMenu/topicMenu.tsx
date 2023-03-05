@@ -8,14 +8,12 @@ import {useStyles} from './style'
 
 export const TopicMenu: React.FC<{
 }> = ({  }) => {
-  console.log("4")
   const [topic,setTopic] = useContext(TopicContext)
 
   const topicArr = Object.keys(Topic);
 
   return (
       <FormControl color='primary' className={useStyles().formControl}>
-      {console.log("5")}
        <Select
          data-testid="topic_menu_select"
          inputProps={{ "data-testid": "topic_menu_input" }}
