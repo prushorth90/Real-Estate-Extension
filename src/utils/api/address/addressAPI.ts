@@ -1,11 +1,11 @@
-import { AddressData} from './addressIndex';
+import {Coordinate} from './addressIndex';
 import {API} from '../mainApi';
 import {Address} from './address'
-export class AddressAPI extends API {
+export class AddressAPI implements API {
 
   private readonly ADDRESS_API_KEY = 'AIzaSyDbq-ALkqgJHFvNBDQc-1MJjCk6schskEw';
 
-  public async fetchData(address: Address): Promise<AddressData> {
+  public async fetchData(address: Address): Promise<Coordinate> {
     let street = address.getStreet()
     let city = address.getCity()
     let state = address.getState()
@@ -14,7 +14,7 @@ export class AddressAPI extends API {
     const res = await fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?address=${street}%2C${city}%2C${state}%2C${zipCode}&key=${this.ADDRESS_API_KEY}`
     )
-    const data: AddressData = await res.json()
+    const data: Coordinate = await res.json()
     return data
   }
 

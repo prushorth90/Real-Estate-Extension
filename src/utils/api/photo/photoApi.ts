@@ -1,6 +1,6 @@
 import {API} from '../mainApi';
 
-export class PhotoAPI extends API {
+export class PhotoAPI implements API {
 
   private readonly NEARBY_SEARCH_API_KEY = 'AIzaSyDbq-ALkqgJHFvNBDQc-1MJjCk6schskEw';
   //https://www.w3schools.com/jsref/api_fetch.asp

@@ -1,11 +1,11 @@
-import { NearbySearchData} from './foodIndex';
+import { FoodPlaceData} from './foodIndex';
 import {API} from '../mainApi';
-export class FoodAPI extends API {
+export class FoodAPI implements API {
 
   private readonly NEARBY_SEARCH_API_KEY = 'AIzaSyDbq-ALkqgJHFvNBDQc-1MJjCk6schskEw';
 
   // https://developer.chrome.com/docs/extensions/mv3/tut_oauth/
-  public async fetchData(coord, apiInput): Promise<NearbySearchData> {
+  public async fetchData(coord, apiInput): Promise<FoodPlaceData> {
     let latitude = coord.results[0].geometry.location.lat
     let longitude = coord.results[0].geometry.location.lng
     const res = await fetch(
@@ -16,7 +16,7 @@ export class FoodAPI extends API {
       throw new Error('not found')
     }
 
-    const data: NearbySearchData = await res.json()
+    const data: FoodPlaceData = await res.json()
     return data
   }
 

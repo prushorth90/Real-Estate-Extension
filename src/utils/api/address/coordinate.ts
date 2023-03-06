@@ -1,4 +1,4 @@
-export interface AddressData {
+export interface Coordinate {
   results: {
     geometry: {
       location: {

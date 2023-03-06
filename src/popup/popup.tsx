@@ -4,20 +4,19 @@ import { Box } from '@material-ui/core'
 import './popup.css'
 import {Topic, TopicMenu} from '../components/TopicMenu'
 import FoodPopup from '../components/foodPopup'
-import {Address, AddressData, AddressAPI} from '../utils/api/address/addressIndex'
+import {Address, Coordinate, AddressAPI} from '../utils/api/address/addressIndex'
 export const TopicContext = createContext([])
 export const CoordContext = createContext([])
 
 export const App: React.FC<{}> = () => {
   const [topic, setTopic] = useState<Topic>(Topic.Topics)
-  const [addr, setAddr] = useState<Address>(new Address(""))
-  const [coord, setCoord] = useState<AddressData>()
+  const [coord, setCoord] = useState<Coordinate>()
 
   useEffect(() => {
-    findCoordinates()
+    findHouseCoordinates()
    
   }, [])
-  async function findCoordinates() {
+  async function findHouseCoordinates() {
     // Get the url from the current tab
     //https://developer.chrome.com/docs/extensions/reference/tabs/
     let queryOptions = { active: true, lastFocusedWindow: true };
@@ -25,16 +24,15 @@ export const App: React.FC<{}> = () => {
     let [tab] = await chrome.tabs.query(queryOptions);
 
     let updatedAddress = getAddressFromURL(tab)
-    getLatitudeAndLongitude(updatedAddress)
+    fetchCoordinates(updatedAddress)
   }
  
-  const getAddressFromURL = (tabs) => {
-    let currentTab = tabs;
+  const getAddressFromURL = (tab) => {
+    let currentTab = tab;
     let updatedAddress = new Address(currentTab.url)
-    setAddr(updatedAddress)
     return updatedAddress
   }
-  const getLatitudeAndLongitude = (updatedAddress) => {
+  const fetchCoordinates = (updatedAddress) => {
     let addressApi = new AddressAPI()
     addressApi.fetchData(updatedAddress)
               .then((data) => {
@@ -57,8 +55,8 @@ export const App: React.FC<{}> = () => {
   )
 }
 
-// const root = document.createElement('div')
-// document.body.appendChild(root)
-// ReactDOM.render(<App />, root)
+const root = document.createElement('div')
+document.body.appendChild(root)
+ReactDOM.render(<App />, root)
 
 export default App

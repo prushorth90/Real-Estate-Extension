@@ -1,3 +1,3 @@
 export { AddressAPI as AddressAPI } from "./addressApi";
-export { AddressData as AddressData } from "./addressData";
+export { Coordinate as Coordinate } from "./coordinate";
 export {Address as Address } from "./address";

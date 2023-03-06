@@ -1,4 +1,4 @@
-export interface NearbySearchData {
+export interface FoodPlaceData {
   results: {
     icon: string
     icon_background_colour: string

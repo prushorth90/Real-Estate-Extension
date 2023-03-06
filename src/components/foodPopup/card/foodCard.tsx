@@ -6,12 +6,12 @@ import {FoodCardContainer} from './cardComponents/partials/foodCardContainer'
 import {Result} from './cardComponents/result/result'
 import {PhotoButton} from './cardComponents/buttons/photo'
 import {CoordContext} from '../../../popup/popup'
-import {NearbySearchContext, CardStateContext} from '../foodPopup'
+import {FoodPlaceContext, CardStateContext} from '../foodPopup'
 
 
 export const FoodCard: React.FC<{}> = ({}) => {
   const [coord,setCoord] = useContext(CoordContext)
-  const [nearbySearchData, setNearbySearchData] = useContext(NearbySearchContext)
+  const [foodPlaceData, setFoodPlaceData] = useContext(FoodPlaceContext)
   const [cardState, setCardState] = useContext(CardStateContext)
 
   if (cardState === ResultState.Loading || cardState === ResultState.Error || cardState === ResultState.None) {
@@ -26,7 +26,7 @@ export const FoodCard: React.FC<{}> = ({}) => {
 
     return (
       <Box>
-      {nearbySearchData.results.map((result, index) => (
+      {foodPlaceData.results.map((result, index) => (
         <FoodCardContainer key={index}>
           <Grid container>
             <Grid item>
