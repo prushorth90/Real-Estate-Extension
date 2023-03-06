@@ -3,7 +3,7 @@ import {FormControl, InputLabel, MenuItem, Select} from '@material-ui/core'
 import {useStyles} from '../../style'
 import {APIContext} from '../../filters'
 
-export const CommonForm: React.FC<{
+export const FilterPartial: React.FC<{
   options, keyword, name, handleChange
 }> = ({ options, keyword, name,handleChange}) => {
   const [apiInput, setAPIInput] = useContext(APIContext)

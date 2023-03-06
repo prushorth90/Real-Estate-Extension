@@ -1,7 +1,7 @@
 import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
 import { screen, render, within } from "@testing-library/react";
-import { PhotoButton } from '../photo'
+import { PhotoButton } from '../photoButton'
 
 
 describe("for when the button component renders", () => {

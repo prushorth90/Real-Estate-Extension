@@ -9,7 +9,7 @@ export const TopicMenu: React.FC<{
 }> = ({  }) => {
   const [topic,setTopic] = useContext(TopicContext)
 
-  const topicArr = Object.keys(Topic);
+  const options = Object.keys(Topic);
 
   return (
       <FormControl color='primary' className={useStyles().formControl}>
@@ -22,7 +22,7 @@ export const TopicMenu: React.FC<{
          value={topic}
          onChange={(event) => setTopic(event.target.value as Topic)}
        >
-          {topicArr.map((top,index) => (
+          {options.map((top,index) => (
             <MenuItem key={index} value={top}>
                 <Typography align="center"> {top} </Typography>
             </MenuItem>

@@ -3,7 +3,7 @@ import React from 'react'
 import Dialog  from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
 
-export const PhotoDialogContainer: React.FC<{
+export const PhotoDialogPartial: React.FC<{
   children: React.ReactNode
   handleClose
   open

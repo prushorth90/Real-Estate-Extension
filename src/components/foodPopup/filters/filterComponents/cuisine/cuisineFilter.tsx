@@ -1,6 +1,6 @@
 import React,{ useEffect, useContext } from 'react'
 import {Cuisine} from './Cuisine'
-import {CommonForm} from '../partials/commonForm'
+import {FilterPartial} from '../partials/filterPartial'
 import {APIContext} from '../../filters'
 
 export const CuisineFilter: React.FC<{
@@ -20,7 +20,7 @@ export const CuisineFilter: React.FC<{
     }
 
    return (
-     <CommonForm
+     <FilterPartial
         options={[Cuisine.Pizza, Cuisine.English, Cuisine.Chinese, Cuisine.Indian, Cuisine.Italian, Cuisine.Fast_Food]}
         keyword={apiInput.keyword}
         name='Cuisine'

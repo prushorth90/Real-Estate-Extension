@@ -1,5 +1,5 @@
 import React,{ useContext} from 'react'
-import {CommonForm} from '../partials/commonForm'
+import {FilterPartial} from '../partials/filterPartial'
 import {APIContext} from '../../filters'
 
 export const MinPriceFilter: React.FC<{}> = ({ }) => {
@@ -11,7 +11,7 @@ export const MinPriceFilter: React.FC<{}> = ({ }) => {
     })
   }
   return (
-     <CommonForm
+     <FilterPartial
        options={[0,1,2]}
        keyword={apiInput.minprice}
        name='Min Price Level'

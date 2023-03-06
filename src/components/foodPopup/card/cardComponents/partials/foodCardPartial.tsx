@@ -2,7 +2,7 @@ import React from 'react'
 
 import {Box,Card,CardContent} from '@material-ui/core'
 
-export const FoodCardContainer: React.FC<{
+export const FoodCardPartial: React.FC<{
   children: React.ReactNode
 }> = ({ children }) => {
   return (

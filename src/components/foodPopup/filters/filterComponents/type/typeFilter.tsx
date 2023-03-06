@@ -1,6 +1,6 @@
 import React,{useContext } from 'react'
 import {Type} from './type'
-import {CommonForm} from '../partials/commonForm'
+import {FilterPartial} from '../partials/filterPartial'
 import {APIContext} from '../../filters'
 export const TypeFilter: React.FC<{
 }> = ({ }) => {
@@ -13,7 +13,7 @@ export const TypeFilter: React.FC<{
   }
 
   return (
-    <CommonForm
+    <FilterPartial
       options={[Type.Bakery, Type.Cafe, Type.Restaurant, Type.Meal_Delivery, Type.Meal_Takeaway]}
       keyword={apiInput.type}
       name='Type'

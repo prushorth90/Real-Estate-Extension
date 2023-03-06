@@ -2,7 +2,7 @@ import React, {useState } from 'react'
 import {Typography,} from '@material-ui/core'
 import {PhotoAPI} from '../../../../../utils/api/photo/photoIndex'
 import {PhotoDialogState} from './photoDialogState'
-import {PhotoDialogContainer} from './photoDialogContainer'
+import {PhotoDialogPartial} from './photoDialogPartial'
 
 export const PhotoDialog: React.FC<{isPhotoOpen: boolean, onClose: () => void,photo_reference}> = ({isPhotoOpen,onClose, photo_reference}) => {
 
@@ -30,13 +30,13 @@ export const PhotoDialog: React.FC<{isPhotoOpen: boolean, onClose: () => void,ph
     }
 
     return (
-      <PhotoDialogContainer handleClose={handleClose} open={isPhotoOpen} >
+      <PhotoDialogPartial handleClose={handleClose} open={isPhotoOpen} >
           {photoState === PhotoDialogState.Start && <div> {getPhoto()} </div>}
           {photoState === PhotoDialogState.Loading && <Typography>{PhotoDialogState.Loading}  </Typography>}
           {photoState === PhotoDialogState.Error && <Typography data-testid="food photo error">{PhotoDialogState.Error} </Typography>}
           {photoState === PhotoDialogState.None && <Typography data-testid="food photo none"> {PhotoDialogState.None} </Typography>}
           {photoState === PhotoDialogState.Ready && <img data-testid="food photo" src={photo}/> }
-      </PhotoDialogContainer>
+      </PhotoDialogPartial>
     )
 
 }
