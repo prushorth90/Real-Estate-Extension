@@ -1,3 +1,4 @@
+// https://webpack.js.org/guides/production/ provides this template
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
@@ -10,6 +11,33 @@ module.exports = {
     background: path.resolve('src/background/background.ts'),
     contentScript: path.resolve('src/contentScript/contentScript.ts'),
   },
+  plugins: [
+    new HtmlPlugin({
+      title: 'Real Convenient Extension',
+      filename: `popup.html`,
+      chunks: ['popup'],
+    }),
+    new CleanWebpackPlugin({
+      cleanStaleWebpackAssets: false,
+    }),
+    new HtmlPlugin({
+      title: 'Real Convenient Extension',
+      filename: `options.html`,
+      chunks: ['options'],
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve('src/static'),
+          to: path.resolve('dist'),
+        }
+      ]
+    })
+  ],
+  output: {
+    filename: '[name].js',
+    path: path.resolve('dist'),
+  },
   module: {
     rules: [
       {
@@ -20,48 +48,16 @@ module.exports = {
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.(jpg|jpeg|png|woff|woff2|eot|ttf|svg)$/,
-        type: 'asset/resource'
       }
     ]
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
-  plugins: [
-    new CleanWebpackPlugin({
-      cleanStaleWebpackAssets: false,
-    }),
-    new CopyPlugin({
-      patterns: [
-        {
-          from: path.resolve('src/static'),
-          to: path.resolve('dist'),
-        }
-      ]
-    }),
-    ...getHtmlPlugins([
-      'popup',
-      'options'
-    ]),
-  ],
-  output: {
-    filename: '[name].js',
-    path: path.resolve('dist'),
-  },
+  //https://webpack.js.org/plugins/split-chunks-plugin/
   optimization: {
     splitChunks: {
       chunks: 'all',
     },
   }
-}
-
-function getHtmlPlugins(chunks) {
-  return chunks.map(chunk => new HtmlPlugin({
-    title: 'Real Convenient Extension',
-    filename: `${chunk}.html`,
-    chunks: [chunk],
-  }))
 }
