@@ -1,5 +1,5 @@
 import React,{ useState,useContext, createContext} from 'react'
-import {Topic} from '../TopicMenu/topics'
+import {Topic} from '../topicMenu/topics'
 import {Box,} from '@material-ui/core'
 import { FoodPlaceData } from '../../../api/food/foodIndex'
 import {FoodCard, ResultState} from './card/foodCardIndex'
