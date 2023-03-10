@@ -1,11 +1,11 @@
 import React,{ useEffect, useState, useContext,createContext } from 'react'
-import { FoodAPI } from '../../../utils/api/food/foodIndex'
+import { FoodAPI } from '../../../api/food/foodIndex'
 import {ResultState} from '../card/foodCardIndex'
 import {RadiusFilter, TypeFilter, CuisineFilter, MinPriceFilter, MaxPriceFilter} from '../filters/filterIndex'
 import {Type} from './filterComponents/type/type'
 import {CoordContext} from '../../../popup/popup'
 import {FoodPlaceContext, CardStateContext} from '../foodPopup'
-import {APIInput} from './apiInput'
+import {APIInput} from '../../../api/food/apiInput'
 
 export const APIContext = createContext([])
 

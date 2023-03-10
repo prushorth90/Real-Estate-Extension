@@ -5,7 +5,7 @@ import FoodPopup from "../../../../../foodPopup";
 import { MinPriceFilter } from '../../MinPriceFilter'
 import { TopicContext } from '../../../../../../../popup/popup'
 import { APIContext } from '../../../../filters'
-import { APIInput } from '../../../../apiInput'
+import { APIInput } from '../../../../../../../api/food/apiInput'
 
 describe("for when the max price component renders", () => {
 

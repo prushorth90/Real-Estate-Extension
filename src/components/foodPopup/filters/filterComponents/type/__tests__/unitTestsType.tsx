@@ -5,7 +5,7 @@ import FoodPopup from "../../../../foodPopup";
 import { TypeFilter } from '../typeFilter'
 import { TopicContext } from '../../../../../../popup/popup'
 import { APIContext } from '../../../filters'
-import { APIInput } from '../../../apiInput'
+import { APIInput } from '../../../../../../api/food/apiInput'
 
 describe("Components Render", () => {
 

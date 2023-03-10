@@ -1,7 +1,7 @@
 import React,{ useState,useContext, createContext} from 'react'
 import {Topic} from '../TopicMenu/topics'
 import {Box,} from '@material-ui/core'
-import { FoodPlaceData } from '../../utils/api/food/foodIndex'
+import { FoodPlaceData } from '../../api/food/foodIndex'
 import {FoodCard, ResultState} from './card/foodCardIndex'
 import {Filter} from './filters/filterIndex'
 import {TopicContext} from '../../popup/popup'

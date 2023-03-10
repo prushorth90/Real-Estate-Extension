@@ -4,7 +4,7 @@ import { Box } from '@material-ui/core'
 import './popup.css'
 import {Topic, TopicMenu} from '../components/TopicMenu'
 import FoodPopup from '../components/foodPopup'
-import {Address, Coordinate, AddressAPI} from '../utils/api/address/addressIndex'
+import {Address, Coordinate, AddressAPI} from '../api/address/addressIndex'
 export const TopicContext = createContext([])
 export const CoordContext = createContext([])
 

@@ -1,6 +1,6 @@
 import React, {useState } from 'react'
 import {Typography,} from '@material-ui/core'
-import {PhotoAPI} from '../../../../../utils/api/photo/photoIndex'
+import {PhotoAPI} from '../../../../../api/photo/photoIndex'
 import {PhotoDialogState} from './photoDialogState'
 import {PhotoDialogPartial} from './photoDialogPartial'
 
