@@ -5,7 +5,7 @@
   "scripts": {
     "start": "webpack --watch --progress --config ./webpack/webpack.dev.js",
     "build": "webpack --watch --progress --config ./webpack/webpack.prod.js",
-    "test": "jest --config jest.config.js",
+    "test": "jest --config ./jest/jest.config.js",
     "coverage": "npm test -- --coverage"
   },
   "jest": {
