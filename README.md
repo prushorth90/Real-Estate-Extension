@@ -1,3 +1,3 @@
 React Chrome Extension
 
-Instructions
+Instructions for future developers

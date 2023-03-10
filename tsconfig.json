@@ -1,4 +1,4 @@
-// https://webpack.js.org/guides/typescript/
+// from - https://webpack.js.org/guides/typescript/
 {
   "compilerOptions": {
     "jsx": "react",

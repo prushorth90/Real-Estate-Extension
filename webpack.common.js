@@ -1,4 +1,4 @@
-// https://webpack.js.org/guides/production/ provides this template
+// template from - https://webpack.js.org/guides/production/ 
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
@@ -54,7 +54,7 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
-  //https://webpack.js.org/plugins/split-chunks-plugin/
+  // opt -https://webpack.js.org/plugins/split-chunks-plugin/
   optimization: {
     splitChunks: {
       chunks: 'all',

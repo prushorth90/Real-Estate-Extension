@@ -9,6 +9,6 @@ module.exports = {
   globals: { fetch, Response, Request }
 };
 
-//config file provided https://www.npmjs.com/package/ts-jest
-//moduleNameMapper - https://www.npmjs.com/package/identity-obj-proxy
-//globals - https://stackoverflow.com/questions/71172209/why-do-i-get-reference-error-for-fetch-when-i-do-unit-tests-using-jest
+//this config file provided https://www.npmjs.com/package/ts-jest
+//this moduleNameMapper - https://www.npmjs.com/package/identity-obj-proxy
+// this globals - https://stackoverflow.com/questions/71172209/why-do-i-get-reference-error-for-fetch-when-i-do-unit-tests-using-jest
