@@ -28,7 +28,7 @@
     "copy-webpack-plugin": "^7.0.0",
     "css-loader": "^5.2.4",
     "fontsource-roboto": "^4.0.0",
-    "html-webpack-plugin": "^4.5.2",
+    "html-webpack-plugin": "^5.5.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.0.6",
     "jest-chrome": "^0.8.0",
