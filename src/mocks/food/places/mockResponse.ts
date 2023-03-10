@@ -1,5 +1,4 @@
 export class Response {
-    // could make obj for apartment like open weather data
     public headers;
     public ok;
     public redirected;

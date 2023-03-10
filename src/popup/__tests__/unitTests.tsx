@@ -1,8 +1,7 @@
 import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
-import { act,screen, render, fireEvent, waitFor, cleanup } from "@testing-library/react";
+import { act,screen, render } from "@testing-library/react";
 import App from "../popup";
-import { chrome } from 'jest-chrome'
 import {MockedAddress} from '../../mocks/address/mockAddress'
 import { MockedTab } from '../../mocks/tab/mockTab'
 
@@ -62,5 +61,3 @@ describe("when the main component popup has been rendered", () => {
   });
 
 });
-
-

@@ -1,7 +1,6 @@
 import { chrome } from 'jest-chrome'
 
 class Tab {
-    // could make obj for apartment like open weather data
     public index;
     public pinned;
     public highlighted;

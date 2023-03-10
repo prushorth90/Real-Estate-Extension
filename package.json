@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "React real 1",
   "scripts": {
-    "start": "webpack --watch --progress --config webpack.dev.js",
-    "build": "webpack --watch --progress --config webpack.prod.js",
+    "start": "webpack --watch --progress --config ./webpack/webpack.dev.js",
+    "build": "webpack --watch --progress --config ./webpack/webpack.prod.js",
     "test": "jest --config jest.config.js",
     "coverage": "npm test -- --coverage"
   },
