@@ -8,7 +8,7 @@ import {useStyles} from './style'
 export const TopicMenu: React.FC<{
 }> = ({  }) => {
   const [topic,setTopic] = useContext(TopicContext)
-
+  // Options found in enum class
   const options = Object.keys(Topic);
 
   return (
