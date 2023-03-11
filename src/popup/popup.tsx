@@ -4,6 +4,7 @@ import { Box } from '@material-ui/core'
 import './popup.css'
 import {Topic, TopicMenu} from './popupComponents/topicMenu'
 import FoodPopup from './popupComponents/foodPopup'
+import HealthPopup from './popupComponents/healthPopup'
 import {Address, Coordinate, AddressAPI} from '../api/address/addressIndex'
 import { NearbyPlaceData } from '../api/nearbyPlaces/nearbyPlaceIndex'
 import {ResultState } from './popupComponents/nearbyPlaceComponents/card/nearbyPlaceCardIndex'
@@ -56,6 +57,8 @@ export const App: React.FC<{}> = () => {
           <NearbyPlaceContext.Provider value={[nearbyPlaceData, setNearbyPlaceData]}>
             <CardStateContext.Provider value={[cardState, setCardState]}>
                <FoodPopup/>
+               <HealthPopup />
+
             </CardStateContext.Provider>
             </NearbyPlaceContext.Provider>
         </CoordContext.Provider>

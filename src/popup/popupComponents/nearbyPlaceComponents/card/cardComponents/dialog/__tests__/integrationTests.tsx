@@ -4,8 +4,8 @@ import { act, screen, render, fireEvent  } from "@testing-library/react";
 import App from '../../../../../../popup'
 import { MockedTab } from '../../../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../../../mocks/address/mockAddress'
-import { MockedFoodPlaces } from '../../../../../../../mocks/food/places/mockFoodPlaces'
-import { MockedFoodPhoto } from '../../../../../../../mocks/food/photos/mockFoodPhoto'
+import { MockedPlaces } from '../../../../../../../mocks/nearby/places/mockPlaces'
+import { MockedPhoto } from '../../../../../../../mocks/nearby/photos/mockPhoto'
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
 
@@ -16,8 +16,8 @@ let mockedFoodPhoto = null
 beforeEach(() => {
     mockedTab = new MockedTab()
     mockedAddress = new MockedAddress()
-    mockedFoodPlaces = new MockedFoodPlaces()
-    mockedFoodPhoto = new MockedFoodPhoto()
+    mockedFoodPlaces = new MockedPlaces()
+    mockedFoodPhoto = new MockedPhoto()
 })
 
 afterEach(() => {
@@ -37,7 +37,7 @@ describe("close photo dialog tests", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockGoodFoodAPI(mockFetch)
+        mockedFoodPlaces.mockGoodAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
         mockedFoodPhoto.mockGoodPhotoAPI(mockFetch)
@@ -90,7 +90,7 @@ describe("close photo dialog tests", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockGoodFoodAPI(mockFetch)
+        mockedFoodPlaces.mockGoodAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
         mockedFoodPhoto.mockBadInvalidPhotoAPI(mockFetch)

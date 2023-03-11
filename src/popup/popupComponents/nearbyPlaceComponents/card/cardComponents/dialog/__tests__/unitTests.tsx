@@ -2,7 +2,7 @@ import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
 import { act, screen, render } from "@testing-library/react";
 import { PhotoDialog } from '../photoDialog'
-import { MockedFoodPhoto } from '../../../../../../../mocks/food/photos/mockFoodPhoto'
+import { MockedPhoto } from '../../../../../../../mocks/nearby/photos/mockPhoto'
 
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
@@ -10,7 +10,7 @@ const mockFetch = fetch as jest.MockedFunction<typeof fetch>
 
 let mockedFoodPhoto = null
 beforeEach(() => {
-    mockedFoodPhoto = new MockedFoodPhoto()
+    mockedFoodPhoto = new MockedPhoto()
 })
 
 afterEach(() => {

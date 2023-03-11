@@ -1,7 +1,7 @@
 import { chrome } from 'jest-chrome'
 import { MockedPhotoResponse } from './mockPhotoResponse'
 
-export class MockedFoodPhoto {
+export class MockedPhoto {
 
     public constructor() {
 

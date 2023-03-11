@@ -1,12 +1,12 @@
 import { chrome } from 'jest-chrome'
 import { Response } from './mockResponse'
 
-export class MockedFoodPlaces {
+export class MockedPlaces {
     public constructor() {
 
     }
 
-    public mockGoodFoodAPI(mockFetch) {
+    public mockGoodAPI(mockFetch) {
         mockFetch.mockResolvedValue({
             json: () => Promise.resolve({
                 results: [{
@@ -32,7 +32,7 @@ export class MockedFoodPlaces {
         } as any)
     }
 
-    public mockBadEmptyFoodAPI(mockFetch) {
+    public mockBadEmptyAPI(mockFetch) {
         mockFetch.mockResolvedValue({
             json: () => Promise.resolve({
                 results: []
@@ -42,7 +42,7 @@ export class MockedFoodPlaces {
         } as any)
     }
 
-    public async mockBadInvalidFoodAPI(mockFetch) {
+    public async mockBadInvalidAPI(mockFetch) {
         await mockFetch.mockImplementation(async (queryInfo) => {
             let f = new Response(400)
             return Promise.resolve(f)
@@ -50,7 +50,7 @@ export class MockedFoodPlaces {
         })
     }
 
-    public mockSecondGoodFoodAPI(mockFetch) {
+    public mockSecondGoodAPI(mockFetch) {
     mockFetch.mockResolvedValue({
         json: () => Promise.resolve({
             results: [{

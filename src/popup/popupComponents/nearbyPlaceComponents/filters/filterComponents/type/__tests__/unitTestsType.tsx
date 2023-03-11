@@ -9,7 +9,7 @@ import { NearbyPlaceAPIInput } from '../../../../../../../api/nearbyPlaces/nearb
 import {Type} from '../../../../../foodPopup/type'
 import { MockedTab } from '../../../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../../../mocks/address/mockAddress'
-import { MockedFoodPlaces } from '../../../../../../../mocks/food/places/mockFoodPlaces'
+import { MockedPlaces } from '../../../../../../../mocks/nearby/places/mockPlaces'
 import App from '../../../../../../popup'
 
 global.fetch = jest.fn()
@@ -22,7 +22,7 @@ let mockedFoodPlaces = null
 beforeEach(() => {
     mockedTab = new MockedTab()
     mockedAddress = new MockedAddress()
-    mockedFoodPlaces = new MockedFoodPlaces()
+    mockedFoodPlaces = new MockedPlaces()
 
 })
 
@@ -55,10 +55,10 @@ describe("change value of type filter", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockGoodFoodAPI(mockFetch)
+        mockedFoodPlaces.mockGoodAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        mockedFoodPlaces.mockSecondGoodFoodAPI(mockFetch)
+        mockedFoodPlaces.mockSecondGoodAPI(mockFetch)
 
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
@@ -75,10 +75,10 @@ describe("change value of type filter", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockGoodFoodAPI(mockFetch)
+        mockedFoodPlaces.mockGoodAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        mockedFoodPlaces.mockSecondGoodFoodAPI(mockFetch)
+        mockedFoodPlaces.mockSecondGoodAPI(mockFetch)
 
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement

@@ -4,7 +4,7 @@ import { act, screen, render, fireEvent } from "@testing-library/react";
 import { App } from "../../../..";
 import { MockedTab } from '../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../mocks/address/mockAddress'
-import { MockedFoodPlaces } from '../../../../../mocks/food/places/mockFoodPlaces'
+import { MockedPlaces } from '../../../../../mocks/nearby/places/mockPlaces'
 
 
 global.fetch = jest.fn()
@@ -17,7 +17,7 @@ let mockedFoodPlaces = null
 beforeEach(() => {
     mockedTab = new MockedTab()
     mockedAddress = new MockedAddress()
-    mockedFoodPlaces = new MockedFoodPlaces()
+    mockedFoodPlaces = new MockedPlaces()
 
 })
 
@@ -36,7 +36,7 @@ describe("tests when change from topic to food", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockGoodFoodAPI(mockFetch)
+        mockedFoodPlaces.mockGoodAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
@@ -70,7 +70,7 @@ describe("tests when change from topic to food", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockBadEmptyFoodAPI(mockFetch)
+        mockedFoodPlaces.mockBadEmptyAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
@@ -89,7 +89,7 @@ describe("tests when change from topic to food", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockBadInvalidFoodAPI(mockFetch)
+        mockedFoodPlaces.mockBadInvalidAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
@@ -152,7 +152,7 @@ describe("tests when change from food to topic", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockGoodFoodAPI(mockFetch)
+        mockedFoodPlaces.mockGoodAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
         const card = await screen.findByTestId("result card") as HTMLDivElement
@@ -171,7 +171,7 @@ describe("tests when change from food to topic", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockBadEmptyFoodAPI(mockFetch)
+        mockedFoodPlaces.mockBadEmptyAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
@@ -191,7 +191,7 @@ describe("tests when change from food to topic", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockBadInvalidFoodAPI(mockFetch)
+        mockedFoodPlaces.mockBadInvalidAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 

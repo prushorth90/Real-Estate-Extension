@@ -5,7 +5,7 @@ import { act, screen, render, fireEvent,within} from "@testing-library/react";
 import App from '../../../../../../../popup'
 import { MockedTab } from '../../../../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../../../../mocks/address/mockAddress'
-import { MockedFoodPlaces } from '../../../../../../../../mocks/food/places/mockFoodPlaces'
+import { MockedPlaces } from '../../../../../../../../mocks/nearby/places/mockPlaces'
 
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
@@ -17,7 +17,7 @@ let mockedFoodPlaces = null
 beforeEach(() => {
     mockedTab = new MockedTab()
     mockedAddress = new MockedAddress()
-    mockedFoodPlaces = new MockedFoodPlaces()
+    mockedFoodPlaces = new MockedPlaces()
 
 })
 
@@ -37,10 +37,10 @@ describe("change value of max price filter", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockGoodFoodAPI(mockFetch)
+        mockedFoodPlaces.mockGoodAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        mockedFoodPlaces.mockSecondGoodFoodAPI(mockFetch)
+        mockedFoodPlaces.mockSecondGoodAPI(mockFetch)
 
         const maxPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
         await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
@@ -76,10 +76,10 @@ describe("change value of max price filter", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockBadEmptyFoodAPI(mockFetch)
+        mockedFoodPlaces.mockBadEmptyAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        mockedFoodPlaces.mockBadEmptyFoodAPI(mockFetch)
+        mockedFoodPlaces.mockBadEmptyAPI(mockFetch)
 
         const maxPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
         await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
@@ -103,10 +103,10 @@ describe("change value of max price filter", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockBadInvalidFoodAPI(mockFetch)
+        mockedFoodPlaces.mockBadInvalidAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        mockedFoodPlaces.mockBadInvalidFoodAPI(mockFetch)
+        mockedFoodPlaces.mockBadInvalidAPI(mockFetch)
 
         const maxPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
         await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
