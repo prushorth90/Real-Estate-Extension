@@ -14,7 +14,7 @@ module.exports = {
   plugins: [
     new HtmlPlugin({
       title: 'Real Convenient Extension',
-      filename: `popup.html`,
+      filename: 'popup.html',
       chunks: ['popup'],
     }),
     new CleanWebpackPlugin({
@@ -22,7 +22,7 @@ module.exports = {
     }),
     new HtmlPlugin({
       title: 'Real Convenient Extension',
-      filename: `options.html`,
+      filename: 'options.html',
       chunks: ['options'],
     }),
     new CopyPlugin({
