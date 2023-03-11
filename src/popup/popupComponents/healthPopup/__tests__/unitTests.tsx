@@ -4,118 +4,118 @@ import { act, screen, render, fireEvent } from "@testing-library/react";
 import { App } from "../../..";
 import { MockedTab } from '../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../mocks/address/mockAddress'
-// import { MockedHealthPlaces } from '../../../../mocks/food/places/mockFoodPlaces'
+import { MockedPlaces } from '../../../../mocks/nearby/places/mockPlaces'
 
-// global.fetch = jest.fn()
-// const mockFetch = fetch as jest.MockedFunction<typeof fetch>
+global.fetch = jest.fn()
+const mockFetch = fetch as jest.MockedFunction<typeof fetch>
 
-// let mockedTab = null
-// let mockedAddress = null
-// let mockedHealthPlaces = null
+let mockedTab = null
+let mockedAddress = null
+let mockedHealthPlaces = null
 
-// beforeEach(() => {
-//     mockedTab = new MockedTab()
-//     mockedAddress = new MockedAddress()
-//     mockedHealthPlaces = new MockedHealthPlaces()
+beforeEach(() => {
+    mockedTab = new MockedTab()
+    mockedAddress = new MockedAddress()
+    mockedHealthPlaces = new MockedPlaces()
 
-// })
+})
 
-// afterEach(() => {
-//     mockedTab = null
-//     mockedAddress = null
-//     mockedHealthPlaces = null
-// })
+afterEach(() => {
+    mockedTab = null
+    mockedAddress = null
+    mockedHealthPlaces = null
+})
 
-// describe("when the main component food-popup has been rendered", () => {
+describe("when the main component food-popup has been rendered", () => {
 
     
-//     it("should show the food popup", async () => {
+    it("should show the food popup", async () => {
 
-//         mockedTab.mockGoodTabAPI(mockFetch)
-//         mockedAddress.mockGoodAddressAPI(mockFetch)
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockGoodAddressAPI(mockFetch)
 
-//         await act(async () => { render(<App />) })
+        await act(async () => { render(<App />) })
 
-//         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-//         mockedFoodPlaces.mockGoodFoodAPI(mockFetch)
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockedHealthPlaces.mockGoodAPI(mockFetch)
 
-//         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Health" } }) });
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Health" } }) });
 
-//         const foodPopup = screen.getByTestId("health-popup")
+        const foodPopup = screen.getByTestId("health-popup")
 
-//         expect(foodPopup).toBeInTheDocument()
+        expect(foodPopup).toBeInTheDocument()
 
-//     });
+    });
 
-//     it("should show the food popup even if empty food api response", async () => {
+    it("should show the food popup even if empty food api response", async () => {
 
-//         mockedTab.mockGoodTabAPI(mockFetch)
-//         mockedAddress.mockGoodAddressAPI(mockFetch)
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockGoodAddressAPI(mockFetch)
 
-//         await act(async () => { render(<App />) })
+        await act(async () => { render(<App />) })
 
-//         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-//         mockedFoodPlaces.mockBadEmptyFoodAPI(mockFetch)
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockedHealthPlaces.mockBadEmptyAPI(mockFetch)
 
-//         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Health" } }) });
 
-//         const foodPopup = screen.getByTestId("food-popup")
+        const foodPopup = screen.getByTestId("health-popup")
 
-//         expect(foodPopup).toBeInTheDocument()
+        expect(foodPopup).toBeInTheDocument()
 
-//     });
+    });
 
-//     it("should show the food popup even if empty food api invalid", async () => {
+    it("should show the food popup even if empty food api invalid", async () => {
 
-//         mockedTab.mockGoodTabAPI(mockFetch)
-//         mockedAddress.mockGoodAddressAPI(mockFetch)
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockGoodAddressAPI(mockFetch)
 
-//         await act(async () => { render(<App />) })
+        await act(async () => { render(<App />) })
 
-//         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-//         mockedFoodPlaces.mockBadInvalidFoodAPI(mockFetch)
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockedHealthPlaces.mockBadInvalidAPI(mockFetch)
 
-//         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Health" } }) });
 
-//         const foodPopup = screen.getByTestId("food-popup")
+        const foodPopup = screen.getByTestId("health-popup")
 
-//         expect(foodPopup).toBeInTheDocument()
+        expect(foodPopup).toBeInTheDocument()
 
-//     });
+    });
 
-//     it("should show the food popup even if bad empty address", async () => {
+    it("should show the food popup even if bad empty address", async () => {
 
-//         mockedTab.mockGoodTabAPI(mockFetch)
-//         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockBadEmptyAddressAPI(mockFetch)
 
-//         await act(async () => { render(<App />) })
+        await act(async () => { render(<App />) })
 
-//         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
 
-//         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Health" } }) });
 
-//         const foodPopup = screen.getByTestId("food-popup")
+        const foodPopup = screen.getByTestId("health-popup")
 
-//         expect(foodPopup).toBeInTheDocument()
+        expect(foodPopup).toBeInTheDocument()
 
 
-//     });
+    });
 
-//     it("should show the food popup even if bad invalid address", async () => {
+    it("should show the food popup even if bad invalid address", async () => {
 
-//         mockedTab.mockGoodTabAPI(mockFetch)
-//         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockBadInvalidAddressAPI(mockFetch)
 
-//         await act(async () => { render(<App />) })
+        await act(async () => { render(<App />) })
 
-//         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
 
-//         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Health" } }) });
 
-//         const foodPopup = screen.getByTestId("food-popup")
+        const foodPopup = screen.getByTestId("health-popup")
 
-//         expect(foodPopup).toBeInTheDocument()
+        expect(foodPopup).toBeInTheDocument()
 
-//     });
-// });
+    });
+});
 
