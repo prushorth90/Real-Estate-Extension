@@ -2,8 +2,8 @@ import React,{ useState,useContext, createContext} from 'react'
 import {Topic} from '../topicMenu/topics'
 import {Box,} from '@material-ui/core'
 import { FoodPlaceData } from '../../../api/food/foodIndex'
-import {FoodCard, ResultState} from './card/foodCardIndex'
-import {Filter} from './filters/filterIndex'
+import {FoodCard, ResultState} from '../nearbyPlaceComponents/card/foodCardIndex'
+import {Filter} from '../nearbyPlaceComponents/filters/filterIndex'
 import {TopicContext} from '../../popup'
 
 export const FoodPlaceContext = createContext([])

@@ -6,7 +6,7 @@ import {FoodCardPartial} from './cardComponents/partials/foodCardPartial'
 import {Result} from './cardComponents/result/result'
 import {PhotoButton} from './cardComponents/buttons/photoButton'
 import {CoordContext} from '../../../popup'
-import {FoodPlaceContext, CardStateContext} from '../foodPopup'
+import {FoodPlaceContext, CardStateContext} from '../../foodPopup/foodPopup'
 
 
 export const FoodCard: React.FC<{}> = ({}) => {

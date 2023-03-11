@@ -4,7 +4,7 @@ import {ResultState} from '../card/foodCardIndex'
 import {RadiusFilter, TypeFilter, CuisineFilter, MinPriceFilter, MaxPriceFilter} from './filterIndex'
 import {Type} from './filterComponents/type/type'
 import {CoordContext} from '../../../popup'
-import {FoodPlaceContext, CardStateContext} from '../foodPopup'
+import {FoodPlaceContext, CardStateContext} from '../../foodPopup/foodPopup'
 import {APIInput} from '../../../../api/food/apiInput'
 
 export const APIContext = createContext([])

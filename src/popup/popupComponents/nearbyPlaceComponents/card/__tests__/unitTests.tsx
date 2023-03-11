@@ -1,7 +1,7 @@
 import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
 import { screen, render  } from "@testing-library/react";
-import FoodPopup from "../../foodPopup";
+import FoodPopup from "../../../foodPopup/foodPopup";
 import { TopicContext } from '../../../../popup'
 
 describe("for when the food card is rendered", () => {
