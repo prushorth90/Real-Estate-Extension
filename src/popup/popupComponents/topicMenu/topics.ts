@@ -3,5 +3,6 @@ export enum Topic {
   Food = 'Food',
   Health = 'Health',
   Transport = 'Transport',
-  Education = 'Education'
+  Education = 'Education',
+  Religion = 'Religion'
 }
