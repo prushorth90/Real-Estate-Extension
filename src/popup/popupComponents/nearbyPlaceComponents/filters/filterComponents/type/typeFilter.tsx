@@ -1,9 +1,8 @@
 import React,{useContext } from 'react'
-import {Type} from './type'
+import {Type} from '../../../../foodPopup/type'
 import {FilterPartial} from '../partials/filterPartial'
 import {APIContext} from '../../filters'
-export const TypeFilter: React.FC<{
-}> = ({ }) => {
+export const TypeFilter: React.FC<{options}> = ({options}) => {
   const [apiInput, setAPIInput] = useContext(APIContext)
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -14,7 +13,7 @@ export const TypeFilter: React.FC<{
 
   return (
     <FilterPartial
-      options={[Type.Bakery, Type.Cafe, Type.Restaurant, Type.Meal_Delivery, Type.Meal_Takeaway]}
+      options={options}
       keyword={apiInput.type}
       name='Type'
       handleChange={handleChange}
