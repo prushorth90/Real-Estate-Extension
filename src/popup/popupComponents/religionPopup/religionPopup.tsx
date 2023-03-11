@@ -4,7 +4,7 @@ import {Box,} from '@material-ui/core'
 import {NearbyPlaceCard, ResultState} from '../nearbyPlaceComponents/card/nearbyPlaceCardIndex'
 import {Filter} from '../nearbyPlaceComponents/filters/filterIndex'
 import {TopicContext} from '../../popup'
-import { ReligionAPI } from '../../../api/religion/religionIndex'
+import { NearbyPlaceAPI } from '../../../api/nearbyPlaces/nearbyPlaceApi'
 import {Type} from './type'
 import {NearbyPlaceAPIInput} from '../../../api/nearbyPlaces/nearbyPlaceAPIInput'
 const ReligionPopup: React.FC<{
@@ -15,7 +15,7 @@ const ReligionPopup: React.FC<{
     <div>
       {topic == Topic.Religion &&
         <Box data-testid="religion-popup">
-            <Filter api={new ReligionAPI()}
+            <Filter api={new NearbyPlaceAPI()}
                     options={Object.values(Type)}
                     apiIn = {new NearbyPlaceAPIInput("Church", "Church")}/>
             <NearbyPlaceCard />

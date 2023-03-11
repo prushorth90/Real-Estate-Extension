@@ -4,7 +4,7 @@ import {Box,} from '@material-ui/core'
 import {NearbyPlaceCard, ResultState} from '../nearbyPlaceComponents/card/nearbyPlaceCardIndex'
 import {Filter} from '../nearbyPlaceComponents/filters/filterIndex'
 import {TopicContext} from '../../popup'
-import { TransportAPI } from '../../../api/transport/transportIndex'
+import { NearbyPlaceAPI } from '../../../api/nearbyPlaces/nearbyPlaceApi'
 import {Type} from './type'
 import {NearbyPlaceAPIInput} from '../../../api/nearbyPlaces/nearbyPlaceAPIInput'
 const TransportPopup: React.FC<{
@@ -15,7 +15,7 @@ const TransportPopup: React.FC<{
     <div>
       {topic == Topic.Transport &&
         <Box data-testid="transport-popup">
-            <Filter api={new TransportAPI()}
+            <Filter api={new NearbyPlaceAPI()}
                     options={Object.values(Type)}
                     apiIn = {new NearbyPlaceAPIInput("Train Station", "Train Station")}/>
             <NearbyPlaceCard />

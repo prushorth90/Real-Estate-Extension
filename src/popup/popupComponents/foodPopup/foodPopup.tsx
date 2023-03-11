@@ -4,7 +4,7 @@ import {Box,} from '@material-ui/core'
 import {NearbyPlaceCard, ResultState} from '../nearbyPlaceComponents/card/nearbyPlaceCardIndex'
 import {Filter} from '../nearbyPlaceComponents/filters/filterIndex'
 import {TopicContext} from '../../popup'
-import { FoodAPI } from '../../../api/food/foodIndex'
+import { NearbyPlaceAPI } from '../../../api/nearbyPlaces/nearbyPlaceApi'
 import {Type} from './type'
 import {NearbyPlaceAPIInput} from '../../../api/nearbyPlaces/nearbyPlaceAPIInput'
 const FoodPopup: React.FC<{
@@ -15,7 +15,7 @@ const FoodPopup: React.FC<{
     <div>
       {topic == Topic.Food &&
         <Box data-testid="food-popup">
-            <Filter api={new FoodAPI()}
+            <Filter api={new NearbyPlaceAPI()}
                     options={Object.values(Type)}
                     apiIn = {new NearbyPlaceAPIInput("Bakery", "Bakery")}/>
             <NearbyPlaceCard />
