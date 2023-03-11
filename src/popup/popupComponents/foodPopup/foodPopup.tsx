@@ -16,7 +16,7 @@ const FoodPopup: React.FC<{
       {topic == Topic.Food &&
         <Box data-testid="food-popup">
             <Filter api={new FoodAPI()}
-                    options={[Type.Bakery, Type.Cafe, Type.Restaurant, Type.Meal_Delivery, Type.Meal_Takeaway]}
+                    options={Object.values(Type)}
                     apiIn = {new NearbyPlaceAPIInput("Bakery", "Bakery")}/>
             <NearbyPlaceCard />
 
