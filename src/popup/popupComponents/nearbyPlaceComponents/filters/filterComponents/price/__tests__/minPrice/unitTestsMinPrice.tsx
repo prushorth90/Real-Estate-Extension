@@ -5,7 +5,7 @@ import FoodPopup from "../../../../../../foodPopup/foodPopup";
 import { MinPriceFilter } from '../../MinPriceFilter'
 import { TopicContext } from '../../../../../../../popup'
 import { APIContext } from '../../../../filters'
-import { APIInput } from '../../../../../../../../api/food/apiInput'
+import { NearbyPlaceAPIInput } from '../../../../../../../../api/nearbyPlaces/nearbyPlaceAPIInput'
 import { MockedTab } from '../../../../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../../../../mocks/address/mockAddress'
 import { MockedFoodPlaces } from '../../../../../../../../mocks/food/places/mockFoodPlaces'
@@ -34,7 +34,7 @@ afterEach(() => {
 describe("for when the min price component renders", () => {
 
     it("should render Min  Price Filter ", () => {
-        render(<APIContext.Provider value={[new APIInput()]}> <MinPriceFilter /></APIContext.Provider>)
+        render(<APIContext.Provider value={[new NearbyPlaceAPIInput("Bakery", "Bakery")]}> <MinPriceFilter /></APIContext.Provider>)
 
         const minPriceLevel = screen.getByTestId("Min Price Level") as HTMLSelectElement
         const minPriceIn = screen.getByTestId("Input Min Price Level") as HTMLInputElement

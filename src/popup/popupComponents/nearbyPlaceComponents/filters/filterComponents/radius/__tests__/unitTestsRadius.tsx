@@ -5,7 +5,7 @@ import FoodPopup from "../../../../../foodPopup/foodPopup";
 import { RadiusFilter } from '../radiusFilter'
 import { TopicContext } from '../../../../../../popup'
 import { APIContext } from '../../../filters'
-import { APIInput } from '../../../../../../../api/food/apiInput'
+import { NearbyPlaceAPIInput } from '../../../../../../../api/nearbyPlaces/nearbyPlaceAPIInput'
 import { MockedTab } from '../../../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../../../mocks/address/mockAddress'
 import { MockedFoodPlaces } from '../../../../../../../mocks/food/places/mockFoodPlaces'
@@ -34,7 +34,7 @@ afterEach(() => {
 describe("Components Render", () => {
 
     it("should render Radius Filter ", () => {
-        render(<APIContext.Provider value={[new APIInput()]}> <RadiusFilter /></APIContext.Provider>)
+        render(<APIContext.Provider value={[new NearbyPlaceAPIInput("Bakery", "Bakery")]}> <RadiusFilter /></APIContext.Provider>)
         const radius = screen.getByTestId("Radius") as HTMLSelectElement
 
         expect(radius).toBeInTheDocument()

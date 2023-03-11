@@ -5,7 +5,7 @@ import FoodPopup from "../../../../../foodPopup/foodPopup";
 import { TypeFilter } from '../typeFilter'
 import { TopicContext } from '../../../../../../popup'
 import { APIContext } from '../../../filters'
-import { APIInput } from '../../../../../../../api/food/apiInput'
+import { NearbyPlaceAPIInput } from '../../../../../../../api/nearbyPlaces/nearbyPlaceAPIInput'
 import {Type} from '../../../../../foodPopup/type'
 import { MockedTab } from '../../../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../../../mocks/address/mockAddress'
@@ -34,7 +34,7 @@ afterEach(() => {
 describe("Components Render", () => {
 
     it("should render type Filter ", () => {
-        render(<APIContext.Provider value={[new APIInput()]}> <TypeFilter options={[Type.Bakery, Type.Cafe, Type.Restaurant, Type.Meal_Delivery, Type.Meal_Takeaway]} /></APIContext.Provider>)
+        render(<APIContext.Provider value={[new NearbyPlaceAPIInput("Bakery", "Bakery")]}> <TypeFilter options={[Type.Bakery, Type.Cafe, Type.Restaurant, Type.Meal_Delivery, Type.Meal_Takeaway]} /></APIContext.Provider>)
         const type = screen.getByTestId("Type") as HTMLSelectElement
 
         expect(type).toBeInTheDocument()

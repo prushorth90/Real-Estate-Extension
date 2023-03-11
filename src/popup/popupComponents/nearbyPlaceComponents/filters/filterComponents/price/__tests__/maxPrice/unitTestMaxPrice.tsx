@@ -5,7 +5,7 @@ import FoodPopup from "../../../../../../foodPopup/foodPopup";
 import { MaxPriceFilter } from '../../maxPriceFilter'
 import { TopicContext } from '../../../../../../../popup'
 import { APIContext } from '../../../../filters'
-import { APIInput } from '../../../../../../../../api/food/apiInput'
+import { NearbyPlaceAPIInput } from '../../../../../../../../api/nearbyPlaces/nearbyPlaceAPIInput'
 import { MockedTab } from '../../../../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../../../../mocks/address/mockAddress'
 import { MockedFoodPlaces } from '../../../../../../../../mocks/food/places/mockFoodPlaces'
@@ -34,7 +34,7 @@ afterEach(() => {
 describe("for when the max price component renders", () => {
 
     it("should render Max Price Filter ", () => {
-        render(<APIContext.Provider value={[new APIInput()]}> <MaxPriceFilter /></APIContext.Provider>)
+        render(<APIContext.Provider value={[new NearbyPlaceAPIInput("Bakery", "Bakery")]}> <MaxPriceFilter /></APIContext.Provider>)
 
         const maxPriceLevel = screen.getByTestId("Max Price Level") as HTMLSelectElement
         const maxPriceIn = screen.getByTestId("Input Max Price Level") as HTMLInputElement

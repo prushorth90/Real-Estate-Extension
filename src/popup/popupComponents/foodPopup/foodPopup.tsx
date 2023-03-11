@@ -6,7 +6,7 @@ import {Filter} from '../nearbyPlaceComponents/filters/filterIndex'
 import {TopicContext} from '../../popup'
 import { FoodAPI } from '../../../api/food/foodIndex'
 import {Type} from './type'
-
+import {NearbyPlaceAPIInput} from '../../../api/nearbyPlaces/nearbyPlaceAPIInput'
 const FoodPopup: React.FC<{
 }> = () => {
   const [topic,setTopic] = useContext(TopicContext)
@@ -16,7 +16,8 @@ const FoodPopup: React.FC<{
       {topic == Topic.Food &&
         <Box data-testid="food-popup">
             <Filter api={new FoodAPI()}
-                    options={[Type.Bakery, Type.Cafe, Type.Restaurant, Type.Meal_Delivery, Type.Meal_Takeaway]}/>
+                    options={[Type.Bakery, Type.Cafe, Type.Restaurant, Type.Meal_Delivery, Type.Meal_Takeaway]}
+                    apiIn = {new NearbyPlaceAPIInput("Bakery", "Bakery")}/>
             <NearbyPlaceCard />
 
        </Box>

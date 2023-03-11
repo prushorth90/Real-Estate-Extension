@@ -4,13 +4,13 @@ import {RadiusFilter, TypeFilter, CuisineFilter, MinPriceFilter, MaxPriceFilter}
 import {Type} from '../../foodPopup/type'
 import {CoordContext} from '../../../popup'
 import {NearbyPlaceContext, CardStateContext} from '../../../popup'
-import {APIInput} from '../../../../api/food/apiInput'
+import {NearbyPlaceAPIInput} from '../../../../api/nearbyPlaces/nearbyPlaceAPIInput'
 
 export const APIContext = createContext([])
 
-export const Filter: React.FC<{api, options}> = ({api, options}) => {
+export const Filter: React.FC<{api, options, apiIn}> = ({api, options, apiIn}) => {
   //let foodApi = new FoodAPI()
-  const [apiInput, setAPIInput] = useState<APIInput>(new APIInput());
+  const [apiInput, setAPIInput] = useState<NearbyPlaceAPIInput>(apiIn);
   const [coord,setCoord] = useContext(CoordContext)
   const [nearbyPlaceData, setNearbyPlaceData] = useContext(NearbyPlaceContext)
   const [cardState, setCardState] = useContext(CardStateContext)
