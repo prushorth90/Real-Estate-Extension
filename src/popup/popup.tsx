@@ -5,12 +5,19 @@ import './popup.css'
 import {Topic, TopicMenu} from './popupComponents/topicMenu'
 import FoodPopup from './popupComponents/foodPopup'
 import {Address, Coordinate, AddressAPI} from '../api/address/addressIndex'
+import { NearbyPlaceData } from '../api/nearbyPlaces/nearbyPlaceIndex'
+import {ResultState } from './popupComponents/nearbyPlaceComponents/card/nearbyPlaceCardIndex'
+
 export const TopicContext = createContext([])
 export const CoordContext = createContext([])
+export const NearbyPlaceContext = createContext([])
+export const CardStateContext = createContext([])
 
 export const App: React.FC<{}> = () => {
   const [topic, setTopic] = useState<Topic>(Topic.Topics)
   const [coord, setCoord] = useState<Coordinate>()
+  const [nearbyPlaceData, setNearbyPlaceData] = useState<NearbyPlaceData | null>(null)
+  const [cardState, setCardState] = useState<ResultState>(ResultState.Loading)
 
   useEffect(() => {
     findHouseCoordinates()
@@ -46,7 +53,11 @@ export const App: React.FC<{}> = () => {
       <TopicContext.Provider value={[topic,setTopic]}>
         <TopicMenu />
         <CoordContext.Provider value={[coord, setCoord]}>
-          <FoodPopup/>
+          <NearbyPlaceContext.Provider value={[nearbyPlaceData, setNearbyPlaceData]}>
+            <CardStateContext.Provider value={[cardState, setCardState]}>
+               <FoodPopup/>
+            </CardStateContext.Provider>
+            </NearbyPlaceContext.Provider>
         </CoordContext.Provider>
       </TopicContext.Provider>
 

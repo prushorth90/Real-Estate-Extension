@@ -1,30 +1,22 @@
 import React,{ useState,useContext, createContext} from 'react'
 import {Topic} from '../topicMenu/topics'
 import {Box,} from '@material-ui/core'
-import { FoodPlaceData } from '../../../api/food/foodIndex'
-import {FoodCard, ResultState} from '../nearbyPlaceComponents/card/foodCardIndex'
+import {NearbyPlaceCard, ResultState} from '../nearbyPlaceComponents/card/nearbyPlaceCardIndex'
 import {Filter} from '../nearbyPlaceComponents/filters/filterIndex'
 import {TopicContext} from '../../popup'
+import { FoodAPI } from '../../../api/food/foodIndex'
 
-export const FoodPlaceContext = createContext([])
-export const CardStateContext = createContext([])
 
 const FoodPopup: React.FC<{
 }> = () => {
   const [topic,setTopic] = useContext(TopicContext)
-  const [foodPlaceData, setFoodPlaceData] = useState<FoodPlaceData | null>(null)
-  const [cardState, setCardState] = useState<ResultState>(ResultState.Loading)
+  
   return (
     <div>
       {topic == Topic.Food &&
         <Box data-testid="food-popup">
-         <FoodPlaceContext.Provider value={[foodPlaceData,setFoodPlaceData]}>
-          <CardStateContext.Provider value={[cardState, setCardState]}>
-            <Filter />
-            <FoodCard />
-          </CardStateContext.Provider>
-
-         </FoodPlaceContext.Provider>
+            <Filter api={new FoodAPI()}/>
+            <NearbyPlaceCard />
 
        </Box>
       }

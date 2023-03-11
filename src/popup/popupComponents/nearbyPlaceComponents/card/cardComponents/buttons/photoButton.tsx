@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button,} from '@material-ui/core'
-import '../../foodCard.css'
+import '../../nearbyPlaceCard.css'
 import {PhotoDialog} from '../dialog/photoDialog'
 
 
