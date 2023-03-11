@@ -8,6 +8,7 @@ import HealthPopup from './popupComponents/healthPopup'
 import TransportPopup from './popupComponents/transportPopup'
 import EducationPopup from './popupComponents/educationPopup'
 import ReligionPopup from './popupComponents/religionPopup'
+import RecreationPopup from './popupComponents/recreationPopup'
 import {Address, Coordinate, AddressAPI} from '../api/address/addressIndex'
 import { NearbyPlaceData } from '../api/nearbyPlaces/nearbyPlaceIndex'
 import {ResultState } from './popupComponents/nearbyPlaceComponents/card/nearbyPlaceCardIndex'
@@ -64,7 +65,7 @@ export const App: React.FC<{}> = () => {
                <TransportPopup />
                <EducationPopup />
                <ReligionPopup />
-
+               <RecreationPopup />
             </CardStateContext.Provider>
             </NearbyPlaceContext.Provider>
         </CoordContext.Provider>
