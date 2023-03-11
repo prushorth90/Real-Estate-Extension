@@ -64,7 +64,7 @@ describe("change value of type filter", () => {
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
         await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
         const options = within(screen.getByRole('listbox'));
-        fireEvent.click(options.getByText(/Cafe/i));
+        await act(async () => {fireEvent.click(options.getByText(/Cafe/i));});
         expect(type.value).toBe("Cafe")
     });
 
@@ -84,12 +84,12 @@ describe("change value of type filter", () => {
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
         await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
         const options = within(screen.getByRole('listbox'));
-        fireEvent.click(options.getByText(/Cafe/i));
+        await act(async () => { fireEvent.click(options.getByText(/Cafe/i)); });
         expect(type.value).toBe("Cafe")
 
         await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
         const options2 = within(screen.getByRole('listbox'));
-        fireEvent.click(options2.getByText(/Bakery/i));
+        await act(async () => { fireEvent.click(options2.getByText(/Bakery/i)); });
         expect(type.value).toBe("Bakery")
     });
 });

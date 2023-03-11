@@ -45,9 +45,9 @@ describe("close photo dialog tests", () => {
         const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
 
         await act(async () => { fireEvent.click(photoButton) });
-        const foodPhoto = screen.getByTestId("food photo") as HTMLImageElement
+        const foodPhoto = screen.getByTestId("photo ready") as HTMLImageElement
         //https://stackoverflow.com/questions/59572341/fireevent-keydown-not-working-as-expected-on-my-jest-react-testing-library-tes
-        fireEvent.keyDown(screen.getByTestId("food photo"), {
+        fireEvent.keyDown(screen.getByTestId("photo ready"), {
             key: "Escape",
             code: "Escape",
             keyCode: 27,
@@ -71,9 +71,9 @@ describe("close photo dialog tests", () => {
         const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
 
         await act(async () => { fireEvent.click(photoButton) });
-        const foodPhoto = screen.getByTestId("food photo none") as HTMLImageElement
+        const foodPhoto = screen.getByTestId("photo none") as HTMLImageElement
         //https://stackoverflow.com/questions/59572341/fireevent-keydown-not-working-as-expected-on-my-jest-react-testing-library-tes
-        fireEvent.keyDown(screen.getByTestId("food photo none"), {
+        fireEvent.keyDown(screen.getByTestId("photo none"), {
             key: "Escape",
             code: "Escape",
             keyCode: 27,
@@ -98,9 +98,9 @@ describe("close photo dialog tests", () => {
         const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
 
         await act(async () => { fireEvent.click(photoButton) });
-        const foodPhoto = screen.getByTestId("food photo error") as HTMLImageElement
+        const foodPhoto = screen.getByTestId("photo error") as HTMLImageElement
         //https://stackoverflow.com/questions/59572341/fireevent-keydown-not-working-as-expected-on-my-jest-react-testing-library-tes
-        fireEvent.keyDown(screen.getByTestId("food photo error"), {
+        fireEvent.keyDown(screen.getByTestId("photo error"), {
             key: "Escape",
             code: "Escape",
             keyCode: 27,

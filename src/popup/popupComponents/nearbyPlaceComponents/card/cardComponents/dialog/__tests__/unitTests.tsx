@@ -22,7 +22,7 @@ describe("for when the dialog renders", () => {
     it("should render result dialog success", async () => {
         mockedFoodPhoto.mockGoodPhotoAPI(mockFetch)
         await act(async () => {render(<PhotoDialog isPhotoOpen={true} onClose={jest.fn()} photo_reference={"fake photo reference"} />)})
-        const foodPhoto = await screen.findByTestId("food photo")
+        const foodPhoto = await screen.findByTestId("photo ready")
 
         expect(foodPhoto).toBeInTheDocument()
         expect(foodPhoto).toBeVisible()
@@ -33,7 +33,7 @@ describe("for when the dialog renders", () => {
 
         await act(async () => { render(<PhotoDialog isPhotoOpen={true} onClose={jest.fn()} photo_reference={undefined} />) })
 
-        const foodPhoto = await screen.findByTestId("food photo error") as HTMLDivElement
+        const foodPhoto = await screen.findByTestId("photo error") as HTMLDivElement
 
         expect(foodPhoto).toBeInTheDocument()
         expect(foodPhoto).toBeVisible()
@@ -46,7 +46,7 @@ describe("for when the dialog renders", () => {
 
         await act(async () => { render(<PhotoDialog isPhotoOpen={true} onClose={jest.fn()} photo_reference={""} />) })
 
-        const foodPhoto = await screen.findByTestId("food photo none")
+        const foodPhoto = await screen.findByTestId("photo none")
 
         expect(foodPhoto).toBeInTheDocument()
         expect(foodPhoto).toBeVisible()
@@ -59,7 +59,7 @@ describe("for when the dialog renders", () => {
 
         await act(async () => { render(<PhotoDialog isPhotoOpen={false} onClose={jest.fn()} photo_reference={""} />) })
 
-        const foodPhoto = await screen.queryByTestId("food photo none")
+        const foodPhoto = await screen.queryByTestId("photo none")
 
         expect(foodPhoto).not.toBeInTheDocument()
 
@@ -70,7 +70,7 @@ describe("for when the dialog renders", () => {
 
         await act(async () => { render(<PhotoDialog isPhotoOpen={false} onClose={jest.fn()} photo_reference={""} />) })
 
-        const foodPhoto = await screen.queryByTestId("food photo none")
+        const foodPhoto = await screen.queryByTestId("photo none")
 
         expect(foodPhoto).not.toBeInTheDocument()
 
@@ -81,7 +81,7 @@ describe("for when the dialog renders", () => {
 
         await act(async () => { render(<PhotoDialog isPhotoOpen={false} onClose={jest.fn()} photo_reference={""} />) })
 
-        const foodPhoto = await screen.queryByTestId("food photo none")
+        const foodPhoto = await screen.queryByTestId("photo none")
 
         expect(foodPhoto).not.toBeInTheDocument()
 

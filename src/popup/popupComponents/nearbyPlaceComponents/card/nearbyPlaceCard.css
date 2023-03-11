@@ -1,9 +1,9 @@
-.foodCard-title {
+.card-title {
   font-size: 20px !important;
   text-align: left !important;
 }
 
-.foodCard-body {
-  font-size: 16px !important;
+.card-body {
   text-align: left !important;
+  font-size: 17px !important;
 }

@@ -47,7 +47,7 @@ describe("click photo button and see dialog open", () => {
 
         const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
         await act(async () => { fireEvent.click(photoButton) });
-        const foodPhoto = screen.getByTestId("food photo") as HTMLImageElement
+        const foodPhoto = screen.getByTestId("photo ready") as HTMLImageElement
 
         expect(foodPhoto).toBeInTheDocument()
         expect(foodPhoto).toBeVisible()
@@ -68,7 +68,7 @@ describe("click photo button and see dialog open", () => {
         const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
 
         await act(async () => { fireEvent.click(photoButton) });
-        const foodPhoto = screen.getByTestId("food photo none") as HTMLImageElement
+        const foodPhoto = screen.getByTestId("photo none") as HTMLImageElement
 
         expect(foodPhoto).toBeInTheDocument()
         expect(foodPhoto).toBeVisible()
@@ -88,7 +88,7 @@ describe("click photo button and see dialog open", () => {
 
         const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
         await act(async () => { fireEvent.click(photoButton) });
-        const foodPhoto = await screen.findByTestId("food photo error") as HTMLImageElement
+        const foodPhoto = await screen.findByTestId("photo error") as HTMLImageElement
 
         expect(foodPhoto).toBeInTheDocument()
         expect(foodPhoto).toBeVisible()

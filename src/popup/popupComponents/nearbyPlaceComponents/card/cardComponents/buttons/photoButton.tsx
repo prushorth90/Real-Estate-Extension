@@ -17,7 +17,7 @@ export const PhotoButton: React.FC<{result, index}> = ({result, index}) => {
     return (
       <div>
       <Button data-testid="photo button"
-              className="foodCard-body"
+              className="card-body"
               key={result.photos !== undefined ? result.photos[0].photo_reference: null}
               variant="outlined"
               color="primary"

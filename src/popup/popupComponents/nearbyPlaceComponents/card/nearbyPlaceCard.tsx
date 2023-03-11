@@ -17,7 +17,7 @@ export const NearbyPlaceCard: React.FC<{}> = ({}) => {
   if (cardState === ResultState.Loading || cardState === ResultState.Error || cardState === ResultState.None) {
     return (
       <NearbyCardPartial>
-        <Typography data-testid="result card other" className="foodCard-body">
+        <Typography data-testid="result card other" className="card-body">
           {cardState}
         </Typography>
       </NearbyCardPartial>

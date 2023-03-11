@@ -27,7 +27,7 @@ afterEach(() => {
     mockedFoodPlaces = null
 })
 
-describe("when the main component food-filter has been rendered", () => {
+describe("when the main component filter has been rendered", () => {
 
 
     it("should show the food filter", async () => {
@@ -42,7 +42,7 @@ describe("when the main component food-filter has been rendered", () => {
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const foodFilter = screen.getByTestId("food-filter")
+        const foodFilter = screen.getByTestId("filter")
 
         expect(foodFilter).toBeInTheDocument()
 
@@ -60,7 +60,7 @@ describe("when the main component food-filter has been rendered", () => {
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const foodFilter = screen.getByTestId("food-filter")
+        const foodFilter = screen.getByTestId("filter")
 
         expect(foodFilter).toBeInTheDocument()
 
@@ -78,7 +78,7 @@ describe("when the main component food-filter has been rendered", () => {
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const foodFilter = screen.getByTestId("food-filter")
+        const foodFilter = screen.getByTestId("filter")
 
         expect(foodFilter).toBeInTheDocument()
 
@@ -95,7 +95,7 @@ describe("when the main component food-filter has been rendered", () => {
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const foodFilter = screen.getByTestId("food-filter")
+        const foodFilter = screen.getByTestId("filter")
 
         expect(foodFilter).toBeInTheDocument()
 
@@ -113,7 +113,7 @@ describe("when the main component food-filter has been rendered", () => {
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const foodFilter = screen.getByTestId("food-filter")
+        const foodFilter = screen.getByTestId("filter")
 
         expect(foodFilter).toBeInTheDocument()
 

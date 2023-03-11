@@ -33,9 +33,9 @@ export const PhotoDialog: React.FC<{isPhotoOpen: boolean, onClose: () => void,ph
       <PhotoDialogPartial handleClose={handleClose} open={isPhotoOpen} >
           {photoState === PhotoDialogState.Start && <div> {getPhoto()} </div>}
           {photoState === PhotoDialogState.Loading && <Typography>{PhotoDialogState.Loading}  </Typography>}
-          {photoState === PhotoDialogState.Error && <Typography data-testid="food photo error">{PhotoDialogState.Error} </Typography>}
-          {photoState === PhotoDialogState.None && <Typography data-testid="food photo none"> {PhotoDialogState.None} </Typography>}
-          {photoState === PhotoDialogState.Ready && <img data-testid="food photo" src={photo}/> }
+          {photoState === PhotoDialogState.Error && <Typography data-testid="photo error">{PhotoDialogState.Error} </Typography>}
+          {photoState === PhotoDialogState.None && <Typography data-testid="photo none"> {PhotoDialogState.None} </Typography>}
+          {photoState === PhotoDialogState.Ready && <img data-testid="photo ready" src={photo}/> }
       </PhotoDialogPartial>
     )
 
