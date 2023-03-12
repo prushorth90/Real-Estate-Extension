@@ -2,7 +2,7 @@ import React, { useEffect, useState, createContext } from 'react'
 import ReactDOM from 'react-dom'
 import { Box } from '@material-ui/core'
 import './popup.css'
-import {Topic, TopicMenu, APIChoiceMenu, APIChoices} from './popupComponents/topicMenu'
+import {Topic, TopicMenu, APIChoiceMenu, APIChoices} from './popupComponents/menu'
 import NearbyPlacePopup from './popupComponents/nearbyPlacePopup'
 
 import {Address, Coordinate, AddressAPI} from '../api/address/addressIndex'
@@ -75,8 +75,8 @@ export const App: React.FC<{}> = () => {
   )
 }
 
-// const root = document.createElement('div')
-// document.body.appendChild(root)
-// ReactDOM.render(<App />, root)
+const root = document.createElement('div')
+document.body.appendChild(root)
+ReactDOM.render(<App />, root)
 
 export default App

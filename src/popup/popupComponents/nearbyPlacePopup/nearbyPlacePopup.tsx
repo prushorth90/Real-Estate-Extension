@@ -1,5 +1,5 @@
 import React,{ useState,useContext, createContext} from 'react'
-import {Topic} from '../topicMenu/topics'
+import {Topic} from '../menu/topics'
 import {Box,} from '@material-ui/core'
 import {NearbyPlaceCard, ResultState} from '../nearbyPlaceComponents/card/nearbyPlaceCardIndex'
 import {Filter} from '../nearbyPlaceComponents/filters/filterIndex'

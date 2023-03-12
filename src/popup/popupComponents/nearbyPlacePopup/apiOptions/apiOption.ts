@@ -1,4 +1,4 @@
-import { Topic } from '../../topicMenu/topics'
+import { Topic } from '../../menu/topics'
 import { NearbyPlaceAPIInput } from '../../../../api/nearbyPlaces/nearbyPlaceAPIInput'
 
 export class APIOption{
