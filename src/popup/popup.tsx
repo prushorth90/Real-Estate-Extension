@@ -2,19 +2,21 @@ import React, { useEffect, useState, createContext } from 'react'
 import ReactDOM from 'react-dom'
 import { Box } from '@material-ui/core'
 import './popup.css'
-import {Topic, TopicMenu} from './popupComponents/topicMenu'
+import {Topic, TopicMenu, APIChoiceMenu, APIChoices} from './popupComponents/topicMenu'
 import NearbyPlacePopup from './popupComponents/nearbyPlacePopup'
 
 import {Address, Coordinate, AddressAPI} from '../api/address/addressIndex'
 import { NearbyPlaceData } from '../api/nearbyPlaces/nearbyPlaceIndex'
 import {ResultState } from './popupComponents/nearbyPlaceComponents/card/nearbyPlaceCardIndex'
 
+export const APIChoiceContext = createContext([])
 export const TopicContext = createContext([])
 export const CoordContext = createContext([])
 export const NearbyPlaceContext = createContext([])
 export const CardStateContext = createContext([])
 
 export const App: React.FC<{}> = () => {
+  const [apiChoice, setApiChoice] = useState<APIChoices>(APIChoices.APIChoices)
   const [topic, setTopic] = useState<Topic>(Topic.Topics)
   const [coord, setCoord] = useState<Coordinate>()
   const [nearbyPlaceData, setNearbyPlaceData] = useState<NearbyPlaceData | null>(null)
@@ -51,17 +53,22 @@ export const App: React.FC<{}> = () => {
 
   return (
     <Box data-testid="popup" mx="8px" my="16px">
-      <TopicContext.Provider value={[topic,setTopic]}>
-        <TopicMenu />
-        <CoordContext.Provider value={[coord, setCoord]}>
-          <NearbyPlaceContext.Provider value={[nearbyPlaceData, setNearbyPlaceData]}>
-            <CardStateContext.Provider value={[cardState, setCardState]}>
-           
-               {topic!== Topic.Topics && <NearbyPlacePopup/>}
-            </CardStateContext.Provider>
-            </NearbyPlaceContext.Provider>
-        </CoordContext.Provider>
-      </TopicContext.Provider>
+      <APIChoiceContext.Provider value={[apiChoice, setApiChoice]}>
+      <APIChoiceMenu />
+      {apiChoice !== APIChoices.APIChoices && (
+          <TopicContext.Provider value={[topic,setTopic]}>
+              <TopicMenu />
+              <CoordContext.Provider value={[coord, setCoord]}>
+                <NearbyPlaceContext.Provider value={[nearbyPlaceData, setNearbyPlaceData]}>
+                  <CardStateContext.Provider value={[cardState, setCardState]}>
+                
+                    {topic!== Topic.Topics && <NearbyPlacePopup/>}
+                  </CardStateContext.Provider>
+                  </NearbyPlaceContext.Provider>
+              </CoordContext.Provider>
+            </TopicContext.Provider>
+      )}
+      </APIChoiceContext.Provider>
 
     </Box>
 

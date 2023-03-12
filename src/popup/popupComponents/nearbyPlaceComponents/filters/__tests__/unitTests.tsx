@@ -36,8 +36,9 @@ describe("when the main component filter has been rendered", () => {
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
-
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
+        const topicMenuSelect = await screen.findByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockGoodAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
@@ -54,8 +55,9 @@ describe("when the main component filter has been rendered", () => {
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
-
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
+        const topicMenuSelect = await screen.findByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockBadEmptyAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
@@ -72,8 +74,9 @@ describe("when the main component filter has been rendered", () => {
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
-
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
+        const topicMenuSelect = await screen.findByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockBadInvalidAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
@@ -90,8 +93,9 @@ describe("when the main component filter has been rendered", () => {
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
-
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
+        const topicMenuSelect = await screen.findByTestId("topic_menu_input") as HTMLSelectElement
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
@@ -108,8 +112,9 @@ describe("when the main component filter has been rendered", () => {
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
-
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
+        const topicMenuSelect = await screen.findByTestId("topic_menu_input") as HTMLSelectElement
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 

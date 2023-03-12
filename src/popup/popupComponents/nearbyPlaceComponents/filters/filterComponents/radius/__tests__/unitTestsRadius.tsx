@@ -54,7 +54,8 @@ describe("Event test change value of filter", () => {
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockGoodAPI(mockFetch)
 
@@ -62,7 +63,7 @@ describe("Event test change value of filter", () => {
         mockedFoodPlaces.mockSecondGoodAPI(mockFetch)
 
         const radius = screen.getByTestId("Input Radius") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[1]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
         expect(radius.value).toBe("1000")
@@ -74,7 +75,8 @@ describe("Event test change value of filter", () => {
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockGoodAPI(mockFetch)
 
@@ -82,12 +84,12 @@ describe("Event test change value of filter", () => {
         mockedFoodPlaces.mockSecondGoodAPI(mockFetch)
 
         const radius = screen.getByTestId("Input Radius") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[1]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
         expect(radius.value).toBe("1000")
         
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[1]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
         const options2 = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options2.getByText(/1500/i)) });
         expect(radius.value).toBe("1500")

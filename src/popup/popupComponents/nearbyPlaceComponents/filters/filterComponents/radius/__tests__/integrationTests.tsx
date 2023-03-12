@@ -35,7 +35,8 @@ describe("change value of radius filter to see cards", () => {
 
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockGoodAPI(mockFetch)
 
@@ -43,7 +44,7 @@ describe("change value of radius filter to see cards", () => {
         mockedFoodPlaces.mockSecondGoodAPI(mockFetch)
 
         const radius = screen.getByTestId("Input Radius") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[1]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
 
@@ -76,7 +77,8 @@ describe("change value of radius filter to see cards", () => {
 
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockBadEmptyAPI(mockFetch)
 
@@ -84,7 +86,7 @@ describe("change value of radius filter to see cards", () => {
         mockedFoodPlaces.mockBadEmptyAPI(mockFetch)
 
         const radius = screen.getByTestId("Input Radius") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[1]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
 
@@ -102,7 +104,8 @@ describe("change value of radius filter to see cards", () => {
 
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockBadInvalidAPI(mockFetch)
 
@@ -110,7 +113,7 @@ describe("change value of radius filter to see cards", () => {
         mockedFoodPlaces.mockBadInvalidAPI(mockFetch)
 
         const radius = screen.getByTestId("Input Radius") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[1]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
 
@@ -127,13 +130,14 @@ describe("change value of radius filter to see cards", () => {
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
         const radius = screen.getByTestId("Input Radius") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[1]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
 
@@ -151,13 +155,14 @@ describe("change value of radius filter to see cards", () => {
 
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
         const radius = screen.getByTestId("Input Radius") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[1]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
 

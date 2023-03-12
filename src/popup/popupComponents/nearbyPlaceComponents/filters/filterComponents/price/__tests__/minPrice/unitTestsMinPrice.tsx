@@ -54,7 +54,8 @@ describe("change event for the value of filter", () => {
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockGoodAPI(mockFetch)
 
@@ -62,7 +63,7 @@ describe("change event for the value of filter", () => {
         mockedFoodPlaces.mockSecondGoodAPI(mockFetch)
 
         const minPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/1/i)) });
         expect(minPriceLevel.value).toBe("1")
@@ -73,7 +74,8 @@ describe("change event for the value of filter", () => {
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockGoodAPI(mockFetch)
 
@@ -81,11 +83,11 @@ describe("change event for the value of filter", () => {
         mockedFoodPlaces.mockSecondGoodAPI(mockFetch)
 
         const minPriceLevel = screen.getByTestId("Input Min Price Level") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/1/i)) });
         expect(minPriceLevel.value).toBe("1")
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[4]) });
         const options2 = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options2.getByText(/0/i)) });
         expect(minPriceLevel.value).toBe("0")

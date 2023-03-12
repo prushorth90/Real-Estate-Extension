@@ -35,14 +35,15 @@ describe("change value of type filter", () => {
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockGoodAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
         mockedFoodPlaces.mockSecondGoodAPI(mockFetch)
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/Cafe/i)) });
 
@@ -74,7 +75,8 @@ describe("change value of type filter", () => {
 
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockBadEmptyAPI(mockFetch)
 
@@ -82,7 +84,7 @@ describe("change value of type filter", () => {
         mockedFoodPlaces.mockBadEmptyAPI(mockFetch)
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/Cafe/i)) });
 
@@ -101,7 +103,8 @@ describe("change value of type filter", () => {
 
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockBadInvalidAPI(mockFetch)
 
@@ -109,7 +112,7 @@ describe("change value of type filter", () => {
         mockedFoodPlaces.mockBadInvalidAPI(mockFetch)
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/Cafe/i)) });
 
@@ -129,13 +132,14 @@ describe("change value of type filter", () => {
 
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/Cafe/i)) });
 
@@ -155,13 +159,14 @@ describe("change value of type filter", () => {
 
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/Cafe/i)) });
 
@@ -179,6 +184,8 @@ describe("change value of type filter", () => {
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
 
         mockedFoodPlaces.mockGoodAPI(mockFetch)
@@ -198,7 +205,8 @@ describe("change value of type filter to restaurant and see cuisine filter", () 
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockGoodAPI(mockFetch)
 
@@ -206,7 +214,7 @@ describe("change value of type filter to restaurant and see cuisine filter", () 
         mockedFoodPlaces.mockSecondGoodAPI(mockFetch)
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
         expect(type.value).toBe("Restaurant")
@@ -226,7 +234,8 @@ describe("change value of type filter to restaurant and see cuisine filter", () 
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockGoodAPI(mockFetch)
 
@@ -234,7 +243,7 @@ describe("change value of type filter to restaurant and see cuisine filter", () 
         mockedFoodPlaces.mockSecondGoodAPI(mockFetch)
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
         expect(type.value).toBe("Restaurant")
@@ -268,7 +277,8 @@ describe("change value of type filter to restaurant and see cuisine filter", () 
 
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockBadEmptyAPI(mockFetch)
 
@@ -276,7 +286,7 @@ describe("change value of type filter to restaurant and see cuisine filter", () 
         mockedFoodPlaces.mockBadEmptyAPI(mockFetch)
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
         expect(type.value).toBe("Restaurant")
@@ -294,7 +304,8 @@ describe("change value of type filter to restaurant and see cuisine filter", () 
 
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockBadInvalidAPI(mockFetch)
 
@@ -302,7 +313,7 @@ describe("change value of type filter to restaurant and see cuisine filter", () 
         mockedFoodPlaces.mockBadInvalidAPI(mockFetch)
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
         expect(type.value).toBe("Restaurant")
@@ -321,13 +332,14 @@ describe("change value of type filter to restaurant and see cuisine filter", () 
 
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
         expect(type.value).toBe("Restaurant")
@@ -346,13 +358,14 @@ describe("change value of type filter to restaurant and see cuisine filter", () 
 
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
         expect(type.value).toBe("Restaurant")
@@ -375,7 +388,8 @@ describe("change value of type filter to restaurant and then bakery so cuisine f
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockGoodAPI(mockFetch)
 
@@ -383,7 +397,7 @@ describe("change value of type filter to restaurant and then bakery so cuisine f
         mockedFoodPlaces.mockSecondGoodAPI(mockFetch)
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
         expect(type.value).toBe("Restaurant")
@@ -391,7 +405,7 @@ describe("change value of type filter to restaurant and then bakery so cuisine f
         const cuisine = await screen.findByTestId("Input Cuisine") as HTMLSelectElement
 
         const secondType = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const optionsBakery = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(optionsBakery.getByText(/Bakery/i)) });
         expect(secondType.value).toBe("Bakery")
@@ -406,14 +420,15 @@ describe("change value of type filter to restaurant and then bakery so cuisine f
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockBadEmptyAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
         expect(type.value).toBe("Restaurant")
@@ -421,7 +436,7 @@ describe("change value of type filter to restaurant and then bakery so cuisine f
         const cuisine = await screen.findByTestId("Input Cuisine") as HTMLSelectElement
 
         const secondType = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const optionsBakery = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(optionsBakery.getByText(/Bakery/i)) });
         expect(secondType.value).toBe("Bakery")
@@ -436,14 +451,15 @@ describe("change value of type filter to restaurant and then bakery so cuisine f
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
         await act(async () => { render(<App />) })
-
+        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
+        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
         mockedFoodPlaces.mockBadInvalidAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
         const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const options = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(options.getByText(/Restaurant/i)) });
         expect(type.value).toBe("Restaurant")
@@ -451,7 +467,7 @@ describe("change value of type filter to restaurant and then bakery so cuisine f
         const cuisine = await screen.findByTestId("Input Cuisine") as HTMLSelectElement
 
         const secondType = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
+        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
         const optionsBakery = within(screen.getByRole('listbox'));
         await act(async () => { fireEvent.click(optionsBakery.getByText(/Bakery/i)) });
         expect(secondType.value).toBe("Bakery")
