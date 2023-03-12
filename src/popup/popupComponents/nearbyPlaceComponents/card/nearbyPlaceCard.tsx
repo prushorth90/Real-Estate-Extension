@@ -6,7 +6,7 @@ import {NearbyCardPartial} from './cardComponents/partials/nearbyCardPartial'
 import {Result} from './cardComponents/result/result'
 import {PhotoButton} from './cardComponents/buttons/photoButton'
 import {CoordContext} from '../../../popup'
-import {NearbyPlaceContext, CardStateContext} from '../../../popup'
+import {NearbyPlaceContext, CardStateContext} from '../../nearbyPlacePopup/nearbyPlacePopup'
 
 
 export const NearbyPlaceCard: React.FC<{}> = ({}) => {

@@ -12,15 +12,15 @@ import {ResultState } from './popupComponents/nearbyPlaceComponents/card/nearbyP
 export const APIChoiceContext = createContext([])
 export const TopicContext = createContext([])
 export const CoordContext = createContext([])
-export const NearbyPlaceContext = createContext([])
-export const CardStateContext = createContext([])
+// export const NearbyPlaceContext = createContext([])
+// export const CardStateContext = createContext([])
 
 export const App: React.FC<{}> = () => {
   const [apiChoice, setApiChoice] = useState<APIChoices>(APIChoices.APIChoices)
   const [topic, setTopic] = useState<Topic>(Topic.Topics)
   const [coord, setCoord] = useState<Coordinate>()
-  const [nearbyPlaceData, setNearbyPlaceData] = useState<NearbyPlaceData | null>(null)
-  const [cardState, setCardState] = useState<ResultState>(ResultState.Loading)
+  // const [nearbyPlaceData, setNearbyPlaceData] = useState<NearbyPlaceData | null>(null)
+  // const [cardState, setCardState] = useState<ResultState>(ResultState.Loading)
 
   useEffect(() => {
     findHouseCoordinates()
@@ -59,12 +59,9 @@ export const App: React.FC<{}> = () => {
           <TopicContext.Provider value={[topic,setTopic]}>
               <TopicMenu />
               <CoordContext.Provider value={[coord, setCoord]}>
-                <NearbyPlaceContext.Provider value={[nearbyPlaceData, setNearbyPlaceData]}>
-                  <CardStateContext.Provider value={[cardState, setCardState]}>
                 
                     {topic!== Topic.Topics && <NearbyPlacePopup/>}
-                  </CardStateContext.Provider>
-                  </NearbyPlaceContext.Provider>
+               
               </CoordContext.Provider>
             </TopicContext.Provider>
       )}
@@ -75,8 +72,8 @@ export const App: React.FC<{}> = () => {
   )
 }
 
-const root = document.createElement('div')
-document.body.appendChild(root)
-ReactDOM.render(<App />, root)
+// const root = document.createElement('div')
+// document.body.appendChild(root)
+// ReactDOM.render(<App />, root)
 
 export default App

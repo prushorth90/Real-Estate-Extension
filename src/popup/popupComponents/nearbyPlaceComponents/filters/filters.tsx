@@ -2,7 +2,7 @@ import React,{ useEffect, useState, useContext,createContext } from 'react'
 import {ResultState} from '../card/nearbyPlaceCardIndex'
 import {RadiusFilter, TypeFilter, CuisineFilter, MinPriceFilter, MaxPriceFilter} from './filterIndex'
 import {CoordContext} from '../../../popup'
-import {NearbyPlaceContext, CardStateContext} from '../../../popup'
+import {NearbyPlaceContext, CardStateContext} from '../../nearbyPlacePopup/nearbyPlacePopup'
 import {NearbyPlaceAPIInput} from '../../../../api/nearbyPlaces/nearbyPlaceAPIInput'
 import {FoodType} from '../../nearbyPlacePopup/selectOptions/types/foodType'
 export const APIContext = createContext([])
