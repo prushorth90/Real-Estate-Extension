@@ -1,16 +1,15 @@
 import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
 import {screen, render, fireEvent, within,act  } from "@testing-library/react";
-import FoodPopup from "../../../../../foodPopup/foodPopup";
 import { TypeFilter } from '../typeFilter'
 import { TopicContext } from '../../../../../../popup'
 import { APIContext } from '../../../filters'
 import { NearbyPlaceAPIInput } from '../../../../../../../api/nearbyPlaces/nearbyPlaceAPIInput'
-import {Type} from '../../../../../foodPopup/type'
 import { MockedTab } from '../../../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../../../mocks/address/mockAddress'
 import { MockedPlaces } from '../../../../../../../mocks/nearby/places/mockPlaces'
 import App from '../../../../../../popup'
+import { FoodType } from '../../../../../nearbyPlacePopup/selectOptions/types/foodType'
 
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
@@ -34,7 +33,7 @@ afterEach(() => {
 describe("Components Render", () => {
 
     it("should render type Filter ", () => {
-        render(<APIContext.Provider value={[new NearbyPlaceAPIInput("Bakery", "Bakery")]}> <TypeFilter options={[Type.Bakery, Type.Cafe, Type.Restaurant, Type.Meal_Delivery, Type.Meal_Takeaway]} /></APIContext.Provider>)
+        render(<APIContext.Provider value={[new NearbyPlaceAPIInput("Bakery", "Bakery")]}> <TypeFilter options={Object.values(FoodType)} apiIn={jest.fn()}/></APIContext.Provider>)
         const type = screen.getByTestId("Type") as HTMLSelectElement
 
         expect(type).toBeInTheDocument()

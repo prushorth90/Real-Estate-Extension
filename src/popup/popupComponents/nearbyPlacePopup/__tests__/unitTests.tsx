@@ -11,19 +11,19 @@ const mockFetch = fetch as jest.MockedFunction<typeof fetch>
 
 let mockedTab = null
 let mockedAddress = null
-let mockedFoodPlaces = null
+let mockedPlaces = null
 
 beforeEach(() => {
     mockedTab = new MockedTab()
     mockedAddress = new MockedAddress()
-    mockedFoodPlaces = new MockedPlaces()
+    mockedPlaces = new MockedPlaces()
 
 })
 
 afterEach(() => {
     mockedTab = null
     mockedAddress = null
-    mockedFoodPlaces = null
+    mockedPlaces = null
 })
 
 describe("when the main component food-popup has been rendered", () => {
@@ -37,11 +37,11 @@ describe("when the main component food-popup has been rendered", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockGoodAPI(mockFetch)
+        mockedPlaces.mockGoodAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const foodPopup = screen.getByTestId("food-popup")
+        const foodPopup = screen.getByTestId("nearby-popup")
 
         expect(foodPopup).toBeInTheDocument()
 
@@ -55,11 +55,11 @@ describe("when the main component food-popup has been rendered", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockBadEmptyAPI(mockFetch)
+        mockedPlaces.mockBadEmptyAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const foodPopup = screen.getByTestId("food-popup")
+        const foodPopup = screen.getByTestId("nearby-popup")
 
         expect(foodPopup).toBeInTheDocument()
 
@@ -73,11 +73,11 @@ describe("when the main component food-popup has been rendered", () => {
         await act(async () => { render(<App />) })
 
         const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockBadInvalidAPI(mockFetch)
+        mockedPlaces.mockBadInvalidAPI(mockFetch)
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const foodPopup = screen.getByTestId("food-popup")
+        const foodPopup = screen.getByTestId("nearby-popup")
 
         expect(foodPopup).toBeInTheDocument()
 
@@ -94,7 +94,7 @@ describe("when the main component food-popup has been rendered", () => {
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const foodPopup = screen.getByTestId("food-popup")
+        const foodPopup = screen.getByTestId("nearby-popup")
 
         expect(foodPopup).toBeInTheDocument()
 
@@ -112,7 +112,7 @@ describe("when the main component food-popup has been rendered", () => {
 
         await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        const foodPopup = screen.getByTestId("food-popup")
+        const foodPopup = screen.getByTestId("nearby-popup")
 
         expect(foodPopup).toBeInTheDocument()
 

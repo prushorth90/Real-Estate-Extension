@@ -1,7 +1,6 @@
 import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
 import { screen, render, fireEvent, within ,act } from "@testing-library/react";
-import FoodPopup from "../../../../../../foodPopup/foodPopup";
 import { MaxPriceFilter } from '../../maxPriceFilter'
 import { TopicContext } from '../../../../../../../popup'
 import { APIContext } from '../../../../filters'

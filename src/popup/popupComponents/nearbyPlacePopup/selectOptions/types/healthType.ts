@@ -1,4 +1,4 @@
-export enum Type {
+export enum HealthType {
   Hospital = "Hospital",
   Pharmacy = "Pharmacy",
   Drug_Store = "Drug Store",

@@ -1,4 +1,4 @@
-export enum Type {
+export enum TransportType {
   Train_Station = "Train Station",
   Bus_Station = "Bus Station",
   Airport = "Airport",

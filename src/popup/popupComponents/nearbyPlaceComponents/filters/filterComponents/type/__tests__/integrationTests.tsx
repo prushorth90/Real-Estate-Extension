@@ -174,6 +174,21 @@ describe("change value of type filter", () => {
 
     });
 
+    it("should be able to see card when change filter of type", async () => {
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockGoodAddressAPI(mockFetch)
+
+        await act(async () => { render(<App />) })
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+
+        mockedFoodPlaces.mockGoodAPI(mockFetch)
+
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Recreation" } }) });
+        expect(topicMenuSelect.value).toBe("Recreation");
+    });
+
 })
 
 describe("change value of type filter to restaurant and see cuisine filter", () => {

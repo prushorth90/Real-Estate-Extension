@@ -1,4 +1,4 @@
-export enum Type {
+export enum RecreationType {
   Gym = "Gym",
   Store = "Store",
   Movie_Theater = "Movie Theater",

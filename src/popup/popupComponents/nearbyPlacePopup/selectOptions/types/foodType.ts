@@ -1,4 +1,4 @@
-export enum Type {
+export enum FoodType {
   Bakery = "Bakery",
   Cafe = "Cafe",
   Restaurant = "Restaurant",

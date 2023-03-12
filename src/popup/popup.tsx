@@ -3,12 +3,8 @@ import ReactDOM from 'react-dom'
 import { Box } from '@material-ui/core'
 import './popup.css'
 import {Topic, TopicMenu} from './popupComponents/topicMenu'
-import FoodPopup from './popupComponents/foodPopup'
-import HealthPopup from './popupComponents/healthPopup'
-import TransportPopup from './popupComponents/transportPopup'
-import EducationPopup from './popupComponents/educationPopup'
-import ReligionPopup from './popupComponents/religionPopup'
-import RecreationPopup from './popupComponents/recreationPopup'
+import NearbyPlacePopup from './popupComponents/nearbyPlacePopup'
+
 import {Address, Coordinate, AddressAPI} from '../api/address/addressIndex'
 import { NearbyPlaceData } from '../api/nearbyPlaces/nearbyPlaceIndex'
 import {ResultState } from './popupComponents/nearbyPlaceComponents/card/nearbyPlaceCardIndex'
@@ -60,12 +56,8 @@ export const App: React.FC<{}> = () => {
         <CoordContext.Provider value={[coord, setCoord]}>
           <NearbyPlaceContext.Provider value={[nearbyPlaceData, setNearbyPlaceData]}>
             <CardStateContext.Provider value={[cardState, setCardState]}>
-               <FoodPopup/>
-               <HealthPopup />
-               <TransportPopup />
-               <EducationPopup />
-               <ReligionPopup />
-               <RecreationPopup />
+           
+               {topic!== Topic.Topics && <NearbyPlacePopup/>}
             </CardStateContext.Provider>
             </NearbyPlaceContext.Provider>
         </CoordContext.Provider>

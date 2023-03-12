@@ -5,25 +5,27 @@ import {NearbyPlaceCard, ResultState} from '../nearbyPlaceComponents/card/nearby
 import {Filter} from '../nearbyPlaceComponents/filters/filterIndex'
 import {TopicContext} from '../../popup'
 import { NearbyPlaceAPI } from '../../../api/nearbyPlaces/nearbyPlaceApi'
-import {Type} from './type'
 import {NearbyPlaceAPIInput} from '../../../api/nearbyPlaces/nearbyPlaceAPIInput'
-const RecreationPopup: React.FC<{
+import {SelectOption} from './selectOptions/selectOption'
+import {APIOption } from './APIOptions/apiOption'
+
+const NearbyPlacePopup: React.FC<{
 }> = () => {
   const [topic,setTopic] = useContext(TopicContext)
+  const selectOption = new SelectOption()
+  const apiOption = new APIOption()
   
   return (
     <div>
-      {topic == Topic.Recreation &&
-        <Box data-testid="recreation-popup">
+        <Box data-testid="nearby-popup">
             <Filter api={new NearbyPlaceAPI()}
-                    options={Object.values(Type)}
-                    apiIn = {new NearbyPlaceAPIInput("Gym", "Gym")}/>
+                    options={selectOption.get(topic)}
+                    apiIn = {apiOption.get(topic)}/>
             <NearbyPlaceCard />
 
        </Box>
-      }
     </div>
   )
 }
 
-export default RecreationPopup
+export default NearbyPlacePopup
