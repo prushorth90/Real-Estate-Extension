@@ -5,46 +5,38 @@ import { App } from "../../../../..";
 import { MockedTab } from '../../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../../mocks/address/mockAddress'
 import { MockedPlaces } from '../../../../../../mocks/nearby/places/mockPlaces'
-
+import * as testHelper from '../../../../../../testHelpers/testHelpers'
 
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
 
 let mockedTab = null
 let mockedAddress = null
-let mockedFoodPlaces = null
+let mockedPlaces = null
 
 beforeEach(() => {
     mockedTab = new MockedTab()
     mockedAddress = new MockedAddress()
-    mockedFoodPlaces = new MockedPlaces()
+    mockedPlaces = new MockedPlaces()
 
 })
 
 afterEach(() => {
     mockedTab = null
     mockedAddress = null
-    mockedFoodPlaces = null
+    mockedPlaces = null
 })
 
 describe("when the main component filter has been rendered", () => {
-
-
     it("should show the food filter", async () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        await act(async () => { render(<App />) })
-        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-        const topicMenuSelect = await screen.findByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockGoodAPI(mockFetch)
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
 
         const foodFilter = screen.getByTestId("filter")
-
         expect(foodFilter).toBeInTheDocument()
 
     });
@@ -54,16 +46,10 @@ describe("when the main component filter has been rendered", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        await act(async () => { render(<App />) })
-        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-        const topicMenuSelect = await screen.findByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockBadEmptyAPI(mockFetch)
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeTopic("Food", "bad empty", mockedPlaces, mockFetch)
 
         const foodFilter = screen.getByTestId("filter")
-
         expect(foodFilter).toBeInTheDocument()
 
     });
@@ -73,18 +59,11 @@ describe("when the main component filter has been rendered", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        await act(async () => { render(<App />) })
-        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-        const topicMenuSelect = await screen.findByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockBadInvalidAPI(mockFetch)
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeTopic("Food", "bad invalid", mockedPlaces, mockFetch)
 
         const foodFilter = screen.getByTestId("filter")
-
         expect(foodFilter).toBeInTheDocument()
-
     });
 
     it("should show the food filter even if bad empty address", async () => {
@@ -92,18 +71,11 @@ describe("when the main component filter has been rendered", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
 
-        await act(async () => { render(<App />) })
-        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-        const topicMenuSelect = await screen.findByTestId("topic_menu_input") as HTMLSelectElement
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
 
         const foodFilter = screen.getByTestId("filter")
-
         expect(foodFilter).toBeInTheDocument()
-
-
     });
 
     it("should show the food filter even if bad invalid address", async () => {
@@ -111,12 +83,8 @@ describe("when the main component filter has been rendered", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
 
-        await act(async () => { render(<App />) })
-        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-        const topicMenuSelect = await screen.findByTestId("topic_menu_input") as HTMLSelectElement
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
 
         const foodFilter = screen.getByTestId("filter")
 
