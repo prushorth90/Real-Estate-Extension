@@ -5,6 +5,7 @@ import { App } from "../../..";
 import { MockedTab } from '../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../mocks/address/mockAddress'
 import { MockedPlaces } from '../../../../mocks/nearby/places/mockPlaces'
+import * as testHelper from '../../../../testHelpers/testHelpers'
 
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
@@ -26,100 +27,70 @@ afterEach(() => {
     mockedPlaces = null
 })
 
-describe("when the main component food-popup has been rendered", () => {
-
+describe("when the main component nearby-popup has been rendered", () => {
     
-    it("should show the food popup", async () => {
+    it("should show the nearby popup", async () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        await act(async () => { render(<App />) })
-        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedPlaces.mockGoodAPI(mockFetch)
+        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
 
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
+        const nearbyPopup = screen.getByTestId("nearby-popup")
 
-        const foodPopup = screen.getByTestId("nearby-popup")
-
-        expect(foodPopup).toBeInTheDocument()
+        expect(nearbyPopup).toBeInTheDocument()
 
     });
 
-    it("should show the food popup even if empty food api response", async () => {
+    it("should show the nearby popup even if empty food api response", async () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        await act(async () => { render(<App />) })
-        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedPlaces.mockBadEmptyAPI(mockFetch)
+        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeTopic("Food", "bad empty", mockedPlaces, mockFetch)
+        const nearbyPopup = screen.getByTestId("nearby-popup")
 
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-
-        const foodPopup = screen.getByTestId("nearby-popup")
-
-        expect(foodPopup).toBeInTheDocument()
+        expect(nearbyPopup).toBeInTheDocument()
 
     });
 
-    it("should show the food popup even if empty food api invalid", async () => {
+    it("should show the nearby popup even if empty food api invalid", async () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        await act(async () => { render(<App />) })
-        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedPlaces.mockBadInvalidAPI(mockFetch)
+        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeTopic("Food", "bad invalid", mockedPlaces, mockFetch)
+        const nearbyPopup = screen.getByTestId("nearby-popup")
 
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-
-        const foodPopup = screen.getByTestId("nearby-popup")
-
-        expect(foodPopup).toBeInTheDocument()
+        expect(nearbyPopup).toBeInTheDocument()
 
     });
 
-    it("should show the food popup even if bad empty address", async () => {
+    it("should show the nearby popup even if bad empty address", async () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
 
-        await act(async () => { render(<App />) })
-        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
+        const nearbyPopup = screen.getByTestId("nearby-popup")
 
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-
-        const foodPopup = screen.getByTestId("nearby-popup")
-
-        expect(foodPopup).toBeInTheDocument()
-
-
+        expect(nearbyPopup).toBeInTheDocument()
     });
 
-    it("should show the food popup even if bad invalid address", async () => {
+    it("should show the nearby popup even if bad invalid address", async () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
 
-        await act(async () => { render(<App />) })
-        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeTopic("Food", "bad empty", mockedPlaces, mockFetch)
+        const nearbyPopup = screen.getByTestId("nearby-popup")
 
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-
-        const foodPopup = screen.getByTestId("nearby-popup")
-
-        expect(foodPopup).toBeInTheDocument()
+        expect(nearbyPopup).toBeInTheDocument()
 
     });
 });
