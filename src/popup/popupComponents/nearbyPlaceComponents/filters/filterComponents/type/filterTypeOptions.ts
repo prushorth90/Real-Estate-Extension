@@ -1,5 +1,5 @@
-import { Topic } from '../../menu/topics'
-import { NearbyPlaceAPIInput } from '../../../../api/nearbyPlaces/nearbyPlaceAPIInput'
+import { Topic } from '../../../../menu/topics'
+import { NearbyPlaceAPIInput } from '../../../../../../api/nearbyPlaces/nearbyPlaceAPIInput'
 import {FoodType} from './types/foodType'
 import { HealthType } from './types/healthType'
 import { TransportType } from './types/transportType'
@@ -7,8 +7,8 @@ import { TransportType } from './types/transportType'
 import { ReligionType } from './types/religionType'
 import { RecreationType } from './types/recreationType'
 import { EducationType } from './types/educationType'
-
-export class SelectOption{
+//Topic Type Values
+export class FilterTypeOption{
     
     private hashmap = new Map<Topic, Array<String>>();
 

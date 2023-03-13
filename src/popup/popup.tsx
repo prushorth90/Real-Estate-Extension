@@ -4,24 +4,17 @@ import { Box } from '@material-ui/core'
 import './popup.css'
 import {Topic, TopicMenu, APIChoiceMenu, APIChoices} from './popupComponents/menu'
 import NearbyPlacePopup from './popupComponents/nearbyPlacePopup'
-
 import {Address, Coordinate, AddressAPI} from '../api/address/addressIndex'
-import { NearbyPlaceData } from '../api/nearbyPlaces/nearbyPlaceIndex'
-import {ResultState } from './popupComponents/nearbyPlaceComponents/card/nearbyPlaceCardIndex'
 
 export const APIChoiceContext = createContext([])
 export const TopicContext = createContext([])
 export const CoordContext = createContext([])
-// export const NearbyPlaceContext = createContext([])
-// export const CardStateContext = createContext([])
 
 export const App: React.FC<{}> = () => {
   const [apiChoice, setApiChoice] = useState<APIChoices>(APIChoices.APIChoices)
   const [topic, setTopic] = useState<Topic>(Topic.Topics)
   const [coord, setCoord] = useState<Coordinate>()
-  // const [nearbyPlaceData, setNearbyPlaceData] = useState<NearbyPlaceData | null>(null)
-  // const [cardState, setCardState] = useState<ResultState>(ResultState.Loading)
-
+  
   useEffect(() => {
     findHouseCoordinates()
    
@@ -72,8 +65,8 @@ export const App: React.FC<{}> = () => {
   )
 }
 
-// const root = document.createElement('div')
-// document.body.appendChild(root)
-// ReactDOM.render(<App />, root)
+const root = document.createElement('div')
+document.body.appendChild(root)
+ReactDOM.render(<App />, root)
 
 export default App

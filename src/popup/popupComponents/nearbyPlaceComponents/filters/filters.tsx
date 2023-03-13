@@ -4,12 +4,12 @@ import {RadiusFilter, TypeFilter, CuisineFilter, MinPriceFilter, MaxPriceFilter}
 import {CoordContext} from '../../../popup'
 import {NearbyPlaceContext, CardStateContext} from '../../nearbyPlacePopup/nearbyPlacePopup'
 import {NearbyPlaceAPIInput} from '../../../../api/nearbyPlaces/nearbyPlaceAPIInput'
-import {FoodType} from '../../nearbyPlacePopup/selectOptions/types/foodType'
+import {FoodType} from './filterComponents/type/types/foodType'
 export const APIContext = createContext([])
 
-export const Filter: React.FC<{api, options, apiIn}> = ({api, options, apiIn}) => {
-  //let foodApi = new FoodAPI()
-  const [apiInput, setAPIInput] = useState<NearbyPlaceAPIInput>(apiIn);
+export const Filter: React.FC<{ api, filterTypeOptions, filtersDefaultValues }> = ({ api, filterTypeOptions, filtersDefaultValues }) => {
+  
+  const [apiInput, setAPIInput] = useState<NearbyPlaceAPIInput>(filtersDefaultValues);
   const [coord,setCoord] = useContext(CoordContext)
   const [nearbyPlaceData, setNearbyPlaceData] = useContext(NearbyPlaceContext)
   const [cardState, setCardState] = useContext(CardStateContext)
@@ -26,8 +26,8 @@ export const Filter: React.FC<{api, options, apiIn}> = ({api, options, apiIn}) =
       setCardState(ResultState.None)
     }
   }, [apiInput])
-  if (options.includes(apiInput.type) === false) {
-    setAPIInput(apiIn)
+  if (filterTypeOptions.includes(apiInput.type) === false) {
+    setAPIInput(filtersDefaultValues)
   }
   
   return (
@@ -35,7 +35,7 @@ export const Filter: React.FC<{api, options, apiIn}> = ({api, options, apiIn}) =
      <APIContext.Provider value={[apiInput, setAPIInput]}>
 
           <RadiusFilter />
-          <TypeFilter options={options} apiIn={apiIn}/>
+          <TypeFilter options={filterTypeOptions}/>
           {apiInput.type === FoodType.Restaurant ? <CuisineFilter /> : ""}
           <MinPriceFilter />
           <MaxPriceFilter />

@@ -1,7 +1,7 @@
-import { Topic } from '../../menu/topics'
-import { NearbyPlaceAPIInput } from '../../../../api/nearbyPlaces/nearbyPlaceAPIInput'
-
-export class APIOption{
+import { Topic } from '../../../menu/topics'
+import { NearbyPlaceAPIInput } from '../../../../../api/nearbyPlaces/nearbyPlaceAPIInput'
+//Topic Default Nearby Filter
+export class FilterDefaultValues{
     
     private hashmap = new Map<Topic, NearbyPlaceAPIInput>();
 

@@ -9,7 +9,7 @@ import { MockedTab } from '../../../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../../../mocks/address/mockAddress'
 import { MockedPlaces } from '../../../../../../../mocks/nearby/places/mockPlaces'
 import App from '../../../../../../popup'
-import { FoodType } from '../../../../../nearbyPlacePopup/selectOptions/types/foodType'
+import { FoodType } from '../types/foodType'
 
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
@@ -33,7 +33,7 @@ afterEach(() => {
 describe("Components Render", () => {
 
     it("should render type Filter ", () => {
-        render(<APIContext.Provider value={[new NearbyPlaceAPIInput("Bakery", "Bakery")]}> <TypeFilter options={Object.values(FoodType)} apiIn={jest.fn()}/></APIContext.Provider>)
+        render(<APIContext.Provider value={[new NearbyPlaceAPIInput("Bakery", "Bakery")]}> <TypeFilter options={Object.values(FoodType)}/></APIContext.Provider>)
         const type = screen.getByTestId("Type") as HTMLSelectElement
 
         expect(type).toBeInTheDocument()

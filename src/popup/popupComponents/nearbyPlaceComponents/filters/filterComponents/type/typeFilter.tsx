@@ -1,7 +1,7 @@
 import React,{useContext } from 'react'
 import {FilterPartial} from '../partials/filterPartial'
 import {APIContext} from '../../filters'
-export const TypeFilter: React.FC<{options, apiIn}> = ({options, apiIn}) => {
+export const TypeFilter: React.FC<{options}> = ({options}) => {
   const [apiInput, setAPIInput] = useContext(APIContext)
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {

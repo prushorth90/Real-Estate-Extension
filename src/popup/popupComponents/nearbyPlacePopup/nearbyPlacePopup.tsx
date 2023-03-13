@@ -6,8 +6,8 @@ import {Filter} from '../nearbyPlaceComponents/filters/filterIndex'
 import {TopicContext} from '../../popup'
 import { NearbyPlaceAPI } from '../../../api/nearbyPlaces/nearbyPlaceApi'
 import {NearbyPlaceAPIInput} from '../../../api/nearbyPlaces/nearbyPlaceAPIInput'
-import {SelectOption} from './selectOptions/selectOption'
-import {APIOption } from './APIOptions/apiOption'
+import {FilterTypeOption} from '../nearbyPlaceComponents/filters/filterComponents/type/filterTypeOptions'
+import {FilterDefaultValues } from '../nearbyPlaceComponents/filters/filterComponents/filterDefaultValues'
 import { NearbyPlaceData } from '../../../api/nearbyPlaces/nearbyPlaceIndex'
 
 export const NearbyPlaceContext = createContext([])
@@ -16,8 +16,8 @@ export const CardStateContext = createContext([])
 const NearbyPlacePopup: React.FC<{
 }> = () => {
   const [topic,setTopic] = useContext(TopicContext)
-  const selectOption = new SelectOption()
-  const apiOption = new APIOption()
+  const filterDefault = new FilterDefaultValues()
+  const filterTypeOption = new FilterTypeOption()
   const [nearbyPlaceData, setNearbyPlaceData] = useState<NearbyPlaceData | null>(null)
   const [cardState, setCardState] = useState<ResultState>(ResultState.Loading)
 
@@ -28,8 +28,8 @@ const NearbyPlacePopup: React.FC<{
 
               <Box data-testid="nearby-popup">
                   <Filter api={new NearbyPlaceAPI()}
-                          options={selectOption.get(topic)}
-                          apiIn = {apiOption.get(topic)}/>
+                          filterTypeOptions={filterTypeOption.get(topic)}
+                          filtersDefaultValues= {filterDefault.get(topic)}/>
                   <NearbyPlaceCard />
 
             </Box>
