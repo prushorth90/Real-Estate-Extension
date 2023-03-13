@@ -1,7 +1,7 @@
 import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
 import { act, screen, render, fireEvent } from "@testing-library/react";
-import {TopicMenu} from "../../topicMenu";
+import {TopicMenu} from "../../topicMenu/topicMenu";
 import {App} from "../../../..";
 import { TopicContext } from '../../../../popup'
 import { MockedTab } from '../../../../../mocks/tab/mockTab';

@@ -1,4 +1,4 @@
-import { Topic } from '../../../../../menu/topics'
+import { Topic } from '../../../../../menus/topicMenu/topics'
 import {FoodType} from './types/foodType'
 import { HealthType } from './types/healthType'
 import { TransportType } from './types/transportType'

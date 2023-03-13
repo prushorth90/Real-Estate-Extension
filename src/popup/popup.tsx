@@ -2,7 +2,7 @@ import React, { useEffect, useState, createContext } from 'react'
 import ReactDOM from 'react-dom'
 import { Box } from '@material-ui/core'
 import './popup.css'
-import {Topic, TopicMenu, APIChoiceMenu, APIChoices} from './popupComponents/menu'
+import {Topic, TopicMenu, APIChoiceMenu, APIChoices} from './popupComponents/menus'
 import NearbyPlacePopup from './popupComponents/nearbyPlacePopup'
 import {Address, Coordinate, AddressAPI} from '../api/address/addressIndex'
 
