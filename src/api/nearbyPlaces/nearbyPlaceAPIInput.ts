@@ -6,10 +6,10 @@ export class NearbyPlaceAPIInput {
   public minprice: string
   public maxprice: string
 
-  public constructor(type, keyword) {
+  public constructor(type) {
     this.radius = "1500"
     this.type= type
-    this.keyword = keyword
+    this.keyword = type
     this.minprice= "0"
     this.maxprice = "4"
 

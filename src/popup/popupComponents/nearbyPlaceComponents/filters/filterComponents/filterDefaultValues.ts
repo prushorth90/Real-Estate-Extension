@@ -3,20 +3,20 @@ import { NearbyPlaceAPIInput } from '../../../../../api/nearbyPlaces/nearbyPlace
 //Topic Default Nearby Filter
 export class FilterDefaultValues{
     
-    private hashmap = new Map<Topic, NearbyPlaceAPIInput>();
+    private topicToDefaultValue = new Map<Topic, NearbyPlaceAPIInput>();
 
 
     constructor(){
-        this.hashmap.set(Topic.Food, new NearbyPlaceAPIInput("Bakery", "Bakery"));
-        this.hashmap.set(Topic.Health, new NearbyPlaceAPIInput("Hospital", "Hospital"));
-        this.hashmap.set(Topic.Transport, new NearbyPlaceAPIInput("Train Station", "Train Station"));
-        this.hashmap.set(Topic.Religion, new NearbyPlaceAPIInput("Church", "Church"));
-        this.hashmap.set(Topic.Recreation, new NearbyPlaceAPIInput("Gym", "Gym"));
-        this.hashmap.set(Topic.Education, new NearbyPlaceAPIInput("University", "University"));
+        this.topicToDefaultValue.set(Topic.Food, new NearbyPlaceAPIInput("Bakery"));
+        this.topicToDefaultValue.set(Topic.Health, new NearbyPlaceAPIInput("Pharmacy"));
+        this.topicToDefaultValue.set(Topic.Transport, new NearbyPlaceAPIInput("Gas Station"));
+        this.topicToDefaultValue.set(Topic.Religion, new NearbyPlaceAPIInput("Church"));
+        this.topicToDefaultValue.set(Topic.Recreation, new NearbyPlaceAPIInput("Store"));
+        this.topicToDefaultValue.set(Topic.Education, new NearbyPlaceAPIInput("University"));
     }
     
     public get(topic) {
-        return this.hashmap.get(topic)
+        return this.topicToDefaultValue.get(topic)
     }
 
     

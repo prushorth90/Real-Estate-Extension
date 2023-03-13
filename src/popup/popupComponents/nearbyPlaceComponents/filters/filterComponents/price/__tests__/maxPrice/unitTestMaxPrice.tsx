@@ -33,7 +33,7 @@ afterEach(() => {
 describe("for when the max price component renders", () => {
 
     it("should render Max Price Filter ", () => {
-        render(<APIContext.Provider value={[new NearbyPlaceAPIInput("Bakery", "Bakery")]}> <MaxPriceFilter /></APIContext.Provider>)
+        render(<APIContext.Provider value={[new NearbyPlaceAPIInput("Bakery")]}> <MaxPriceFilter /></APIContext.Provider>)
 
         const maxPriceLevel = screen.getByTestId("Max Price Level") as HTMLSelectElement
         const maxPriceIn = screen.getByTestId("Input Max Price Level") as HTMLInputElement

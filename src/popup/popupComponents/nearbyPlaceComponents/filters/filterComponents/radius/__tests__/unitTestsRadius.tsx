@@ -33,7 +33,7 @@ afterEach(() => {
 describe("Components Render", () => {
 
     it("should render Radius Filter ", () => {
-        render(<APIContext.Provider value={[new NearbyPlaceAPIInput("Bakery", "Bakery")]}> <RadiusFilter /></APIContext.Provider>)
+        render(<APIContext.Provider value={[new NearbyPlaceAPIInput("Bakery")]}> <RadiusFilter /></APIContext.Provider>)
         const radius = screen.getByTestId("Radius") as HTMLSelectElement
 
         expect(radius).toBeInTheDocument()

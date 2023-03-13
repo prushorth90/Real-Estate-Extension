@@ -33,7 +33,7 @@ afterEach(() => {
 describe("for when the min price component renders", () => {
 
     it("should render Min  Price Filter ", () => {
-        render(<APIContext.Provider value={[new NearbyPlaceAPIInput("Bakery", "Bakery")]}> <MinPriceFilter /></APIContext.Provider>)
+        render(<APIContext.Provider value={[new NearbyPlaceAPIInput("Bakery")]}> <MinPriceFilter /></APIContext.Provider>)
 
         const minPriceLevel = screen.getByTestId("Min Price Level") as HTMLSelectElement
         const minPriceIn = screen.getByTestId("Input Min Price Level") as HTMLInputElement

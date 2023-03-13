@@ -33,7 +33,7 @@ afterEach(() => {
 describe("Components Render", () => {
 
     it("should render type Filter ", () => {
-        render(<APIContext.Provider value={[new NearbyPlaceAPIInput("Bakery", "Bakery")]}> <TypeFilter options={Object.values(FoodType)}/></APIContext.Provider>)
+        render(<APIContext.Provider value={[new NearbyPlaceAPIInput("Bakery")]}> <TypeFilter options={Object.values(FoodType)}/></APIContext.Provider>)
         const type = screen.getByTestId("Type") as HTMLSelectElement
 
         expect(type).toBeInTheDocument()
