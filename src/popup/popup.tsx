@@ -52,9 +52,7 @@ export const App: React.FC<{}> = () => {
           <TopicContext.Provider value={[topic,setTopic]}>
               <TopicMenu />
               <CoordContext.Provider value={[coord, setCoord]}>
-                
-                    {topic!== Topic.Topics && <NearbyPlacePopup/>}
-               
+                {topic!== Topic.Topics && <NearbyPlacePopup/>}
               </CoordContext.Provider>
             </TopicContext.Provider>
       )}
