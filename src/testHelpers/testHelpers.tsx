@@ -1,6 +1,6 @@
 import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
-import { act, screen, render, fireEvent } from "@testing-library/react";
+import { act, screen, render, fireEvent,within } from "@testing-library/react";
 import { App } from "../popup/popup";
 
 
@@ -61,3 +61,10 @@ export async function checkReadyResultCard() {
     expect(photoButton).toBeInTheDocument()
 }
 
+export async function changeFilter(filter, filterNum, val) {
+    const type = screen.getByTestId(`Input ${filter}`) as HTMLSelectElement
+    await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[filterNum]) });
+    const options = within(screen.getByRole('listbox'));
+    await act(async () => { fireEvent.click(options.getByText(val)) });
+    expect(type.value).toBe(val)
+}
