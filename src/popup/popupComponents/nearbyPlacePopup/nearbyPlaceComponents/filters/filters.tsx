@@ -32,16 +32,13 @@ export const Filter: React.FC<{ api, filterTypeOptions, filtersDefaultValues }> 
   
   return (
      <div data-testid="filter">
-     <APIContext.Provider value={[apiInput, setAPIInput]}>
-
-          <RadiusFilter />
-          <TypeFilter options={filterTypeOptions}/>
-          {apiInput.type === FoodType.Restaurant ? <CuisineFilter /> : ""}
-          <MinPriceFilter />
-          <MaxPriceFilter />
-      </APIContext.Provider>
-
-      </div>
-
+      <APIContext.Provider value={[apiInput, setAPIInput]}>
+            <RadiusFilter />
+            <TypeFilter options={filterTypeOptions}/>
+            {apiInput.type === FoodType.Restaurant ? <CuisineFilter /> : ""}
+            <MinPriceFilter />
+            <MaxPriceFilter />
+        </APIContext.Provider>
+     </div>
   )
 }

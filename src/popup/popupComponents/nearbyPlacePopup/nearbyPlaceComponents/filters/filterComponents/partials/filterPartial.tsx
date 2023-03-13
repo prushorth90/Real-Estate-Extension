@@ -1,12 +1,10 @@
-import React,{ useContext } from 'react'
+import React from 'react'
 import {FormControl, InputLabel, MenuItem, Select} from '@material-ui/core'
 import {useStyles} from '../../style'
-import {APIContext} from '../../filters'
 
 export const FilterPartial: React.FC<{
   options, keyword, name, handleChange
 }> = ({ options, keyword, name,handleChange}) => {
-  const [apiInput, setAPIInput] = useContext(APIContext)
 
   return (
     <FormControl className={useStyles().formControl}>

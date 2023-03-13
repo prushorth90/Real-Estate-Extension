@@ -1,17 +1,14 @@
 import { Topic } from '../../../../../menu/topics'
-import { NearbyPlaceAPIInput } from '../../../../../../../api/nearbyPlaces/nearbyPlaceAPIInput'
 import {FoodType} from './types/foodType'
 import { HealthType } from './types/healthType'
 import { TransportType } from './types/transportType'
-
 import { ReligionType } from './types/religionType'
 import { RecreationType } from './types/recreationType'
 import { EducationType } from './types/educationType'
-//Topic Type Values
+
 export class FilterTypeOption{
     
     private topicToTypeOptions = new Map<Topic, Array<String>>();
-
 
     constructor(){
         this.topicToTypeOptions.set(Topic.Food, Object.values(FoodType));
@@ -26,7 +23,4 @@ export class FilterTypeOption{
         return this.topicToTypeOptions.get(topic)
     }
 
-    
-
-    
 }

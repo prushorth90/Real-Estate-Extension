@@ -1,11 +1,10 @@
 import { Topic } from '../../../../menu/topics'
 import { NearbyPlaceAPIInput } from '../../../../../../api/nearbyPlaces/nearbyPlaceAPIInput'
-//Topic Default Nearby Filter
+
 export class FilterDefaultValues{
     
     private topicToDefaultValue = new Map<Topic, NearbyPlaceAPIInput>();
-
-
+    
     constructor(){
         this.topicToDefaultValue.set(Topic.Food, new NearbyPlaceAPIInput("Bakery"));
         this.topicToDefaultValue.set(Topic.Health, new NearbyPlaceAPIInput("Pharmacy"));
@@ -19,7 +18,4 @@ export class FilterDefaultValues{
         return this.topicToDefaultValue.get(topic)
     }
 
-    
-
-    
 }
