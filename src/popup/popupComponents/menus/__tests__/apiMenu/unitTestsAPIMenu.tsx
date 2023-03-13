@@ -28,10 +28,10 @@ afterEach(() => {
     mockedFoodPlaces = null
 })
 
-describe("when the topic menu has been rendered", () => {
+describe("when the api menu has been rendered", () => {
   
 
-    it("should show the topic select menu", async () => {
+    it("should show the api select menu", async () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)

@@ -5,25 +5,25 @@ import { App } from "../../../..";
 import { MockedTab } from '../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../mocks/address/mockAddress'
 import { MockedPlaces } from '../../../../../mocks/nearby/places/mockPlaces'
-
+import * as testHelper from '../../../../../testHelpers/testHelpers'
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
 
 let mockedTab = null
 let mockedAddress = null
-let mockedFoodPlaces = null
+let mockedPlaces = null
 
 beforeEach(() => {
     mockedTab = new MockedTab()
     mockedAddress = new MockedAddress()
-    mockedFoodPlaces = new MockedPlaces()
+    mockedPlaces = new MockedPlaces()
 
 })
 
 afterEach(() => {
     mockedTab = null
     mockedAddress = null
-    mockedFoodPlaces = null
+    mockedPlaces = null
 })
 
 describe("tests when change from topic to food", () => {
@@ -32,55 +32,55 @@ describe("tests when change from topic to food", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        await changeToNearbyPlaces()
+        await testHelper.changeToNearbyPlaces()
 
-        await changeTopic("Food", "good valid")
+        await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
 
-        await checkReadyResultCard()
+        await testHelper.checkReadyResultCard()
     });
 
     it("should be able to see none card as empty food api", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        await changeToNearbyPlaces()
+        await testHelper.changeToNearbyPlaces()
 
-        await changeTopic("Food", "bad empty")
+        await testHelper.changeTopic("Food", "bad empty", mockedPlaces, mockFetch)
 
-        await checkNoneCard()
+        await testHelper.checkNoneCard()
     });
 
     it("should be able to see error cards as bad food api", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        await changeToNearbyPlaces()
+        await testHelper.changeToNearbyPlaces()
 
-        await changeTopic("Food", "bad invalid")
+        await testHelper.changeTopic("Food", "bad invalid", mockedPlaces, mockFetch)
 
-        await checkErrorCard()
+        await testHelper.checkErrorCard()
     });
 
     it("should be able to see none card as bad address", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
 
-        await changeToNearbyPlaces()
+        await testHelper.changeToNearbyPlaces()
 
-        await changeTopic("Food","")
+        await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
 
-        await checkNoneCard()
+        await testHelper.checkNoneCard()
     });
 
     it("should be able to see none card as invalid address", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
 
-        await changeToNearbyPlaces()
+        await testHelper.changeToNearbyPlaces()
 
-        await changeTopic("Food", "")
+        await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
 
-        await checkNoneCard()
+        await testHelper.checkNoneCard()
     });
 
 });
@@ -91,13 +91,13 @@ describe("tests when change from food to topic", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        await changeToNearbyPlaces()
+        await testHelper.changeToNearbyPlaces()
 
-        await changeTopic("Food", "good valid")
+        await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
 
         const card = await screen.findByTestId("result card") as HTMLDivElement
 
-        await changeTopic("Topics", "")
+        await testHelper.changeTopic("Topics", "", mockedPlaces, mockFetch)
 
         expect(card).not.toBeInTheDocument()
 
@@ -107,13 +107,13 @@ describe("tests when change from food to topic", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        await changeToNearbyPlaces()
+        await testHelper.changeToNearbyPlaces()
 
-        await changeTopic("Food", "bad empty")
+        await testHelper.changeTopic("Food", "bad empty", mockedPlaces, mockFetch)
 
         const card = await screen.findByTestId("result card other") as HTMLDivElement
 
-        await changeTopic("Topics", "")
+        await testHelper.changeTopic("Topics", "", mockedPlaces, mockFetch)
         expect(card).not.toBeInTheDocument()
 
     });
@@ -122,13 +122,13 @@ describe("tests when change from food to topic", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        await changeToNearbyPlaces()
+        await testHelper.changeToNearbyPlaces()
 
-        await changeTopic("Food", "bad invalid")
+        await testHelper.changeTopic("Food", "bad invalid", mockedPlaces, mockFetch)
 
         const card = await screen.findByTestId("result card other") as HTMLDivElement
 
-        await changeTopic("Topics", "")
+        await testHelper.changeTopic("Topics", "", mockedPlaces, mockFetch)
         expect(card).not.toBeInTheDocument()
 
     });
@@ -137,12 +137,12 @@ describe("tests when change from food to topic", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
 
-        await changeToNearbyPlaces()
+        await testHelper.changeToNearbyPlaces()
 
-        await changeTopic("Food", "")
+        await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
 
         const card = await screen.findByTestId("result card other") as HTMLDivElement
-        await changeTopic("Topics", "")
+        await testHelper.changeTopic("Topics", "", mockedPlaces, mockFetch)
 
         expect(card).not.toBeInTheDocument()
     });
@@ -151,71 +151,14 @@ describe("tests when change from food to topic", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
 
-        await changeToNearbyPlaces()
+        await testHelper.changeToNearbyPlaces()
 
-        await changeTopic("Food", "")
+        await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
 
         const card = await screen.findByTestId("result card other") as HTMLDivElement
-        await changeTopic("Topics", "")
+        await testHelper.changeTopic("Topics", "", mockedPlaces, mockFetch)
 
         expect(card).not.toBeInTheDocument()
     });
 
 });
-
-async function changeToNearbyPlaces(){
-    await act(async () => { render(<App />) })
-    const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-    await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-}
-
-async function changeTopic(topic, topicAPI) {
-    const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-    if (topicAPI === "good valid") {
-        mockedFoodPlaces.mockGoodAPI(mockFetch)
-    }
-    else if (topicAPI === "bad empty"){
-        mockedFoodPlaces.mockBadEmptyAPI(mockFetch)
-    }
-    else if (topicAPI === "bad invalid") {
-        mockedFoodPlaces.mockBadInvalidAPI(mockFetch)
-    }
-    await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: topic } }) });
-    expect(topicMenuSelect.value).toBe(topic);
-
-}
-
-async function checkNoneCard() {
-    const card = await screen.findByTestId("result card other") as HTMLDivElement
-    expect(card).toBeVisible()
-    expect(card).toBeInTheDocument()
-    expect(card.innerHTML).toBe("No data to show")
-}
-
-async function checkErrorCard() {
-    const card = await screen.findByTestId("result card other") as HTMLDivElement
-    expect(card).toBeVisible()
-    expect(card).toBeInTheDocument()
-    expect(card.innerHTML).toBe("Error. Our API request has failed")
-}
-
-async function checkReadyResultCard() {
-    const card = await screen.findByTestId("result card") as HTMLDivElement
-    expect(card).toBeVisible()
-    expect(card).toBeInTheDocument()
-    const name = await screen.findByTestId("result name") as HTMLParagraphElement
-    expect(name.innerHTML).toBe(" Fake Bakery ")
-
-    const totalUserRating = await screen.findByTestId("result user rating total") as HTMLParagraphElement
-    expect(totalUserRating.innerHTML).toBe("Total User Ratings: 90 ")
-
-    const priceLevel = await screen.findByTestId("result price level") as HTMLParagraphElement
-    expect(priceLevel.innerHTML).toBe("Price Level: 3")
-
-    const vicinity = await screen.findByTestId("result vicinity") as HTMLParagraphElement
-    expect(vicinity.innerHTML).toBe(" Vicinity: Fake address ")
-
-    const photoButton = await screen.findByTestId("photo button") as HTMLButtonElement
-    expect(photoButton).toBeInTheDocument()
-}
-
