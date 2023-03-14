@@ -47,9 +47,12 @@ describe("click photo button and see dialog open", () => {
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
         await testHelper.changeToNearbyPlaces()
-        await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
+        // special case change topic should return empty photos field
+        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
+        mockedPhoto.mockBadEmptyPhotoAPI(mockFetch)
+        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
 
-        await testHelper.clickPhotoButton("bad empty", mockedPhoto, mockFetch)
+        await testHelper.clickPhotoButton("", mockedPhoto, mockFetch)
         await testHelper.checkNonePhoto()
     });
 

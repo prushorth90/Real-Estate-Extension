@@ -6,10 +6,13 @@ import { App } from "../popup/popup";
 
 export async function changeToNearbyPlaces() {
     await act(async () => {
-        render(<App />) })
+        render(<App />) 
+    })
     const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-    }
+    await act(async () => { 
+        fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" }}) 
+    });
+}
 
 export async function changeTopic(topic, topicAPI, mockedPlaces, mockFetch) {
     const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
@@ -23,6 +26,10 @@ export async function changeTopic(topic, topicAPI, mockedPlaces, mockFetch) {
         mockedPlaces.mockBadInvalidAPI(mockFetch)
     }
     await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: topic } }) });
+    checkTopicMenu(topicMenuSelect, topic)
+}
+
+function checkTopicMenu(topicMenuSelect, topic) {
     expect(topicMenuSelect).toBeInTheDocument()
     expect(topicMenuSelect.value).toBe(topic);
 }
@@ -84,9 +91,6 @@ export async function checkFilterComponent(filter, val) {
 export async function clickPhotoButton(photoApi, mockedPhotos, mockFetch) {
     if (photoApi === "good valid") {
         mockedPhotos.mockGoodPhotoAPI(mockFetch)
-    }
-    else if (photoApi === "bad empty") {
-        mockedPhotos.mockBadEmptyPhotoAPI(mockFetch)
     }
     else if (photoApi === "bad invalid") {
         mockedPhotos.mockBadInvalidPhotoAPI(mockFetch)
