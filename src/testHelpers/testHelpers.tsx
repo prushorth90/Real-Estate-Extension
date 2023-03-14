@@ -95,13 +95,6 @@ export async function clickPhotoButton(photoApi, mockedPhotos, mockFetch) {
     await act(async () => { fireEvent.click(photoButton) });
 }
 
-export async function checkLoadingPhoto() {
-    const dialog = await screen.findByTestId("photo loading") as HTMLDivElement
-    expect(dialog).toBeVisible()
-    expect(dialog).toBeInTheDocument()
-    expect(dialog.innerHTML).toBe("Loading. Please wait while we collect your results")
-}
-
 export async function checkNonePhoto() {
     const dialog = await screen.findByTestId("photo none") as HTMLDivElement
     expect(dialog).toBeVisible()

@@ -6,111 +6,77 @@ import { MockedTab } from '../../../../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../../../../mocks/address/mockAddress'
 import { MockedPlaces } from '../../../../../../../../mocks/nearby/places/mockPlaces'
 import { MockedPhoto } from '../../../../../../../../mocks/nearby/photos/mockPhoto'
+import * as testHelper from '../../../../../../../../testHelpers/testHelpers'
+
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
 
 let mockedTab = null
 let mockedAddress = null
-let mockedFoodPlaces = null
-let mockedFoodPhoto = null
+let mockedPlaces = null
+let mockedPhoto = null
 beforeEach(() => {
     mockedTab = new MockedTab()
     mockedAddress = new MockedAddress()
-    mockedFoodPlaces = new MockedPlaces()
-    mockedFoodPhoto = new MockedPhoto()
+    mockedPlaces = new MockedPlaces()
+    mockedPhoto = new MockedPhoto()
 })
 
 afterEach(() => {
     mockedTab = null
     mockedAddress = null
-    mockedFoodPlaces = null
-    mockedFoodPhoto = null
+    mockedPlaces = null
+    mockedPhoto = null
 })
-
 
 describe("close photo dialog tests", () => {
 
     it("should close the photo dialog", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.changeToNearbyPlaces()
 
-        await act(async () => { render(<App />) })
-        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockGoodAPI(mockFetch)
+        await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
+        await testHelper.clickPhotoButton("good valid", mockedPhoto, mockFetch)
 
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        mockedFoodPhoto.mockGoodPhotoAPI(mockFetch)
-
-        const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
-
-        await act(async () => { fireEvent.click(photoButton) });
-        const foodPhoto = screen.getByTestId("photo ready") as HTMLImageElement
-        //https://stackoverflow.com/questions/59572341/fireevent-keydown-not-working-as-expected-on-my-jest-react-testing-library-tes
-        fireEvent.keyDown(screen.getByTestId("photo ready"), {
-            key: "Escape",
-            code: "Escape",
-            keyCode: 27,
-            charCode: 27
-        });
-        expect(foodPhoto).not.toBeInTheDocument()
-        expect(foodPhoto).not.toBeVisible()
+        const photo = screen.getByTestId("photo ready") as HTMLImageElement
+        closeDialog(photo)
     });
 
     it("should close the photo dialog even if no photo dialog", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.changeToNearbyPlaces()
 
-        await act(async () => { render(<App />) })
-        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPhoto.mockBadEmptyPhotoAPI(mockFetch)
+        await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
+        await testHelper.clickPhotoButton("bad empty", mockedPhoto, mockFetch)
 
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-
-        const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
-
-        await act(async () => { fireEvent.click(photoButton) });
-        const foodPhoto = screen.getByTestId("photo none") as HTMLImageElement
-        //https://stackoverflow.com/questions/59572341/fireevent-keydown-not-working-as-expected-on-my-jest-react-testing-library-tes
-        fireEvent.keyDown(screen.getByTestId("photo none"), {
-            key: "Escape",
-            code: "Escape",
-            keyCode: 27,
-            charCode: 27
-        });
-        expect(foodPhoto).not.toBeInTheDocument()
-        expect(foodPhoto).not.toBeVisible()
+        const photo = screen.getByTestId("photo none") as HTMLImageElement
+        closeDialog(photo)
     });
 
     it("should close the photo dialog even if error photo dialog", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.changeToNearbyPlaces()
 
-        await act(async () => { render(<App />) })
-        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockGoodAPI(mockFetch)
+        await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
+        await testHelper.clickPhotoButton("bad invalid", mockedPhoto, mockFetch)
 
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        mockedFoodPhoto.mockBadInvalidPhotoAPI(mockFetch)
-
-        const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
-
-        await act(async () => { fireEvent.click(photoButton) });
-        const foodPhoto = screen.getByTestId("photo error") as HTMLImageElement
-        //https://stackoverflow.com/questions/59572341/fireevent-keydown-not-working-as-expected-on-my-jest-react-testing-library-tes
-        fireEvent.keyDown(screen.getByTestId("photo error"), {
-            key: "Escape",
-            code: "Escape",
-            keyCode: 27,
-            charCode: 27
-        });
-        expect(foodPhoto).not.toBeInTheDocument()
-        expect(foodPhoto).not.toBeVisible()
+        const photo = screen.getByTestId("photo error") as HTMLImageElement
+        closeDialog(photo)
     });
 
 });
+
+function closeDialog(photo) {
+    //https://stackoverflow.com/questions/59572341/fireevent-keydown-not-working-as-expected-on-my-jest-react-testing-library-tes
+    fireEvent.keyDown((photo), {
+        key: "Escape",
+        code: "Escape",
+        keyCode: 27,
+        charCode: 27
+    });
+    expect(photo).not.toBeInTheDocument()
+    expect(photo).not.toBeVisible()
+}
