@@ -9,43 +9,35 @@ import { MockedTab } from '../../../../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../../../../mocks/address/mockAddress'
 import { MockedPlaces } from '../../../../../../../../mocks/nearby/places/mockPlaces'
 import App from '../../../../../../../popup'
+import * as testHelper from '../../../../../../../../testHelpers/testHelpers'
 
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
 
 let mockedTab = null
 let mockedAddress = null
-let mockedFoodPlaces = null
+let mockedPlaces = null
 
 beforeEach(() => {
     mockedTab = new MockedTab()
     mockedAddress = new MockedAddress()
-    mockedFoodPlaces = new MockedPlaces()
+    mockedPlaces = new MockedPlaces()
 
 })
 
 afterEach(() => {
     mockedTab = null
     mockedAddress = null
-    mockedFoodPlaces = null
+    mockedPlaces = null
 })
 
 describe("Components Render", () => {
 
     it("should render Radius Filter ", () => {
         render(<APIContext.Provider value={[new NearbyPlaceAPIInput("Bakery")]}> <RadiusFilter /></APIContext.Provider>)
-        const radius = screen.getByTestId("Radius") as HTMLSelectElement
-
-        expect(radius).toBeInTheDocument()
-        expect(radius).toBeVisible()
-        
-        const radiusIn = screen.getByTestId("Input Radius") as HTMLInputElement
-
-        expect(radiusIn.value).toBe("1500")
+        testHelper.checkFilterComponent("Radius", "1500")
     });
-
 });
-
 
 describe("Event test change value of filter", () => {
 
@@ -53,49 +45,18 @@ describe("Event test change value of filter", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        await act(async () => { render(<App />) })
-        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockGoodAPI(mockFetch)
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        mockedFoodPlaces.mockSecondGoodAPI(mockFetch)
-
-        const radius = screen.getByTestId("Input Radius") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
-        const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
-        expect(radius.value).toBe("1000")
-      
+        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
+        await testHelper.changeFilter("Radius", 2, "1000")
     });
 
     it("should change from 1500 to 1000 to 1500", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        await act(async () => { render(<App />) })
-        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockGoodAPI(mockFetch)
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        mockedFoodPlaces.mockSecondGoodAPI(mockFetch)
-
-        const radius = screen.getByTestId("Input Radius") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
-        const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/1000/i)) });
-        expect(radius.value).toBe("1000")
-        
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[2]) });
-        const options2 = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options2.getByText(/1500/i)) });
-        expect(radius.value).toBe("1500")
+        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
+        await testHelper.changeFilter("Radius", 2, "1000")
+        await testHelper.changeFilter("Radius", 2, "1500")
     });
-
-
-
-
 });
