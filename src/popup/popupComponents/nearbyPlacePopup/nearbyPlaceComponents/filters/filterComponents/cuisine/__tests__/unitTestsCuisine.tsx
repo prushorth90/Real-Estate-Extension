@@ -37,8 +37,7 @@ describe("For when the main-component have been rendered", () => {
         await testHelper.changeToNearbyPlaces()
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Type", 3, "Restaurant")
-
-        await checkCuisineComponent()
+        await testHelper.checkFilterComponent("Cuisine", "Pizza")
 
     });  
 
@@ -49,8 +48,7 @@ describe("For when the main-component have been rendered", () => {
         await testHelper.changeToNearbyPlaces()
         await testHelper.changeTopic("Food", "bad empty", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Type", 3, "Restaurant")
-
-        await checkCuisineComponent()
+        await testHelper.checkFilterComponent("Cuisine", "Pizza")
     });  
 
     it("should be able to see cuisine filter even if bad invalid food api response", async () => {
@@ -60,8 +58,7 @@ describe("For when the main-component have been rendered", () => {
         await testHelper.changeToNearbyPlaces()
         await testHelper.changeTopic("Food", "bad invalid", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Type", 3, "Restaurant")
-
-        await checkCuisineComponent()
+        await testHelper.checkFilterComponent("Cuisine", "Pizza")
     });  
 
     it("should be able to see cuisine filter even if bad empty address api response", async () => {
@@ -71,8 +68,7 @@ describe("For when the main-component have been rendered", () => {
         await testHelper.changeToNearbyPlaces()
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Type", 3, "Restaurant")
-
-        await checkCuisineComponent()
+        await testHelper.checkFilterComponent("Cuisine", "Pizza")
     });  
 
     it("should be able to see cuisine filter even if bad invalid address api response", async () => {
@@ -82,8 +78,7 @@ describe("For when the main-component have been rendered", () => {
         await testHelper.changeToNearbyPlaces()
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Type", 3, "Restaurant")
-
-        await checkCuisineComponent()
+        await testHelper.checkFilterComponent("Cuisine", "Pizza")
     });  
 
 });
@@ -142,8 +137,3 @@ describe("change value of cuisine filter", () => {
 
 });
 
-async function checkCuisineComponent() {
-    const cuisine = await screen.findByTestId("Input Cuisine") as HTMLSelectElement
-    expect(cuisine).toBeInTheDocument()
-    expect(cuisine.value).toBe("Pizza")
-}

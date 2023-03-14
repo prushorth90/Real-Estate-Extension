@@ -27,21 +27,21 @@ afterEach(() => {
     mockedFoodPlaces = null
 })
 
-describe("tests when change from topic to food", () => {
+describe("tests when change from api choice to nearby place", () => {
 
-    it("should be able to see ready result cards", async () => {
+    it("should be able to see menu value", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
         await checkMenuValue()
     });
 
-    it("should be able api menu", async () => {
+    it("should be able api menu value if bad empty addr", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
         await checkMenuValue()
     });
 
-    it("should be able to see none card as invalid address", async () => {
+    it("should be able to see menu value if bad invalid addr", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
         await checkMenuValue()

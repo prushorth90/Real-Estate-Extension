@@ -68,3 +68,8 @@ export async function changeFilter(filter, filterNum, val) {
     await act(async () => { fireEvent.click(options.getByText(val)) });
     expect(type.value).toBe(val)
 }
+
+export async function checkFilterComponent(filter, val) {
+    const foundFilter = await screen.findByTestId(`Input ${filter}`) as HTMLSelectElement
+    expect(foundFilter.value).toBe(val)
+}
