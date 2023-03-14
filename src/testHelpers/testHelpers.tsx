@@ -27,6 +27,13 @@ export async function changeTopic(topic, topicAPI, mockedPlaces, mockFetch) {
     expect(topicMenuSelect.value).toBe(topic);
 }
 
+export async function checkLoadingCard() {
+    const card = await screen.findByTestId("result card other") as HTMLDivElement
+    expect(card).toBeVisible()
+    expect(card).toBeInTheDocument()
+    expect(card.innerHTML).toBe("Loading. Please wait while we collect your results")
+}
+
 export async function checkNoneCard() {
     const card = await screen.findByTestId("result card other") as HTMLDivElement
     expect(card).toBeVisible()

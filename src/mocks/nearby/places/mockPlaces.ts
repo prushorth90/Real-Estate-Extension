@@ -50,19 +50,4 @@ export class MockedPlaces {
         })
     }
 
-    public mockSecondGoodAPI(mockFetch) {
-    mockFetch.mockResolvedValue({
-        json: () => Promise.resolve({
-            results: [{
-                name: "Fake Bakery 2",
-                price_level: 4,
-                rating: 3,
-                user_ratings_total: 10,
-                vicinity: "Fake address 2"
-            }]
-        },
-        ),
-
-    } as any)
-}
 }

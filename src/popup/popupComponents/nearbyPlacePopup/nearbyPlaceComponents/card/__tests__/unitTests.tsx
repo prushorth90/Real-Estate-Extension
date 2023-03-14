@@ -4,18 +4,23 @@ import { screen, render  } from "@testing-library/react";
 import { CardStateContext } from '../../../nearbyPlacePopup'
 import { NearbyPlaceCard } from '../nearbyPlaceCard';
 import {ResultState} from '../cardComponents/result/resultState'
-describe("for when the food card is rendered", () => {
+import * as testHelper from '../../../../../../testHelpers/testHelpers'
 
-    it("should show the card in doc", () => {
+describe("for when the card is rendered", () => {
+
+    it("should show the card in doc", async () => {
         render((<CardStateContext.Provider value={[ResultState.None, jest.fn()]}> <NearbyPlaceCard /></CardStateContext.Provider>))
-
-        const card = screen.getByTestId("result card other") 
-        expect(card).toBeInTheDocument()
-        expect(card).toBeVisible()
-
-        const cardVal = screen.getByTestId("result card other") as HTMLParagraphElement
-        expect(cardVal.innerHTML).toBe("No data to show")
+        await testHelper.checkNoneCard()
     });
-    
+
+    it("should show the card in doc", async () => {
+        render((<CardStateContext.Provider value={[ResultState.Loading, jest.fn()]}> <NearbyPlaceCard /></CardStateContext.Provider>))
+        await testHelper.checkLoadingCard()
+    });
+
+    it("should show the card in doc", async () => {
+        render((<CardStateContext.Provider value={[ResultState.Error, jest.fn()]}> <NearbyPlaceCard /></CardStateContext.Provider>))
+        await testHelper.checkErrorCard()
+    });
 });
 
