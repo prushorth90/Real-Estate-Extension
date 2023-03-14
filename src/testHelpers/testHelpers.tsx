@@ -80,3 +80,52 @@ export async function checkFilterComponent(filter, val) {
     const foundFilter = await screen.findByTestId(`Input ${filter}`) as HTMLSelectElement
     expect(foundFilter.value).toBe(val)
 }
+
+export async function clickPhotoButton(photoApi, mockedPhotos, mockFetch) {
+    if (photoApi === "good valid") {
+        mockedPhotos.mockGoodPhotoAPI(mockFetch)
+    }
+    else if (photoApi === "bad empty") {
+        mockedPhotos.mockBadEmptyPhotoAPI(mockFetch)
+    }
+    else if (photoApi === "bad invalid") {
+        mockedPhotos.mockBadInvalidPhotoAPI(mockFetch)
+    }
+    const photoButton = screen.getByTestId("photo button") as HTMLButtonElement
+    await act(async () => { fireEvent.click(photoButton) });
+}
+
+export async function checkLoadingPhoto() {
+    const dialog = await screen.findByTestId("photo loading") as HTMLDivElement
+    expect(dialog).toBeVisible()
+    expect(dialog).toBeInTheDocument()
+    expect(dialog.innerHTML).toBe("Loading. Please wait while we collect your results")
+}
+
+export async function checkNonePhoto() {
+    const dialog = await screen.findByTestId("photo none") as HTMLDivElement
+    expect(dialog).toBeVisible()
+    expect(dialog).toBeInTheDocument()
+    expect(dialog.innerHTML).toBe(" No Photo ")
+}
+
+export async function checkErrorPhoto() {
+    const dialog = await screen.findByTestId("photo error") as HTMLDivElement
+    expect(dialog).toBeVisible()
+    expect(dialog).toBeInTheDocument()
+    expect(dialog.innerHTML).toBe("Error. Our API request has failed ")
+}
+
+export async function checkReadyPhoto() {
+    const dialog = await screen.findByTestId("photo ready") as HTMLImageElement
+    expect(dialog).toBeInTheDocument()
+    expect(dialog).toBeVisible()
+}
+
+export async function checkPhotoButtonComponent() {
+    const photoButton = screen.getByTestId("photo button")
+    expect(photoButton).toBeInTheDocument()
+    expect(photoButton).toBeVisible()
+    const { getByText } = within(screen.getByTestId("photo button"))
+    expect(getByText('View Photo')).toBeInTheDocument()
+}
