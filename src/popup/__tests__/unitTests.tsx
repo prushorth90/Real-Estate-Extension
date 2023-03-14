@@ -4,6 +4,7 @@ import { act,screen, render } from "@testing-library/react";
 import App from "../popup";
 import {MockedAddress} from '../../mocks/address/mockAddress'
 import { MockedTab } from '../../mocks/tab/mockTab'
+import * as testHelper from '../../testHelpers/testHelpers'
 
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
@@ -28,24 +29,15 @@ describe("when the main component popup has been rendered", () => {
     mockedTab.mockGoodTabAPI(mockFetch)
     mockedAddress.mockGoodAddressAPI(mockFetch)
 
-    await act(async () => { render(<App />) })
-    const popup= screen.getByTestId("popup") 
-
-    expect(popup).toBeInTheDocument()
-
+    await testHelper.openPopup()
   });
 
   it("should show the popup even if bad empty address", async () => {
 
     mockedTab.mockGoodTabAPI(mockFetch)
     mockedAddress.mockBadEmptyAddressAPI(mockFetch)
-
-    await act(async () => { render(<App />) })
-    const popup = screen.getByTestId("popup")
-
-    expect(popup).toBeInTheDocument()
-
-
+    
+    await testHelper.openPopup()
   });
 
   it("should show the popup even if bad invalid address", async () => {
@@ -53,11 +45,7 @@ describe("when the main component popup has been rendered", () => {
     mockedTab.mockGoodTabAPI(mockFetch)
     mockedAddress.mockBadInvalidAddressAPI(mockFetch)
 
-    await act(async () => { render(<App />) })
-    const popup = screen.getByTestId("popup")
-
-    expect(popup).toBeInTheDocument()
-
+    await testHelper.openPopup()
   });
 
 });

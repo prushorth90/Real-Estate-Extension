@@ -4,6 +4,12 @@ import { act, screen, render, fireEvent,within } from "@testing-library/react";
 import { App } from "../popup/popup";
 
 
+export async function openPopup(){
+    await act(async () => { render(<App />) })
+    const popup = screen.getByTestId("popup")
+    expect(popup).toBeInTheDocument()
+}
+
 export async function changeToNearbyPlaces() {
     await act(async () => {
         render(<App />) 
@@ -12,6 +18,11 @@ export async function changeToNearbyPlaces() {
     await act(async () => { 
         fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" }}) 
     });
+    checkMenuValue(apiMenuSelect)
+}
+
+async function checkMenuValue(apiMenuSelect) {
+    expect(apiMenuSelect.value).toBe("Nearby Places")
 }
 
 export async function changeTopic(topic, topicAPI, mockedPlaces, mockFetch) {

@@ -7,6 +7,7 @@ import { TopicContext } from '../../../../popup'
 import { MockedTab } from '../../../../../mocks/tab/mockTab';
 import {MockedAddress} from '../../../../../mocks/address/mockAddress'
 import { MockedPlaces} from '../../../../../mocks/nearby/places/mockPlaces'
+import * as testHelper from '../../../../../testHelpers/testHelpers'
 
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
@@ -35,12 +36,7 @@ describe("when the api menu has been rendered", () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
-
-        await act(async () => { render(<App />) })
-        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-       
-        expect(apiMenuSelect.value).toBe("Nearby Places")
+        await testHelper.changeToNearbyPlaces()
 
     });
 

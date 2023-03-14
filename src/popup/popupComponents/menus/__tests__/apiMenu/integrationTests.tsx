@@ -5,7 +5,7 @@ import { App } from "../../../..";
 import { MockedTab } from '../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../mocks/address/mockAddress'
 import { MockedPlaces } from '../../../../../mocks/nearby/places/mockPlaces'
-
+import * as testHelper from '../../../../../testHelpers/testHelpers'
 
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
@@ -32,26 +32,21 @@ describe("tests when change from api choice to nearby place", () => {
     it("should be able to see menu value", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
-        await checkMenuValue()
+        await testHelper.changeToNearbyPlaces()
     });
 
     it("should be able api menu value if bad empty addr", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
-        await checkMenuValue()
+        await testHelper.changeToNearbyPlaces()
+
     });
 
     it("should be able to see menu value if bad invalid addr", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
-        await checkMenuValue()
+        await testHelper.changeToNearbyPlaces()
+
     });
 
 });
-
-async function checkMenuValue(){
-    await act(async () => { render(<App />) })
-    const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-    await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-    expect(apiMenuSelect.value).toBe("Nearby Places")
-}
