@@ -10,39 +10,33 @@ import { MockedAddress } from '../../../../../../../../mocks/address/mockAddress
 import { MockedPlaces } from '../../../../../../../../mocks/nearby/places/mockPlaces'
 import App from '../../../../../../../popup'
 import { FoodType } from '../types/foodType'
+import * as testHelper from '../../../../../../../../testHelpers/testHelpers'
 
 global.fetch = jest.fn()
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>
 
 let mockedTab = null
 let mockedAddress = null
-let mockedFoodPlaces = null
+let mockedPlaces = null
 
 beforeEach(() => {
     mockedTab = new MockedTab()
     mockedAddress = new MockedAddress()
-    mockedFoodPlaces = new MockedPlaces()
+    mockedPlaces = new MockedPlaces()
 
 })
 
 afterEach(() => {
     mockedTab = null
     mockedAddress = null
-    mockedFoodPlaces = null
+    mockedPlaces = null
 })
 describe("Components Render", () => {
 
     it("should render type Filter ", () => {
         render(<APIContext.Provider value={[new NearbyPlaceAPIInput("Bakery")]}> <TypeFilter options={Object.values(FoodType)}/></APIContext.Provider>)
-        const type = screen.getByTestId("Type") as HTMLSelectElement
-
-        expect(type).toBeInTheDocument()
-        expect(type).toBeVisible()
-        const typeIn = screen.getByTestId("Input Type") as HTMLInputElement
-        expect(typeIn.value).toBe("Bakery")
-
+        testHelper.checkFilterComponent("Type", "Bakery")
     });
-
 });
 
 describe("change value of type filter", () => {
@@ -51,46 +45,18 @@ describe("change value of type filter", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        await act(async () => { render(<App />) })
-        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockGoodAPI(mockFetch)
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        mockedFoodPlaces.mockSecondGoodAPI(mockFetch)
-
-
-        const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
-        const options = within(screen.getByRole('listbox'));
-        await act(async () => {fireEvent.click(options.getByText(/Cafe/i));});
-        expect(type.value).toBe("Cafe")
+        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
+        await testHelper.changeFilter("Type", 3, "Cafe")
     });
 
     it("should change from bakery to cafe to bakery", async() => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
 
-        await act(async () => { render(<App />) })
-        const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
-        await act(async () => { fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" } }) });
-        const topicMenuSelect = screen.getByTestId("topic_menu_input") as HTMLSelectElement
-        mockedFoodPlaces.mockGoodAPI(mockFetch)
-
-        await act(async () => { fireEvent.change(topicMenuSelect, { target: { value: "Food" } }) });
-        mockedFoodPlaces.mockSecondGoodAPI(mockFetch)
-
-
-        const type = screen.getByTestId("Input Type") as HTMLSelectElement
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
-        const options = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options.getByText(/Cafe/i)); });
-        expect(type.value).toBe("Cafe")
-
-        await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[3]) });
-        const options2 = within(screen.getByRole('listbox'));
-        await act(async () => { fireEvent.click(options2.getByText(/Bakery/i)); });
-        expect(type.value).toBe("Bakery")
+        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
+        await testHelper.changeFilter("Type", 3, "Cafe")
+        await testHelper.changeFilter("Type", 3, "Bakery")
     });
 });
