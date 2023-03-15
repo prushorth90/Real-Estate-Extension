@@ -1,5 +1,5 @@
 export { MockedAddress } from "./address/mockAddress";
 export { MockedTab} from "./tab/mockTab";
-export { MockedFoodPlaces } from "./food/places/mockFoodPlaces";
-export {MockedFoodPhoto} from "./food/photos/mockFoodPhoto"
-export { MockedPhotoResponse } from "./food/photos/mockPhotoResponse"
+export { MockedPlaces } from "./nearby/places/mockPlaces";
+export {MockedPhoto} from "./nearby/photos/mockPhoto"
+export { MockedPhotoResponse } from "./nearby/photos/mockPhotoResponse"

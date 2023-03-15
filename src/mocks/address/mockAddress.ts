@@ -1,5 +1,5 @@
 import { chrome } from 'jest-chrome'
-import {Response} from '../food/places/mockResponse'
+import {Response} from '../nearby/places/mockResponse'
 
 
 export class MockedAddress{

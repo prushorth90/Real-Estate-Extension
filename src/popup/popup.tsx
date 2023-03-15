@@ -2,16 +2,19 @@ import React, { useEffect, useState, createContext } from 'react'
 import ReactDOM from 'react-dom'
 import { Box } from '@material-ui/core'
 import './popup.css'
-import {Topic, TopicMenu} from './popupComponents/topicMenu'
-import FoodPopup from './popupComponents/foodPopup'
+import {Topic, TopicMenu, APIChoiceMenu, APIChoices} from './popupComponents/menus'
+import NearbyPlacePopup from './popupComponents/nearbyPlacePopup'
 import {Address, Coordinate, AddressAPI} from '../api/address/addressIndex'
+
+export const APIChoiceContext = createContext([])
 export const TopicContext = createContext([])
 export const CoordContext = createContext([])
 
 export const App: React.FC<{}> = () => {
+  const [apiChoice, setApiChoice] = useState<APIChoices>(APIChoices.APIChoices)
   const [topic, setTopic] = useState<Topic>(Topic.Topics)
   const [coord, setCoord] = useState<Coordinate>()
-
+  
   useEffect(() => {
     findHouseCoordinates()
    
@@ -43,12 +46,17 @@ export const App: React.FC<{}> = () => {
 
   return (
     <Box data-testid="popup" mx="8px" my="16px">
-      <TopicContext.Provider value={[topic,setTopic]}>
-        <TopicMenu />
-        <CoordContext.Provider value={[coord, setCoord]}>
-          <FoodPopup/>
-        </CoordContext.Provider>
-      </TopicContext.Provider>
+      <APIChoiceContext.Provider value={[apiChoice, setApiChoice]}>
+      <APIChoiceMenu />
+      {apiChoice !== APIChoices.APIChoices && (
+          <TopicContext.Provider value={[topic,setTopic]}>
+              <TopicMenu />
+              <CoordContext.Provider value={[coord, setCoord]}>
+                {topic!== Topic.Topics && <NearbyPlacePopup/>}
+              </CoordContext.Provider>
+            </TopicContext.Provider>
+      )}
+      </APIChoiceContext.Provider>
 
     </Box>
 
