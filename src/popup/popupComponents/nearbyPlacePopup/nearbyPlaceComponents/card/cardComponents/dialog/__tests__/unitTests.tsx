@@ -41,21 +41,18 @@ describe("for when the dialog renders", () => {
         mockedFoodPhoto.mockGoodPhotoAPI(mockFetch)
         await act(async () => { render(<PhotoDialog isPhotoOpen={false} onClose={jest.fn()} photo_reference={""} />) })
         await checkNoPhoto()
-
     });
 
     it("should not render dialog in document as open false with bad empty photo api", async () => {
         mockedFoodPhoto.mockBadEmptyPhotoAPI(mockFetch)
         await act(async () => { render(<PhotoDialog isPhotoOpen={false} onClose={jest.fn()} photo_reference={""} />) })
         await checkNoPhoto()
-
     });
 
     it("should not render dialog in document as open false with bad invalid photo api", async () => {
         mockedFoodPhoto.mockBadInvalidPhotoAPI(mockFetch)
         await act(async () => { render(<PhotoDialog isPhotoOpen={false} onClose={jest.fn()} photo_reference={""} />) })
         await checkNoPhoto()
-
     });
 });
 
