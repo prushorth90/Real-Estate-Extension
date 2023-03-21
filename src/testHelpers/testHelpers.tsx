@@ -18,7 +18,7 @@ export async function changeInAPIMenu(api) {
     checkMenuValue(apiMenuSelect, api)
 }
 
-async function checkMenuValue(apiMenuSelect, api) {
+export async function checkMenuValue(apiMenuSelect, api) {
     expect(apiMenuSelect.value).toBe(api)
 }
 
@@ -37,7 +37,7 @@ export async function changeTopic(topic, topicAPI, mockedPlaces, mockFetch) {
     checkTopicMenu(topicMenuSelect, topic)
 }
 
-function checkTopicMenu(topicMenuSelect, topic) {
+export function checkTopicMenu(topicMenuSelect, topic) {
     expect(topicMenuSelect).toBeInTheDocument()
     expect(topicMenuSelect.value).toBe(topic);
 }

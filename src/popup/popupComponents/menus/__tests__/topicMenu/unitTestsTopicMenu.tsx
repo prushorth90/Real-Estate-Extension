@@ -1,8 +1,7 @@
 import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
-import { act, screen, render, fireEvent } from "@testing-library/react";
+import { screen, render } from "@testing-library/react";
 import {TopicMenu} from "../../topicMenu/topicMenu";
-import {App} from "../../../..";
 import { TopicContext } from '../../../../popup'
 import { MockedTab } from '../../../../../mocks/tab/mockTab';
 import {MockedAddress} from '../../../../../mocks/address/mockAddress'
@@ -30,165 +29,127 @@ afterEach(() => {
 })
 
 describe("when the topic menu has been rendered", () => {
-    it("should show and check the values of topic menu", () => {
+    it("should check the values of topic menu", () => {
         render((<TopicContext.Provider value={["Topics", jest.fn()]}> <TopicMenu /></TopicContext.Provider>))
-        checkTopicMenu()
-        
+        checkTopicMenu()   
     });
 
     it("should show the topic select menu", async () => {
-
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
         checkTopicMenu()
-
     });
 
-    it("should show and check the values the topic select menu even if bad empty address", async () => {
+    it("should check the values as topics for topic select menu even if bad empty address", async () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
         checkTopicMenu()
-
     });
 
-    it("should show and check the values the topic select menu even if bad invalid address", async () => {
+    it("should check the value as topics for the topic select menu even if bad invalid address", async () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
         checkTopicMenu()
-
     });
-
 });
 
 describe("for the topic menu change event topic to food", () => {
-    it("should be able to change topic to food", async () => {
+    it("should be able to see food value in menu", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
-
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
     });
 
-    it("should be able to change topic to food even if bad empty nearby place api", async () => {
+    it("should be able to see food value in menu even if bad empty food place api", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
-
         await testHelper.changeTopic("Food", "bad empty", mockedPlaces, mockFetch)
-
     });
 
-    it("should be able to change topic to food", async () => {
+    it("should be able  able see food value in menu even if bad invalid food place api", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
-
         await testHelper.changeTopic("Food", "bad invalid", mockedPlaces, mockFetch)
-
     });
 
     it("should be able to change topic to food even if bad empty addr", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
-
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
-
     });
     
     it("should be able to change topic to food even if bad invalid addr", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
-
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
-
     });
   
 });
 
 describe("for the topic menu change event food to topic", () => {
 
-    it("should be able to go from food back to topic", async () => {
+    it("should be able to see Topics value in menu", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
-
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
-
         await testHelper.changeTopic("Topics", "", mockedPlaces, mockFetch)
     });
-    
 
-    it("should be able to change topic to food", async () => {
+    it("should be able to see Topics value in menu even if bad empty food", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
-
         await testHelper.changeTopic("Food", "bad empty", mockedPlaces, mockFetch)
         await testHelper.changeTopic("Topics", "", mockedPlaces, mockFetch)
     });
 
-    it("should be able to change topic to food", async () => {
+    it("should be able to see Topics value in menu even if bad invalid food", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
-
         await testHelper.changeTopic("Food", "bad invalid", mockedPlaces, mockFetch)        
         await testHelper.changeTopic("Topics", "", mockedPlaces, mockFetch)
-
     });
 
-    it("should be able to change topic to food", async () => {
+    it("should be able to see Topics value in menu even if bad empty addr", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
-
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)  
         await testHelper.changeTopic("Topics", "", mockedPlaces, mockFetch)
     });
 
-    it("should be able to change topic to food", async () => {
+    it("should be able to see Topics value in menu even if bad invalid food", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
-
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
         await testHelper.changeTopic("Topics", "", mockedPlaces, mockFetch)
     });
-
-
 });
 
 function checkTopicMenu() {
