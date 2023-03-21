@@ -1,7 +1,5 @@
-import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
-import { act, screen, render, fireEvent } from "@testing-library/react";
-import { App } from "../../../../..";
+import { screen  } from "@testing-library/react";
 import { MockedTab } from '../../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../../mocks/address/mockAddress'
 import { MockedPlaces } from '../../../../../../mocks/nearby/places/mockPlaces'
@@ -28,72 +26,58 @@ afterEach(() => {
 })
 
 describe("when the main component filter has been rendered", () => {
-    it("should show the food filter", async () => {
+    it("should show the filter", async () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
-
         const foodFilter = screen.getByTestId("filter")
         expect(foodFilter).toBeInTheDocument()
-
     });
 
-    it("should show the food filter even if empty food api response", async () => {
+    it("should show the filter even if empty places api response", async () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "bad empty", mockedPlaces, mockFetch)
-
         const foodFilter = screen.getByTestId("filter")
         expect(foodFilter).toBeInTheDocument()
-
     });
 
-    it("should show the food filter even if empty food api invalid", async () => {
+    it("should show the filter even if empty places api invalid", async () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "bad invalid", mockedPlaces, mockFetch)
-
         const foodFilter = screen.getByTestId("filter")
         expect(foodFilter).toBeInTheDocument()
     });
 
-    it("should show the food filter even if bad empty address", async () => {
+    it("should not show the filter even if bad empty address", async () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
-
-       // const foodFilter = screen.getByTestId("filter")
-       // expect(foodFilter).toBeInTheDocument()
+        const foodFilter = screen.queryByTestId("filter")
+        expect(foodFilter).not.toBeInTheDocument()
     });
 
-    it("should show the food filter even if bad invalid address", async () => {
+    it("should not show the filter even if bad invalid address", async () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
-
-       // const foodFilter = screen.getByTestId("filter")
-
-        //expect(foodFilter).toBeInTheDocument()
-
+        const foodFilter = screen.queryByTestId("filter")
+        expect(foodFilter).not.toBeInTheDocument()
     });
 });

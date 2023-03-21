@@ -141,3 +141,25 @@ export async function checkPhotoButtonComponent() {
     const { getByText } = within(screen.getByTestId("photo button"))
     expect(getByText('View Photo')).toBeInTheDocument()
 }
+
+export async function enterLatitudeAndLongitude(latitude, longitude) {
+    const latField = await screen.findByTestId("latitude_input") as HTMLSelectElement
+    await act(async () => { fireEvent.change(latField, { target: { value: latitude } }) });
+
+    const longField = await screen.findByTestId("longitude_input") as HTMLSelectElement
+    await act(async () => { fireEvent.change(longField, { target: { value: longitude } }) });
+}
+
+export async function submitCoordinates(placesAPI, mockedPlaces, mockFetch) {
+    if (placesAPI === "good valid") {
+        mockedPlaces.mockGoodAPI(mockFetch)
+    }
+    else if (placesAPI === "bad empty") {
+        mockedPlaces.mockBadEmptyAPI(mockFetch)
+    }
+    else if (placesAPI === "bad invalid") {
+        mockedPlaces.mockBadInvalidAPI(mockFetch)
+    }
+    const submit = await screen.findByTestId("submit_coord") as HTMLSelectElement
+    await act(async () => { fireEvent.click(submit) });
+}

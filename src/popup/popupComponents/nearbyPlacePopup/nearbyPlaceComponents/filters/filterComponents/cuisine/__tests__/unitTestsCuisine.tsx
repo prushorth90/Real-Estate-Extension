@@ -28,13 +28,12 @@ afterEach(() => {
 })
 
 
-describe("For when the main-component have been rendered", () => {
+describe("For when the cuisine component have been rendered", () => {
 
     it("should be able to see cuisine filter", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Type", 3, "Restaurant")
@@ -46,7 +45,6 @@ describe("For when the main-component have been rendered", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "bad empty", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Type", 3, "Restaurant")
@@ -57,7 +55,6 @@ describe("For when the main-component have been rendered", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "bad invalid", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Type", 3, "Restaurant")
@@ -68,22 +65,24 @@ describe("For when the main-component have been rendered", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
-       // await testHelper.changeFilter("Type", 3, "Restaurant")
-       // await testHelper.checkFilterComponent("Cuisine", "Pizza")
+        await testHelper.enterLatitudeAndLongitude(41.7, -87.9)
+        await testHelper.submitCoordinates("good valid", mockedPlaces, mockFetch)
+        await testHelper.changeFilter("Type", 3, "Restaurant")
+        await testHelper.checkFilterComponent("Cuisine", "Pizza")
     });  
 
     it("should be able to see cuisine filter even if bad invalid address api response", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
-       // await testHelper.changeFilter("Type", 3, "Restaurant")
-      //  await testHelper.checkFilterComponent("Cuisine", "Pizza")
+        await testHelper.enterLatitudeAndLongitude(41.7, -87.9)
+        await testHelper.submitCoordinates("good valid", mockedPlaces, mockFetch)
+        await testHelper.changeFilter("Type", 3, "Restaurant")
+        await testHelper.checkFilterComponent("Cuisine", "Pizza")
     });  
 
 });
@@ -94,7 +93,6 @@ describe("change value of cuisine filter", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Type", 3, "Restaurant")
@@ -105,7 +103,6 @@ describe("change value of cuisine filter", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "bad invalid", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Type", 3, "Restaurant")
@@ -116,7 +113,6 @@ describe("change value of cuisine filter", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "bad empty", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Type", 3, "Restaurant")
@@ -127,22 +123,24 @@ describe("change value of cuisine filter", () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
-      //  await testHelper.changeFilter("Type", 3, "Restaurant")
-      //  await testHelper.changeFilter("Cuisine", 4, "Italian")
+        await testHelper.enterLatitudeAndLongitude(41.7, -87.9)
+        await testHelper.submitCoordinates("good valid", mockedPlaces, mockFetch)
+        await testHelper.changeFilter("Type", 3, "Restaurant")
+        await testHelper.changeFilter("Cuisine", 4, "Italian")
     });
 
     it("should be able to see changed value of cuisine filter even if bad invalid address", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
         await testHelper.openPopup()
-
         await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
-     //   await testHelper.changeFilter("Type", 3, "Restaurant")
-      //  await testHelper.changeFilter("Cuisine", 4, "Italian")
+        await testHelper.enterLatitudeAndLongitude(41.7, -87.9)
+        await testHelper.submitCoordinates("good valid", mockedPlaces, mockFetch)
+        await testHelper.changeFilter("Type", 3, "Restaurant")
+        await testHelper.changeFilter("Cuisine", 4, "Italian")
     });
 
 });
