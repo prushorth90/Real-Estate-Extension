@@ -5,6 +5,7 @@ import {CoordContext} from '../../../../popup'
 import {NearbyPlaceContext, CardStateContext} from '../../nearbyPlacePopup'
 import {NearbyPlaceAPIInput} from '../../../../../api/nearbyPlaces/nearbyPlaceAPIInput'
 import {FoodType} from './filterComponents/type/types/foodType'
+import {HouseNotFound} from './filterComponents/houseNotFound/houseNotFound'
 export const APIContext = createContext([])
 
 export const Filter: React.FC<{ api, filterTypeOptions, filtersDefaultValues }> = ({ api, filterTypeOptions, filtersDefaultValues }) => {
@@ -13,7 +14,7 @@ export const Filter: React.FC<{ api, filterTypeOptions, filtersDefaultValues }> 
   const [coord,setCoord] = useContext(CoordContext)
   const [nearbyPlaceData, setNearbyPlaceData] = useContext(NearbyPlaceContext)
   const [cardState, setCardState] = useContext(CardStateContext)
-
+ 
   useEffect(() => {
     if (coord !== undefined && coord.results.length !== 0) {
       api.fetchData(coord, apiInput)
@@ -23,9 +24,16 @@ export const Filter: React.FC<{ api, filterTypeOptions, filtersDefaultValues }> 
         })
         .catch((err) => setCardState(ResultState.Error))
     } else {
-      setCardState(ResultState.None)
+      setCardState(ResultState.House_Not_Found)
     }
-  }, [apiInput])
+  }, [apiInput, coord])
+
+  if (cardState === ResultState.House_Not_Found) {
+    return (
+      <HouseNotFound />
+    )
+  }
+
   if (filterTypeOptions.includes(apiInput.type) === false) {
     setAPIInput(filtersDefaultValues)
   }

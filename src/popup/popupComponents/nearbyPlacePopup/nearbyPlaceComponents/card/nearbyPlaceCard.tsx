@@ -13,7 +13,7 @@ export const NearbyPlaceCard: React.FC<{}> = ({ }) => {
   const [nearbyPlaceData, setNearbyPlaceData] = useContext(NearbyPlaceContext)
   const [cardState, setCardState] = useContext(CardStateContext)
 
-  if (cardState === ResultState.Loading || cardState === ResultState.Error || cardState === ResultState.None) {
+  if (cardState === ResultState.Loading || cardState === ResultState.Error || cardState === ResultState.None || cardState === ResultState.House_Not_Found) {
     return (
       <NearbyCardPartial>
         <Typography data-testid="result card other" className="card-body">

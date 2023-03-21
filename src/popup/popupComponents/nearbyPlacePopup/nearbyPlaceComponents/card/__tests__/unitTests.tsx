@@ -22,5 +22,10 @@ describe("for when the card is rendered", () => {
         render((<CardStateContext.Provider value={[ResultState.Error, jest.fn()]}> <NearbyPlaceCard /></CardStateContext.Provider>))
         await testHelper.checkErrorCard()
     });
+
+    it("should show the card in doc", async () => {
+        render((<CardStateContext.Provider value={[ResultState.House_Not_Found, jest.fn()]}> <NearbyPlaceCard /></CardStateContext.Provider>))
+        await testHelper.checkHouseNotFoundCard()
+    });
 });
 

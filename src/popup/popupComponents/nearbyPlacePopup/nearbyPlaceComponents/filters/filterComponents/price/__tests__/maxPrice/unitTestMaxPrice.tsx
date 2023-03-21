@@ -45,8 +45,9 @@ describe("change event for the value of filter", () => {
     it("should change from 4 to 3 ", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Max Price Level", 5, "3")
     });
@@ -54,8 +55,9 @@ describe("change event for the value of filter", () => {
     it("should change from 4 to 3 to 4", async() => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Max Price Level", 5, "3")
         await testHelper.changeFilter("Max Price Level", 5, "4")

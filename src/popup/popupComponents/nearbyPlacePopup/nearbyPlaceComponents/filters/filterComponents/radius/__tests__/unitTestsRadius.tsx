@@ -44,8 +44,9 @@ describe("Event test change value of filter", () => {
     it("should change from 1500 to 1000 ", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Radius", 2, "1000")
     });
@@ -53,8 +54,9 @@ describe("Event test change value of filter", () => {
     it("should change from 1500 to 1000 to 1500", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Radius", 2, "1000")
         await testHelper.changeFilter("Radius", 2, "1500")

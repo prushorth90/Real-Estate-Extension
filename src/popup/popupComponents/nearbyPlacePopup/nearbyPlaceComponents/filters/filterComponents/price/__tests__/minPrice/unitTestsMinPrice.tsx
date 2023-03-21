@@ -45,8 +45,9 @@ describe("change event for the value of filter", () => {
     it("should be able to see update filter values of min price", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Min Price Level", 4, "1")
     });
@@ -54,8 +55,9 @@ describe("change event for the value of filter", () => {
     it("should be able to see update filter values of min price", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Min Price Level", 4, "1")
         await testHelper.changeFilter("Min Price Level", 4, "0")

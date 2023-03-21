@@ -32,21 +32,60 @@ describe("tests when change from api choice to nearby place", () => {
     it("should be able to see menu value", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.openPopup()
+
+        await testHelper.changeInAPIMenu("Nearby Places")
     });
 
     it("should be able api menu value if bad empty addr", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.openPopup()
+
+        await testHelper.changeInAPIMenu("Nearby Places")
 
     });
 
     it("should be able to see menu value if bad invalid addr", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.openPopup()
+
+        await testHelper.changeInAPIMenu("Nearby Places")
 
     });
 
 });
+
+describe("tests when change from nearby place to api choice", () => {
+
+    it("should be able to see menu value", async () => {
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
+
+        await testHelper.changeInAPIMenu("Nearby Places")
+        await testHelper.changeInAPIMenu("API Choices")
+
+    });
+
+    it("should be able api menu value if bad empty addr", async () => {
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockBadEmptyAddressAPI(mockFetch)
+        await testHelper.openPopup()
+
+        await testHelper.changeInAPIMenu("API Choices")
+
+    });
+
+    it("should be able to see menu value if bad invalid addr", async () => {
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockBadInvalidAddressAPI(mockFetch)
+        await testHelper.openPopup()
+
+        await testHelper.changeInAPIMenu("API Choices")
+
+    });
+
+});
+

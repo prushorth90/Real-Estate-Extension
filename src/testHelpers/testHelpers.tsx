@@ -10,19 +10,16 @@ export async function openPopup(){
     expect(popup).toBeInTheDocument()
 }
 
-export async function changeToNearbyPlaces() {
-    await act(async () => {
-        render(<App />) 
-    })
+export async function changeInAPIMenu(api) {
     const apiMenuSelect = screen.getByTestId("api_menu_input") as HTMLSelectElement
     await act(async () => { 
-        fireEvent.change(apiMenuSelect, { target: { value: "Nearby Places" }}) 
+        fireEvent.change(apiMenuSelect, { target: { value: api }}) 
     });
-    checkMenuValue(apiMenuSelect)
+    checkMenuValue(apiMenuSelect, api)
 }
 
-async function checkMenuValue(apiMenuSelect) {
-    expect(apiMenuSelect.value).toBe("Nearby Places")
+async function checkMenuValue(apiMenuSelect, api) {
+    expect(apiMenuSelect.value).toBe(api)
 }
 
 export async function changeTopic(topic, topicAPI, mockedPlaces, mockFetch) {
@@ -59,6 +56,13 @@ export async function checkNoneCard() {
     expect(card.innerHTML).toBe("No data to show")
 }
 
+export async function checkHouseNotFoundCard() {
+    const card = await screen.findByTestId("result card other") as HTMLDivElement
+    expect(card).toBeVisible()
+    expect(card).toBeInTheDocument()
+    expect(card.innerHTML).toBe("Could not locate house. Try and enter latitude and longitude above. For example latitude = 41.774880 and longitude = -87.613800")
+}
+
 export async function checkErrorCard() {
     const card = await screen.findByTestId("result card other") as HTMLDivElement
     expect(card).toBeVisible()
@@ -87,7 +91,7 @@ export async function checkReadyResultCard() {
 }
 
 export async function changeFilter(filter, filterNum, val) {
-    const type = screen.getByTestId(`Input ${filter}`) as HTMLSelectElement
+    const type = await screen.findByTestId(`Input ${filter}`) as HTMLSelectElement
     await act(async () => { fireEvent.mouseDown(screen.getAllByRole('button')[filterNum]) });
     const options = within(screen.getByRole('listbox'));
     await act(async () => { fireEvent.click(options.getByText(val)) });

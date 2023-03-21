@@ -31,8 +31,9 @@ describe("tests when change from topic to food", () => {
     it("should be able to see ready result cards", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
 
@@ -42,8 +43,9 @@ describe("tests when change from topic to food", () => {
     it("should be able to see none card as empty food api", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "bad empty", mockedPlaces, mockFetch)
 
@@ -53,8 +55,9 @@ describe("tests when change from topic to food", () => {
     it("should be able to see error cards as bad food api", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "bad invalid", mockedPlaces, mockFetch)
 
@@ -64,23 +67,25 @@ describe("tests when change from topic to food", () => {
     it("should be able to see none card as bad address", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
 
-        await testHelper.checkNoneCard()
+        await testHelper.checkHouseNotFoundCard()
     });
 
     it("should be able to see none card as invalid address", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
 
-        await testHelper.checkNoneCard()
+        await testHelper.checkHouseNotFoundCard()
     });
 
 });
@@ -90,8 +95,9 @@ describe("tests when change from food to topic", () => {
     it("should be able to see no cards", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
 
@@ -106,8 +112,9 @@ describe("tests when change from food to topic", () => {
     it("should be able to see no cards if empty food api", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "bad empty", mockedPlaces, mockFetch)
 
@@ -121,8 +128,9 @@ describe("tests when change from food to topic", () => {
     it("should be able to see no cards if bad food api", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "bad invalid", mockedPlaces, mockFetch)
 
@@ -136,8 +144,9 @@ describe("tests when change from food to topic", () => {
     it("should be able to see no cards if bad address", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
 
@@ -150,8 +159,9 @@ describe("tests when change from food to topic", () => {
     it("should be able to see no cards if invalid address", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
 
@@ -159,6 +169,60 @@ describe("tests when change from food to topic", () => {
         await testHelper.changeTopic("Topics", "", mockedPlaces, mockFetch)
 
         expect(card).not.toBeInTheDocument()
+    });
+
+});
+
+
+describe("tests when change from food then api choice from nearby to apichoice", () => {
+
+    it("should be able to see no cards", async () => {
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
+
+        await testHelper.changeInAPIMenu("Nearby Places")
+
+        await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
+
+        const card = await screen.findByTestId("result card") as HTMLDivElement
+
+        await testHelper.changeInAPIMenu("API Choices")
+
+        expect(card).not.toBeInTheDocument()
+
+    });
+
+    it("should be able to see no cards if empty food api", async () => {
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
+
+        await testHelper.changeInAPIMenu("Nearby Places")
+
+        await testHelper.changeTopic("Food", "bad empty", mockedPlaces, mockFetch)
+
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
+
+        await testHelper.changeInAPIMenu("API Choices")
+        expect(card).not.toBeInTheDocument()
+
+    });
+
+    it("should be able to see no cards if bad food api", async () => {
+        mockedTab.mockGoodTabAPI(mockFetch)
+        mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
+
+        await testHelper.changeInAPIMenu("Nearby Places")
+
+        await testHelper.changeTopic("Food", "bad invalid", mockedPlaces, mockFetch)
+
+        const card = await screen.findByTestId("result card other") as HTMLDivElement
+
+        await testHelper.changeInAPIMenu("API Choices")
+        expect(card).not.toBeInTheDocument()
+
     });
 
 });

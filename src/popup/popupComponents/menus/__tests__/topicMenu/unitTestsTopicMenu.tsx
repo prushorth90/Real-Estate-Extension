@@ -40,8 +40,9 @@ describe("when the topic menu has been rendered", () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
         checkTopicMenu()
 
     });
@@ -50,7 +51,9 @@ describe("when the topic menu has been rendered", () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.openPopup()
+
+        await testHelper.changeInAPIMenu("Nearby Places")
         checkTopicMenu()
 
     });
@@ -59,8 +62,9 @@ describe("when the topic menu has been rendered", () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
         checkTopicMenu()
 
     });
@@ -71,8 +75,9 @@ describe("for the topic menu change event topic to food", () => {
     it("should be able to change topic to food", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
     });
@@ -80,8 +85,9 @@ describe("for the topic menu change event topic to food", () => {
     it("should be able to change topic to food even if bad empty nearby place api", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "bad empty", mockedPlaces, mockFetch)
 
@@ -90,8 +96,9 @@ describe("for the topic menu change event topic to food", () => {
     it("should be able to change topic to food", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "bad invalid", mockedPlaces, mockFetch)
 
@@ -100,8 +107,9 @@ describe("for the topic menu change event topic to food", () => {
     it("should be able to change topic to food even if bad empty addr", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
 
@@ -110,8 +118,9 @@ describe("for the topic menu change event topic to food", () => {
     it("should be able to change topic to food even if bad invalid addr", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
 
@@ -124,9 +133,9 @@ describe("for the topic menu change event food to topic", () => {
     it("should be able to go from food back to topic", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
 
@@ -137,8 +146,9 @@ describe("for the topic menu change event food to topic", () => {
     it("should be able to change topic to food", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "bad empty", mockedPlaces, mockFetch)
         await testHelper.changeTopic("Topics", "", mockedPlaces, mockFetch)
@@ -147,8 +157,9 @@ describe("for the topic menu change event food to topic", () => {
     it("should be able to change topic to food", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "bad invalid", mockedPlaces, mockFetch)        
         await testHelper.changeTopic("Topics", "", mockedPlaces, mockFetch)
@@ -158,8 +169,9 @@ describe("for the topic menu change event food to topic", () => {
     it("should be able to change topic to food", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)  
         await testHelper.changeTopic("Topics", "", mockedPlaces, mockFetch)
@@ -168,8 +180,9 @@ describe("for the topic menu change event food to topic", () => {
     it("should be able to change topic to food", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
 
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
         await testHelper.changeTopic("Topics", "", mockedPlaces, mockFetch)

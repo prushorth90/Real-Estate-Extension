@@ -36,7 +36,9 @@ describe("when the api menu has been rendered", () => {
 
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.openPopup()
+
+        await testHelper.changeInAPIMenu("Nearby Places")
 
     });
 

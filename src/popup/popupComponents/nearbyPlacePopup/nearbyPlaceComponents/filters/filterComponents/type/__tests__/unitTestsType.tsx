@@ -44,8 +44,9 @@ describe("change value of type filter", () => {
     it("should change from bakery to cafe ", async() => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Type", 3, "Cafe")
     });
@@ -53,8 +54,9 @@ describe("change value of type filter", () => {
     it("should change from bakery to cafe to bakery", async() => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
+        await testHelper.openPopup()
 
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Type", 3, "Cafe")
         await testHelper.changeFilter("Type", 3, "Bakery")
