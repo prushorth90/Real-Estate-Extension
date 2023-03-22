@@ -5,7 +5,7 @@ import {CoordContext} from '../../../../popup'
 import {NearbyPlaceContext, CardStateContext} from '../../nearbyPlacePopup'
 import {NearbyPlaceAPIInput} from '../../../../../api/nearbyPlaces/nearbyPlaceAPIInput'
 import {FoodType} from './filterComponents/type/types/foodType'
-import {HouseNotFound} from './filterComponents/houseNotFound/houseNotFound'
+import {CoordFilter} from './filterComponents/coordFilter/coordFilter'
 export const APIContext = createContext([])
 
 export const Filter: React.FC<{ api, filterTypeOptions, filtersDefaultValues }> = ({ api, filterTypeOptions, filtersDefaultValues }) => {
@@ -30,7 +30,7 @@ export const Filter: React.FC<{ api, filterTypeOptions, filtersDefaultValues }> 
 
   if (cardState === ResultState.House_Not_Found) {
     return (
-      <HouseNotFound />
+      <CoordFilter />
     )
   }
 

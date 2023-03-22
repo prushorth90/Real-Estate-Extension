@@ -2,7 +2,7 @@ import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
 import { render, screen} from "@testing-library/react";
 import * as testHelper from '../../../../../../../../testHelpers/testHelpers'
-import { HouseNotFound } from '../houseNotFound';
+import {CoordFilter } from '../coordFilter';
 import { CoordContext } from '../../../../../../../popup';
 import { Coordinate } from '../../../../../../../../api/address/coordinate';
 
@@ -20,7 +20,7 @@ let newCoord: Coordinate = {
 describe("for when the card is rendered", () => {
 
     it("should show the card in doc", async () => {
-        render((<CoordContext.Provider value={[newCoord, jest.fn()]}> <HouseNotFound /></CoordContext.Provider>))
+        render((<CoordContext.Provider value={[newCoord, jest.fn()]}> <CoordFilter /></CoordContext.Provider>))
         expect(screen.getByTestId("latitude_input")).toBeInTheDocument()
         expect(screen.getByTestId("longitude_input")).toBeInTheDocument()
     });

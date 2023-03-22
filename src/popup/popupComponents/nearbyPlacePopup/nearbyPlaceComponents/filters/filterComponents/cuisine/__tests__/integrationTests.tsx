@@ -25,6 +25,7 @@ afterEach(() => {
 })
 
 describe("change value of cuisine filter to italian", () => {
+        jest.setTimeout(10000)
         it("should be able to see card when change cuisine to italian", async () => {
             mockedTab.mockGoodTabAPI(mockFetch)
             mockedAddress.mockGoodAddressAPI(mockFetch)

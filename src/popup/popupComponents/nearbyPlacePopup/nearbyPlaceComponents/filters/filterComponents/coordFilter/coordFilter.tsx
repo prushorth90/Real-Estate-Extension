@@ -3,7 +3,7 @@ import { CoordContext } from '../../../../../../popup'
 import { Button, TextField } from '@material-ui/core'
 import { Coordinate } from '../../../../../../../api/address/addressIndex'
 
-export const HouseNotFound: React.FC<{  }> = () => {
+export const CoordFilter: React.FC<{  }> = () => {
 
     const [coord, setCoord] = useContext(CoordContext)
 
