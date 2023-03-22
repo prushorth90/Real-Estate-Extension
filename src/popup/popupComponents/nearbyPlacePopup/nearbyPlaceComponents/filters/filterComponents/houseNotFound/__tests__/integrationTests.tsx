@@ -1,7 +1,5 @@
-import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
-import { act, screen, render, fireEvent, within } from "@testing-library/react";
-import App from '../../../../../../../popup'
+import { screen } from "@testing-library/react";
 import { MockedTab } from '../../../../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../../../../mocks/address/mockAddress'
 import { MockedPlaces } from '../../../../../../../../mocks/nearby/places/mockPlaces'
