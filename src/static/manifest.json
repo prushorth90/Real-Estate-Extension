@@ -8,10 +8,6 @@
     "default_title": "Real1"
   },
   "permissions": ["storage", "tabs"],
-  "options_page": "options.html",
-  "background": {
-    "service_worker": "background.js"
-  },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],

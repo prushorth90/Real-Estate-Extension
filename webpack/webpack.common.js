@@ -7,9 +7,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
   entry: {
     popup: path.resolve('src/popup/popup.tsx'),
-    options: path.resolve('src/options/options.tsx'),
-    background: path.resolve('src/background/background.ts'),
-    contentScript: path.resolve('src/contentScript/contentScript.ts'),
+    contentScript: path.resolve('src/contentScript/contentScript.ts')
   },
   plugins: [
     new HtmlPlugin({
@@ -19,11 +17,6 @@ module.exports = {
     }),
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false,
-    }),
-    new HtmlPlugin({
-      title: 'Real Convenient Extension',
-      filename: 'options.html',
-      chunks: ['options'],
     }),
     new CopyPlugin({
       patterns: [
