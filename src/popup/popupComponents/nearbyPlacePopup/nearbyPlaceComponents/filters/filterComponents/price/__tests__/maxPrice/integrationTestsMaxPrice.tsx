@@ -1,8 +1,5 @@
 
-import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
-import { act, screen, render, fireEvent,within} from "@testing-library/react";
-import App from '../../../../../../../../popup'
 import { MockedTab } from '../../../../../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../../../../../mocks/address/mockAddress'
 import { MockedPlaces } from '../../../../../../../../../mocks/nearby/places/mockPlaces'
@@ -33,19 +30,18 @@ describe("change value of max price filter", () => {
     it("should be able to see card when change filter of max price", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
-
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.openPopup()
+        await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Max Price Level", 5, "3")
         await testHelper.checkReadyResultCard()
     });
 
-
     it("should be able to see none card when change filter of max price  as bad empty food", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
-        
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.openPopup()
+        await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "bad empty", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Max Price Level", 5, "3")
         await testHelper.checkNoneCard()
@@ -54,8 +50,8 @@ describe("change value of max price filter", () => {
     it("should be able to see error card when change filter of max price as bad invalid food", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
-
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.openPopup()
+        await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "bad invalid", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Max Price Level", 5, "3")
         await testHelper.checkErrorCard()
@@ -64,21 +60,25 @@ describe("change value of max price filter", () => {
     it("should be able to see none card when change filter of max price as bad empty address", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadEmptyAddressAPI(mockFetch)
-
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.openPopup()
+        await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
+        await testHelper.enterLatitudeAndLongitude(41.7, -87.9)
+        await testHelper.submitCoordinates("bad empty", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Max Price Level", 5, "3")
         await testHelper.checkNoneCard()
     });
 
-    it("should be able to see none card when change filter of max price as bad invalid address", async () => {
+    it("should be able to see error card when change filter of max price as bad invalid address", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockBadInvalidAddressAPI(mockFetch)
-
-        await testHelper.changeToNearbyPlaces()
+        await testHelper.openPopup()
+        await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
+        await testHelper.enterLatitudeAndLongitude(41.7, -87.9)
+        await testHelper.submitCoordinates("bad invalid", mockedPlaces, mockFetch)
         await testHelper.changeFilter("Max Price Level", 5, "3")
-        await testHelper.checkNoneCard()
+        await testHelper.checkErrorCard()
     });
 });
 

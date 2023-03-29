@@ -1,7 +1,5 @@
-import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
-import { act, screen, render, fireEvent  } from "@testing-library/react";
-import App from '../../../../../../../popup'
+import { screen, fireEvent  } from "@testing-library/react";
 import { MockedTab } from '../../../../../../../../mocks/tab/mockTab';
 import { MockedAddress } from '../../../../../../../../mocks/address/mockAddress'
 import { MockedPlaces } from '../../../../../../../../mocks/nearby/places/mockPlaces'
@@ -34,11 +32,10 @@ describe("close photo dialog tests", () => {
     it("should close the photo dialog", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
-        await testHelper.changeToNearbyPlaces()
-
+        await testHelper.openPopup()
+        await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
         await testHelper.clickPhotoButton("good valid", mockedPhoto, mockFetch)
-
         const photo = screen.getByTestId("photo ready") as HTMLImageElement
         closeDialog(photo)
     });
@@ -46,11 +43,10 @@ describe("close photo dialog tests", () => {
     it("should close the photo dialog even if no photo dialog", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
-        await testHelper.changeToNearbyPlaces()
-
+        await testHelper.openPopup()
+        await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "", mockedPlaces, mockFetch)
         await testHelper.clickPhotoButton("bad empty", mockedPhoto, mockFetch)
-
         const photo = screen.getByTestId("photo none") as HTMLImageElement
         closeDialog(photo)
     });
@@ -58,11 +54,10 @@ describe("close photo dialog tests", () => {
     it("should close the photo dialog even if error photo dialog", async () => {
         mockedTab.mockGoodTabAPI(mockFetch)
         mockedAddress.mockGoodAddressAPI(mockFetch)
-        await testHelper.changeToNearbyPlaces()
-
+        await testHelper.openPopup()
+        await testHelper.changeInAPIMenu("Nearby Places")
         await testHelper.changeTopic("Food", "good valid", mockedPlaces, mockFetch)
         await testHelper.clickPhotoButton("bad invalid", mockedPhoto, mockFetch)
-
         const photo = screen.getByTestId("photo error") as HTMLImageElement
         closeDialog(photo)
     });

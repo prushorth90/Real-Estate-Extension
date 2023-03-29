@@ -119,7 +119,5 @@ describe("for when the components render", () => {
         expect(vicinity).not.toBeInTheDocument()
 
     })
-
-
 });
 

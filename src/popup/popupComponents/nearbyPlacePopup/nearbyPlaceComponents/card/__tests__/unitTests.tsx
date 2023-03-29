@@ -1,6 +1,6 @@
 import React from 'react'
 import "@testing-library/jest-dom/extend-expect"
-import { screen, render  } from "@testing-library/react";
+import { render  } from "@testing-library/react";
 import { CardStateContext } from '../../../nearbyPlacePopup'
 import { NearbyPlaceCard } from '../nearbyPlaceCard';
 import {ResultState} from '../cardComponents/result/resultState'
@@ -21,6 +21,11 @@ describe("for when the card is rendered", () => {
     it("should show the card in doc", async () => {
         render((<CardStateContext.Provider value={[ResultState.Error, jest.fn()]}> <NearbyPlaceCard /></CardStateContext.Provider>))
         await testHelper.checkErrorCard()
+    });
+
+    it("should show the card in doc", async () => {
+        render((<CardStateContext.Provider value={[ResultState.House_Not_Found, jest.fn()]}> <NearbyPlaceCard /></CardStateContext.Provider>))
+        await testHelper.checkHouseNotFoundCard()
     });
 });
 
