@@ -1,11 +1,11 @@
-React Chrome Extension
+## Real1 Chrome Extension
 
-##Deployed Link: 
+## Deployed Link: 
 ```
 https://chrome.google.com/webstore/detail/real1/ojbbkajfjaohmhffklknfipdhfenbkhe
 ```
 
-##Beginning Instructions for future developers 
+## Beginning Instructions for future developers 
 
 Only use these below 5 steps if you are starting out:
 1. Check if you have npm installed. 
@@ -49,7 +49,7 @@ If you have Anaconda installed then create a virtual environment. And open termi
 
 
 
-##For testing:
+## For testing:
 1. Comment 3 lines(66 to 68) in popup.tsx
     ```
     //const root = document.createElement('div')
@@ -65,9 +65,10 @@ If you have Anaconda installed then create a virtual environment. And open termi
 
 
 
-##For development:
-1.  ```
-   "$npm start"
+## For development:
+1.  Type
+    ```
+    $ "npm start"
     ```
 2. Open Chrome
 3. Go to extension page. 
@@ -78,6 +79,7 @@ If you have Anaconda installed then create a virtual environment. And open termi
 7. Can now try out the extension on 
 
 ##For production:
-1. ```
-  $npm run build
-   ```
+1. Type
+  ```
+  $ npm run build
+  ```
