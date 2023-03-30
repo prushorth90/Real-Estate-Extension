@@ -11,12 +11,12 @@ Only use these below 5 steps if you are starting out:
      ```
 1.1 If you saw version details of npm:
      ```
-      go to step 2
+     $ go to step 2
      ```
 1.2 else: 
      ```
-     Make sure you have installed Node. Use this link:  
-     I am using Node version 18.11.0.
+     $ Make sure you have installed Node. Use this link:  
+     $ I am using Node version 18.11.0.
      ```
 2. Go to root of folder in command prompt via "cd" command. 
 3. Check if have virtual environment installed. Type "virtualenv --version"
