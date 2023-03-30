@@ -31,11 +31,7 @@ Only use these below 5 steps if you are starting out:
      If you saw version details of virtual environment
      ```
      $"virtualenv venv"
-     ```
-     ```
      $ "source venv/bin/activate"
-     ```
-     ```
      Go to step 4
      ```
      else: 
