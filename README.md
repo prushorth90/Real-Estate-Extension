@@ -1,8 +1,11 @@
 React Chrome Extension
 
-Deployed Link: https://chrome.google.com/webstore/detail/real1/ojbbkajfjaohmhffklknfipdhfenbkhe
+##Deployed Link: 
+```
+https://chrome.google.com/webstore/detail/real1/ojbbkajfjaohmhffklknfipdhfenbkhe
+```
 
-Instructions for future developers 
+##Beginning Instructions for future developers 
 
 Only use these below 5 steps if you are starting out:
 1. Check if you have npm installed. 
@@ -46,20 +49,26 @@ If you have Anaconda installed then create a virtual environment. And open termi
 
 
 
-For testing:
+##For testing:
 1. Comment 3 lines(66 to 68) in popup.tsx
     ```
     //const root = document.createElement('div')
     //document.body.appendChild(root)
     //ReactDOM.render(<App />, root)
     ```
-2. Type: "npm test" into command prompt
-3. Type: "npm run coverage" into command prompt
+2.  ```
+    $ "npm test" 
+    ```
+3.  ```
+    $ "npm run coverage" 
+    ```
 
 
 
-For development:
-1. Type: "npm start" into command prompt
+##For development:
+1.  ```
+   "$npm start"
+    ```
 2. Open Chrome
 3. Go to extension page. 
 4. Turn on "developer mode" button in the top right
@@ -68,5 +77,7 @@ For development:
 6. Can now go to the right of URL bar and click the puzzle icon. Pin the extension. 
 7. Can now try out the extension on 
 
-For production:
-1. npm run build
+##For production:
+1. ```
+  $npm run build
+   ```
