@@ -23,7 +23,8 @@ Only use these below 5 steps if you are starting out:
      Or Can even install node if you have Anaconda : conda install -c conda-forge nodejs
      ```
 2. Go to root of folder in command prompt via "cd" command. 
-3. Check if have virtual environment installed. 
+3. Check if have virtual environment installed. OR If you have Anaconda installed then create a virtual environment. And open terminal. 
+
      ```
      $ "virtualenv --version"into command prompt.
      ```
@@ -31,7 +32,9 @@ Only use these below 5 steps if you are starting out:
      ```
      $"virtualenv venv"
      ```
+     ```
      $ "source venv/bin/activate"
+     ```
      ```
      Go to step 4
      ```
@@ -41,8 +44,6 @@ Only use these below 5 steps if you are starting out:
      "virtualenv venv"
      "source venv/bin/activate"
      ```
-OR 
-If you have Anaconda installed then create a virtual environment. And open terminal. 
 
 4. Delete package-lock.json file. 
 5. Type this: "npm i" into the command prompt which will re-add the package-lock.json
