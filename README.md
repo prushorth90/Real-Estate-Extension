@@ -5,7 +5,10 @@ Deployed Link: https://chrome.google.com/webstore/detail/real1/ojbbkajfjaohmhffk
 Instructions for future developers 
 
 Only use these below 5 steps if you are starting out:
-1. Check if you have npm installed. Type "npm -v" into command prompt.
+1. Check if you have npm installed. 
+     ```
+     $ "npm -v" into command prompt.
+     ```
 1.1 If you saw version details of npm:
 1.1.1 go to step 2
 1.2 else: 
