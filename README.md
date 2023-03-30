@@ -22,7 +22,10 @@ Only use these below 5 steps if you are starting out:
      I am using Node version 18.11.0.
      Or Can even install node if you have Anaconda : conda install -c conda-forge nodejs
      ```
-2. Go to root of folder in command prompt via "cd" command. 
+2. Go to root of folder in command prompt via "cd" command. For example
+    ```
+     cd desktop/real1
+     ```
 3. Check if have virtual environment installed. OR If you have Anaconda installed then create a virtual environment. And open terminal. 
 
      ```
