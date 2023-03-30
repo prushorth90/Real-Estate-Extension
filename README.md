@@ -74,7 +74,7 @@ Only use these below 5 steps if you are starting out:
     ```
     which will add dist folder
 2. Open Chrome
-3. Go to extension page. 
+3. Go to extension page: url = chrome://extensions/ 
 4. Turn on "developer mode" button in the top right
 4. Click "load unpacked" button in the top left.
 5. Find "dist" folder and open that.
