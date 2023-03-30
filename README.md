@@ -42,7 +42,11 @@ Only use these below 5 steps if you are starting out:
      ```
 
 4. Delete package-lock.json file. 
-5. Type this: "npm i" into the command prompt which will re-add the package-lock.json
+5. Type 
+   ```
+   "npm i" 
+    ```
+   which will add the package-lock.json and node modules
 
 
 
@@ -59,6 +63,7 @@ Only use these below 5 steps if you are starting out:
 3.  ```
     $ "npm run coverage" 
     ```
+    will add coverage folder
 
 
 
@@ -67,6 +72,7 @@ Only use these below 5 steps if you are starting out:
     ```
     $ "npm start"
     ```
+    which will add dist folder
 2. Open Chrome
 3. Go to extension page. 
 4. Turn on "developer mode" button in the top right
