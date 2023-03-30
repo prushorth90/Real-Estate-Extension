@@ -18,7 +18,7 @@ Only use these below 5 steps if you are starting out:
      ```
      else: 
      ```
-     Make sure you have installed Node. Use this link:  
+     Make sure you have installed Node. Use this link:  https://nodejs.org/en/download
      I am using Node version 18.11.0.
      Or Can even install node if you have Anaconda : conda install -c conda-forge nodejs
      ```
@@ -78,7 +78,7 @@ If you have Anaconda installed then create a virtual environment. And open termi
 6. Can now go to the right of URL bar and click the puzzle icon. Pin the extension. 
 7. Can now try out the extension on 
 
-##For production:
+## For production:
 1. Type
   ```
   $ npm run build
