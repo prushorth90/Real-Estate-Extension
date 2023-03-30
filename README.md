@@ -9,11 +9,11 @@ Only use these below 5 steps if you are starting out:
      ```
      $ "npm -v" into command prompt.
      ```
-1.1 If you saw version details of npm:
+     If you saw version details of npm:
      ```
      $ go to step 2
      ```
-1.2 else: 
+     else: 
      ```
      $ Make sure you have installed Node. Use this link:  
      $ I am using Node version 18.11.0.
