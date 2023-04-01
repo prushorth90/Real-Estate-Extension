@@ -10,7 +10,7 @@ https://chrome.google.com/webstore/detail/real1/ojbbkajfjaohmhffklknfipdhfenbkhe
 Only use these below 5 steps if you are starting out:
 1. Check if you have npm installed. 
      ```
-     $ "npm -v" into command prompt.
+     $ npm -v 
      ```
      If you saw version details of npm:
      ```
@@ -29,25 +29,25 @@ Only use these below 5 steps if you are starting out:
 3. Check if have virtual environment installed. OR If you have Anaconda installed then create a virtual environment. And open terminal. 
 
      ```
-     $ "virtualenv --version"into command prompt.
+     $ virtualenv --version 
      ```
      If you saw version details of virtual environment
      ```
-     $"virtualenv venv"
-     $ "source venv/bin/activate"
+     $ virtualenv venv
+     $ source venv/bin/activate
      Go to step 4
      ```
      else: 
      ```
-     "sudo pip3 install virtualenv"
-     "virtualenv venv"
-     "source venv/bin/activate"
+     sudo pip3 install virtualenv
+     virtualenv venv
+     source venv/bin/activate
      ```
 
 4. Delete package-lock.json file. 
 5. Type 
    ```
-   "npm i" 
+   $ npm i 
     ```
    which will add the package-lock.json and node modules
 
@@ -61,19 +61,19 @@ Only use these below 5 steps if you are starting out:
     //ReactDOM.render(<App />, root)
     ```
 2.  ```
-    $ "npm test" 
+    $ npm test
     ```
 3.  ```
-    $ "npm run coverage" 
+    $ npm run coverage
     ```
     will add coverage folder
-
+4. Once done with testing undo comment of 3 lines in step 1 
 
 
 ## For development:
 1.  Type
     ```
-    $ "npm start"
+    $ npm start
     ```
     which will add dist folder
 2. Open Chrome
