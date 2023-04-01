@@ -60,14 +60,14 @@ Only use these below 5 steps if you are starting out:
     //document.body.appendChild(root)
     //ReactDOM.render(<App />, root)
     ```
-2.  ```
+    ```
     $ npm test
     ```
-3.  ```
+    ```
     $ npm run coverage
     ```
     will add coverage folder
-4. Once done with testing undo comment of 3 lines in step 1 
+2. Once done with testing undo comment of 3 lines in step 1 
 
 
 ## For development:
@@ -82,7 +82,7 @@ Only use these below 5 steps if you are starting out:
 4. Click "load unpacked" button in the top left.
 5. Find "dist" folder and open that.
 6. Can now go to the right of URL bar and click the puzzle icon. Pin the extension. 
-7. Can now try out the extension on 
+7. Can now try out the extension on websites Realtor/Zillow 
 
 ## For production:
 1. Type
