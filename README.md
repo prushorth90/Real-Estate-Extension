@@ -7,7 +7,7 @@ https://chrome.google.com/webstore/detail/real1/ojbbkajfjaohmhffklknfipdhfenbkhe
 
 ## Beginning Instructions for future developers 
 
-Only use these below 5 steps if you are starting out:
+Only use these below 4 steps if you are starting out:
 1. Check if you have npm installed. 
      ```
      $ npm -v 
@@ -44,8 +44,7 @@ Only use these below 5 steps if you are starting out:
      source venv/bin/activate
      ```
 
-4. Delete package-lock.json file. 
-5. Type 
+4. Type 
    ```
    $ npm i 
     ```
