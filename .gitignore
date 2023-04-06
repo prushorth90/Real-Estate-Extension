@@ -92,7 +92,7 @@ $RECYCLE.BIN/
 #node mod
 node_modules
 dist
-package-lock.json
+#package-lock.json
 # End of https://www.toptal.com/developers/gitignore/api/macos,virtualenv,linux,windows
 
 /coverage.data
