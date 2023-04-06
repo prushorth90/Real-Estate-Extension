@@ -47,7 +47,7 @@ Only use these below 4 steps if you are starting out:
    ```
    $ npm i 
     ```
-   which will add the node modules. In the unlikely event this fails then may need to delete package-lock.json and run "npm i" again
+   which will add the node modules. If you see the node_modules folder then go to next section: testing. But in unlikely event this fails then you may need to delete package-lock.json and run "npm i" again
 
 
 
@@ -69,6 +69,7 @@ Only use these below 4 steps if you are starting out:
 
 
 ## For development:
+0. Make sure that 3 lines(66 to 68) in popup.tsx are not commented.
 1.  Type
     ```
     $ npm start
