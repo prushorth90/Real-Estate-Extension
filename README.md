@@ -19,14 +19,13 @@ Only use these below 4 steps if you are starting out:
      else: 
      ```
      Make sure you have installed Node. Use this link:  https://nodejs.org/en/download
-     I am using Node version 18.11.0.
-     Or Can even install node if you have Anaconda : conda install -c conda-forge nodejs
+     I am using Node version 18.11.0 on Mac.
      ```
 2. Go to root of folder in command prompt via "cd" command. For example
     ```
-     cd desktop/real1
+     cd desktop/real1-main
      ```
-3. Check if have virtual environment installed. OR If you have Anaconda installed then create a virtual environment. And open terminal. 
+3. Check if have virtual environment installed.
 
      ```
      $ virtualenv --version 
@@ -48,7 +47,7 @@ Only use these below 4 steps if you are starting out:
    ```
    $ npm i 
     ```
-   which will add the package-lock.json and node modules
+   which will add the node modules
 
 
 
