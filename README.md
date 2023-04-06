@@ -47,7 +47,7 @@ Only use these below 4 steps if you are starting out:
    ```
    $ npm i 
     ```
-   which will add the node modules
+   which will add the node modules. In the unlikely event this fails then may need to delete package-lock.json and run "npm i" again
 
 
 
