@@ -3,7 +3,6 @@ import {API} from '../mainApi';
 import {Address} from './address'
 export class AddressAPI implements API {
 
-  private readonly ADDRESS_API_KEY = 'AIzaSyDbq-ALkqgJHFvNBDQc-1MJjCk6schskEw';
 
   public async fetchData(address: Address): Promise<Coordinate> {
     let street = address.getStreet()
@@ -12,7 +11,7 @@ export class AddressAPI implements API {
     let zipCode = address.getZipCode()
     //https://www.w3schools.com/jsref/api_fetch.asp
     const res = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?address=${street}%2C${city}%2C${state}%2C${zipCode}&key=${this.ADDRESS_API_KEY}`
+      `https://prushorthrealestate.wl.r.appspot.com/api/${street}/${city}/${state}/${zipCode}`
     )
     const data: Coordinate = await res.json()
     return data
