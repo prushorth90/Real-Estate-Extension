@@ -4,9 +4,10 @@ const path = require("path");
 const cors = require("cors")
 
 const app = express();
+require("dotenv").config();
 
 app.get("/api/:street/:city/:state/:zipCode", async (req, res, next) => {
-    let apiKey = "AIzaSyDbq-ALkqgJHFvNBDQc-1MJjCk6schskEw"
+    let apiKey = process.env.GOOGLE_API_KEY
     let street = req.params.street
     let city = req.params.city
     let state = req.params.state
@@ -15,7 +16,7 @@ app.get("/api/:street/:city/:state/:zipCode", async (req, res, next) => {
     if (!apiResponse.ok) {
         throw new Error('Not found')
     }
-
+ 
     const data = await apiResponse.json()
 
     // console.log(data.count)
@@ -24,7 +25,7 @@ app.get("/api/:street/:city/:state/:zipCode", async (req, res, next) => {
 });
 
 app.get("/api/:street/:city/:state/:zipCode", async (req, res, next) => {
-    let apiKey = "AIzaSyDbq-ALkqgJHFvNBDQc-1MJjCk6schskEw"
+    let apiKey = process.env.GOOGLE_API_KEY
     let street = req.params.street
     let city = req.params.city
     let state = req.params.state
@@ -42,7 +43,7 @@ app.get("/api/:street/:city/:state/:zipCode", async (req, res, next) => {
 });
 
 app.get("/api/:keyword/:latitude/:longitude/:radius/:typeOne/:minPrice/:maxPrice", async (req, res, next) => {
-    let apiKey = "AIzaSyDbq-ALkqgJHFvNBDQc-1MJjCk6schskEw"
+    let apiKey = process.env.GOOGLE_API_KEY
     let keyword = req.params.keyword
     let latitude = req.params.latitude
     let longitude = req.params.longitude
